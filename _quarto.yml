@@ -3,7 +3,8 @@ project:
   output-dir: docs
 
 website:
-  title: "yoonheechoi0613.github.io"
+  title: "Yoonhee Choi"
+  description: "Climate Policy, Inequality, and Vulnerable Populations"
   navbar:
     left:
       - href: index.qmd
@@ -14,14 +15,14 @@ website:
         text: Teaching
       - href: cv.qmd
         text: CV
+    right:
+      - icon: github
+        href: https://github.com/YoonheeChoi0613
+      - icon: envelope
+        href: mailto:Yoonhee.Choi@UTDallas.edu
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: cosmo
     css: styles.css
     toc: true
-
-editor: visual
-

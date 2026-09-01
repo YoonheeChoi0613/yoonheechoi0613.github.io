@@ -1,10 +1,59 @@
 [
   {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "CV",
+    "section": "",
+    "text": "Download PDF"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "yoonheechoi0613.github.io",
+    "title": "Yoonhee Choi",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "I am a Ph.D. student in Public Policy and Political Economy at the University of Texas at Dallas. My research focuses on climate change policy, inequality, vulnerable populations, and local government."
+  },
+  {
+    "objectID": "index.html#research-interests",
+    "href": "index.html#research-interests",
+    "title": "Yoonhee Choi",
+    "section": "Research Interests",
+    "text": "Research Interests\n\nClimate Change Policy\nInequality and Vulnerable Populations\nLocal Government"
+  },
+  {
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "GOVT 2306 – State and Local Government\nFall 2026, Spring 2026\nGovernment Regulation\nSpring 2022, Spring 2023\nJapanese Industry and Enterprise\nSpring 2022, Spring 2023\nTrade and Industrial Policy\nFall 2022, Fall 2023\nAsian Community\nFall 2022, Fall 2023\nIntroduction to Japan\nSpring 2023\nLocal Administration\nSpring 2023\nCase Studies in Public Policy Making\nFall 2023"
+  },
+  {
+    "objectID": "teaching.html#teaching-assistant",
+    "href": "teaching.html#teaching-assistant",
+    "title": "Teaching",
+    "section": "",
+    "text": "GOVT 2306 – State and Local Government\nFall 2026, Spring 2026\nGovernment Regulation\nSpring 2022, Spring 2023\nJapanese Industry and Enterprise\nSpring 2022, Spring 2023\nTrade and Industrial Policy\nFall 2022, Fall 2023\nAsian Community\nFall 2022, Fall 2023\nIntroduction to Japan\nSpring 2023\nLocal Administration\nSpring 2023\nCase Studies in Public Policy Making\nFall 2023"
+  },
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "Telehealth Parity Laws and Medicaid Enrollment\nThis study examines whether the adoption of telehealth parity laws affected Medicaid enrollment among low-income adults in the United States. Using a difference-in-differences design, the study compares states that adopted telehealth parity laws in 2021 with states that did not adopt such laws.\nData-generating process. The study uses American Community Survey (ACS) data from 2015–2023 for adults aged 19–64 with household income at or below 138% of the federal poverty level. The analysis constructs PUMA-year level Medicaid enrollment rates and combines them with state-level information on telehealth parity law adoption."
+  },
+  {
+    "objectID": "research.html#working-papers",
+    "href": "research.html#working-papers",
+    "title": "Research",
+    "section": "",
+    "text": "Telehealth Parity Laws and Medicaid Enrollment\nThis study examines whether the adoption of telehealth parity laws affected Medicaid enrollment among low-income adults in the United States. Using a difference-in-differences design, the study compares states that adopted telehealth parity laws in 2021 with states that did not adopt such laws.\nData-generating process. The study uses American Community Survey (ACS) data from 2015–2023 for adults aged 19–64 with household income at or below 138% of the federal poverty level. The analysis constructs PUMA-year level Medicaid enrollment rates and combines them with state-level information on telehealth parity law adoption."
+  },
+  {
+    "objectID": "research.html#publications",
+    "href": "research.html#publications",
+    "title": "Research",
+    "section": "Publications",
+    "text": "Publications\nChoi, Y., Kim, S., & Kim, G. (2022). “The multidimensionality of solar energy acceptance: Exploring conditions.” Korean Policy Studies Review, 31(3), 179–227.\nChoi, Y., Jeon, S., & Kim, S. (2024). “A comparative analysis of impact of the causal factor on organizational innovation behavior: Focusing on the direct and indirect effects of organizational culture type.” The Korean Journal of Public Administration, 33(2), 45–98.\nChoi, Y., & Lee, Y. (forthcoming). “Prioritizing Barriers of Reorganization of the Local Administrative System: Application of AHP Analysis to Jeonju and Wanju Case.” The Korea Local Administration Review. In press.\nLee, C., Kim, S., & Choi, Y. (forthcoming). “Why does socialization matter?: Analyzing the socialization and risk perception on energy saving behavior.” Journal of Safety and Crisis Management. In press."
   },
   {
     "objectID": "about.html",

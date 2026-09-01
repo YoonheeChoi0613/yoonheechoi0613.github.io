@@ -1,3 +1,7 @@
 ---
 title: "CV"
 ---
+
+[Download PDF](files/CV_Yoonhee%20Choi.pdf){.btn .btn-primary}
+
+<iframe src="files/CV_Yoonhee%20Choi.pdf" width="100%" height="800px"></iframe>

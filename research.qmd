@@ -1,3 +1,21 @@
 ---
 title: "Research"
 ---
+
+## Working Papers
+
+**Telehealth Parity Laws and Medicaid Enrollment**
+
+This study examines whether the adoption of telehealth parity laws affected Medicaid enrollment among low-income adults in the United States. Using a difference-in-differences design, the study compares states that adopted telehealth parity laws in 2021 with states that did not adopt such laws.
+
+**Data-generating process.** The study uses American Community Survey (ACS) data from 2015–2023 for adults aged 19–64 with household income at or below 138% of the federal poverty level. The analysis constructs PUMA-year level Medicaid enrollment rates and combines them with state-level information on telehealth parity law adoption.
+
+## Publications
+
+Choi, Y., Kim, S., & Kim, G. (2022). "The multidimensionality of solar energy acceptance: Exploring conditions." *Korean Policy Studies Review*, 31(3), 179–227.
+
+Choi, Y., Jeon, S., & Kim, S. (2024). "A comparative analysis of impact of the causal factor on organizational innovation behavior: Focusing on the direct and indirect effects of organizational culture type." *The Korean Journal of Public Administration*, 33(2), 45–98.
+
+Choi, Y., & Lee, Y. (forthcoming). "Prioritizing Barriers of Reorganization of the Local Administrative System: Application of AHP Analysis to Jeonju and Wanju Case." *The Korea Local Administration Review*. In press.
+
+Lee, C., Kim, S., & Choi, Y. (forthcoming). "Why does socialization matter?: Analyzing the socialization and risk perception on energy saving behavior." *Journal of Safety and Crisis Management*. In press.

@@ -1,11 +1,23 @@
 ---
-title: "yoonheechoi0613.github.io"
+title: "Yoonhee Choi"
+image: profile.jpg
+about:
+  template: trestles
+  image-shape: round
+  image-width: 14em
+  links:
+    - icon: envelope
+      text: Email
+      href: mailto:Yoonhee.Choi@UTDallas.edu
+    - icon: github
+      text: GitHub
+      href: https://github.com/YoonheeChoi0613
 ---
 
-This is a Quarto website.
+I am a Ph.D. student in Public Policy and Political Economy at the University of Texas at Dallas. My research focuses on climate change policy, inequality, vulnerable populations, and local government.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+## Research Interests
 
-```{r}
-1 + 1
-```
+- Climate Change Policy
+- Inequality and Vulnerable Populations
+- Local Government
