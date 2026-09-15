@@ -1,0 +1,10 @@
+---
+title: "Assignment 2"
+subtitle: "Google Trends: Two Ways to Get the Same Data"
+author: "Yoonhee Choi"
+format: html
+---
+
+## Data Query
+
+This page contains my analysis of Google Trends data collected from the website and with the `gtrendsR` package.

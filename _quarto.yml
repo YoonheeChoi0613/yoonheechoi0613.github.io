@@ -15,6 +15,10 @@ website:
         text: Teaching
       - href: cv.qmd
         text: CV
+      - text: Assignments
+        menu:
+          - text: Assignment 2
+            href: assign02.qmd
     right:
       - icon: github
         href: https://github.com/YoonheeChoi0613

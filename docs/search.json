@@ -21,20 +21,6 @@
     "text": "Research Interests\n\nClimate Change Policy\nInequality and Vulnerable Populations\nLocal Government"
   },
   {
-    "objectID": "teaching.html",
-    "href": "teaching.html",
-    "title": "Teaching",
-    "section": "",
-    "text": "GOVT 2306 – State and Local Government\nFall 2026, Spring 2026\nGovernment Regulation\nSpring 2022, Spring 2023\nJapanese Industry and Enterprise\nSpring 2022, Spring 2023\nTrade and Industrial Policy\nFall 2022, Fall 2023\nAsian Community\nFall 2022, Fall 2023\nIntroduction to Japan\nSpring 2023\nLocal Administration\nSpring 2023\nCase Studies in Public Policy Making\nFall 2023"
-  },
-  {
-    "objectID": "teaching.html#teaching-assistant",
-    "href": "teaching.html#teaching-assistant",
-    "title": "Teaching",
-    "section": "",
-    "text": "GOVT 2306 – State and Local Government\nFall 2026, Spring 2026\nGovernment Regulation\nSpring 2022, Spring 2023\nJapanese Industry and Enterprise\nSpring 2022, Spring 2023\nTrade and Industrial Policy\nFall 2022, Fall 2023\nAsian Community\nFall 2022, Fall 2023\nIntroduction to Japan\nSpring 2023\nLocal Administration\nSpring 2023\nCase Studies in Public Policy Making\nFall 2023"
-  },
-  {
     "objectID": "research.html",
     "href": "research.html",
     "title": "Research",
@@ -54,6 +40,34 @@
     "title": "Research",
     "section": "Publications",
     "text": "Publications\nChoi, Y., Kim, S., & Kim, G. (2022). “The multidimensionality of solar energy acceptance: Exploring conditions.” Korean Policy Studies Review, 31(3), 179–227.\nChoi, Y., Jeon, S., & Kim, S. (2024). “A comparative analysis of impact of the causal factor on organizational innovation behavior: Focusing on the direct and indirect effects of organizational culture type.” The Korean Journal of Public Administration, 33(2), 45–98.\nChoi, Y., & Lee, Y. (forthcoming). “Prioritizing Barriers of Reorganization of the Local Administrative System: Application of AHP Analysis to Jeonju and Wanju Case.” The Korea Local Administration Review. In press.\nLee, C., Kim, S., & Choi, Y. (forthcoming). “Why does socialization matter?: Analyzing the socialization and risk perception on energy saving behavior.” Journal of Safety and Crisis Management. In press."
+  },
+  {
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "GOVT 2306 – State and Local Government\nFall 2026, Spring 2026\nGovernment Regulation\nSpring 2022, Spring 2023\nJapanese Industry and Enterprise\nSpring 2022, Spring 2023\nTrade and Industrial Policy\nFall 2022, Fall 2023\nAsian Community\nFall 2022, Fall 2023\nIntroduction to Japan\nSpring 2023\nLocal Administration\nSpring 2023\nCase Studies in Public Policy Making\nFall 2023"
+  },
+  {
+    "objectID": "teaching.html#teaching-assistant",
+    "href": "teaching.html#teaching-assistant",
+    "title": "Teaching",
+    "section": "",
+    "text": "GOVT 2306 – State and Local Government\nFall 2026, Spring 2026\nGovernment Regulation\nSpring 2022, Spring 2023\nJapanese Industry and Enterprise\nSpring 2022, Spring 2023\nTrade and Industrial Policy\nFall 2022, Fall 2023\nAsian Community\nFall 2022, Fall 2023\nIntroduction to Japan\nSpring 2023\nLocal Administration\nSpring 2023\nCase Studies in Public Policy Making\nFall 2023"
+  },
+  {
+    "objectID": "assign02.html",
+    "href": "assign02.html",
+    "title": "Assignment 2",
+    "section": "",
+    "text": "This page contains my analysis of Google Trends data collected from the website and with the gtrendsR package."
+  },
+  {
+    "objectID": "assign02.html#data-query",
+    "href": "assign02.html#data-query",
+    "title": "Assignment 2",
+    "section": "",
+    "text": "This page contains my analysis of Google Trends data collected from the website and with the gtrendsR package."
   },
   {
     "objectID": "about.html",
