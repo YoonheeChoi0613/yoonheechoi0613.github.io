@@ -24,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -148,7 +183,29 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-query" id="toc-data-query" class="nav-link active" data-scroll-target="#data-query">Data Query</a></li>
+  <li><a href="#collecting-data-from-the-website" id="toc-collecting-data-from-the-website" class="nav-link active" data-scroll-target="#collecting-data-from-the-website">1. Collecting Data from the Website</a>
+  <ul class="collapse">
+  <li><a href="#c.-data-query" id="toc-c.-data-query" class="nav-link" data-scroll-target="#c.-data-query">1.c. Data Query</a></li>
+  <li><a href="#d.-news-term-query" id="toc-d.-news-term-query" class="nav-link" data-scroll-target="#d.-news-term-query">1.d. News-Term Query</a></li>
+  </ul></li>
+  <li><a href="#inspecting-the-website-data" id="toc-inspecting-the-website-data" class="nav-link" data-scroll-target="#inspecting-the-website-data">2. Inspecting the Website Data</a>
+  <ul class="collapse">
+  <li><a href="#a.-date-range-and-number-of-observations" id="toc-a.-date-range-and-number-of-observations" class="nav-link" data-scroll-target="#a.-date-range-and-number-of-observations">2.a. Date Range and Number of Observations</a></li>
+  <li><a href="#b.-reporting-interval" id="toc-b.-reporting-interval" class="nav-link" data-scroll-target="#b.-reporting-interval">2.b. Reporting Interval</a></li>
+  <li><a href="#c.-units-and-normalization" id="toc-c.-units-and-normalization" class="nav-link" data-scroll-target="#c.-units-and-normalization">2.c. Units and Normalization</a></li>
+  <li><a href="#d.-removing-a-search-term" id="toc-d.-removing-a-search-term" class="nav-link" data-scroll-target="#d.-removing-a-search-term">2.d. Removing a Search Term</a></li>
+  </ul></li>
+  <li><a href="#collecting-data-with-r" id="toc-collecting-data-with-r" class="nav-link" data-scroll-target="#collecting-data-with-r">3. Collecting Data with R</a>
+  <ul class="collapse">
+  <li><a href="#a-and-b.-r-data-collection-and-plot" id="toc-a-and-b.-r-data-collection-and-plot" class="nav-link" data-scroll-target="#a-and-b.-r-data-collection-and-plot">3.a and b. R Data Collection and Plot</a></li>
+  <li><a href="#a-note-on-search-terms" id="toc-a-note-on-search-terms" class="nav-link" data-scroll-target="#a-note-on-search-terms">A Note on Search Terms</a></li>
+  </ul></li>
+  <li><a href="#comparing-the-two-collection-methods" id="toc-comparing-the-two-collection-methods" class="nav-link" data-scroll-target="#comparing-the-two-collection-methods">4. Comparing the Two Collection Methods</a>
+  <ul class="collapse">
+  <li><a href="#a.-comparing-the-time-series" id="toc-a.-comparing-the-time-series" class="nav-link" data-scroll-target="#a.-comparing-the-time-series">4.a. Comparing the Time Series</a></li>
+  <li><a href="#b.-evaluating-the-two-methods" id="toc-b.-evaluating-the-two-methods" class="nav-link" data-scroll-target="#b.-evaluating-the-two-methods">4.b. Evaluating the Two Methods</a></li>
+  <li><a href="#c.-repeating-the-same-query" id="toc-c.-repeating-the-same-query" class="nav-link" data-scroll-target="#c.-repeating-the-same-query">4.c. Repeating the Same Query</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -181,11 +238,189 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="data-query" class="level2">
-<h2 class="anchored" data-anchor-id="data-query">Data Query</h2>
-<p>This page contains my analysis of Google Trends data collected from the website and with the <code>gtrendsR</code> package.</p>
+<section id="collecting-data-from-the-website" class="level2">
+<h2 class="anchored" data-anchor-id="collecting-data-from-the-website">1. Collecting Data from the Website</h2>
+<section id="c.-data-query" class="level3">
+<h3 class="anchored" data-anchor-id="c.-data-query">1.c. Data Query</h3>
+<ul>
+<li><strong>Search terms:</strong> Trump, Kamala Harris, and Election</li>
+<li><strong>Geography:</strong> United States</li>
+<li><strong>Time window:</strong> Past five years</li>
+<li><strong>Category:</strong> All categories</li>
+<li><strong>Search type:</strong> Web Search</li>
+<li><strong>Date and time retrieved:</strong> September 15, 2026, at 5:32 PM CDT</li>
+</ul>
+</section>
+<section id="d.-news-term-query" class="level3">
+<h3 class="anchored" data-anchor-id="d.-news-term-query">1.d. News-Term Query</h3>
+<ul>
+<li><strong>Search term:</strong> Federal Reserve</li>
+<li><strong>Geography:</strong> United States</li>
+<li><strong>Time window:</strong> Past five years</li>
+<li><strong>Category:</strong> All categories</li>
+<li><strong>Search type:</strong> Web Search</li>
+<li><strong>Date and time retrieved:</strong> September 15, 2026, at 5:38 PM CDT</li>
+</ul>
+</section>
+</section>
+<section id="inspecting-the-website-data" class="level2">
+<h2 class="anchored" data-anchor-id="inspecting-the-website-data">2. Inspecting the Website Data</h2>
+<section id="a.-date-range-and-number-of-observations" class="level3">
+<h3 class="anchored" data-anchor-id="a.-date-range-and-number-of-observations">2.a. Date Range and Number of Observations</h3>
+<p>The downloaded file covers September 1, 2021, through September 1, 2026. The data are reported monthly, with 61 observations for each search term.</p>
+</section>
+<section id="b.-reporting-interval" class="level3">
+<h3 class="anchored" data-anchor-id="b.-reporting-interval">2.b. Reporting Interval</h3>
+<p>When the time window was set to the past five years, Google Trends reported the data at monthly intervals. After I changed the time window to the past 12 months and downloaded the data again, the reporting interval changed from monthly to weekly. The 12-month file covers September 14, 2025, through September 13, 2026, and contains 53 weekly observations for each search term.</p>
+</section>
+<section id="c.-units-and-normalization" class="level3">
+<h3 class="anchored" data-anchor-id="c.-units-and-normalization">2.c. Units and Normalization</h3>
+<p>The values are not raw search counts. They represent relative search interest normalized on a scale from 0 to 100. Google calculates each term’s search interest relative to all searches in the selected geography and time period and then rescales the results. A value of 100 represents the point at which relative search interest was highest within the query. A value of 0 does not necessarily mean that no searches occurred; it may indicate that relative interest was very low or that there was not enough data to report.</p>
+</section>
+<section id="d.-removing-a-search-term" class="level3">
+<h3 class="anchored" data-anchor-id="d.-removing-a-search-term">2.d. Removing a Search Term</h3>
+<p>After I removed Election from the query and downloaded the data again, the values for the remaining terms did not stay the same. Trump’s values changed in all 61 months, and its maximum increased from 39 to 100. Kamala Harris’s values changed in 29 of the 61 months, and its maximum increased from 8 to 19.</p>
+<p>This happened because Google Trends normalizes and rescales the results within each individual query. Removing one term changes the comparison used to construct the 0–100 scale. Therefore, values obtained from differently specified queries are not directly comparable.</p>
+</section>
+</section>
+<section id="collecting-data-with-r" class="level2">
+<h2 class="anchored" data-anchor-id="collecting-data-with-r">3. Collecting Data with R</h2>
+<p>The following code shows the <code>gtrendsR</code> queries I used to collect the Google Trends data. The code is displayed for transparency, but it is not run again when this page is rendered because I saved the original results as CSV files.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show data-collection code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtrendsR)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>TrumpHarrisElection <span class="ot">&lt;-</span> <span class="fu">gtrends</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Trump"</span>, <span class="st">"Harris"</span>, <span class="st">"election"</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">onlyInterest =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo =</span> <span class="st">"US"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">gprop =</span> <span class="st">"web"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="st">"today+5-y"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">category =</span> <span class="dv">0</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>the_df <span class="ot">&lt;-</span> TrumpHarrisElection<span class="sc">$</span>interest_over_time</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(the_df, <span class="st">"files/gtrends_us_5y_2026-09-15.csv"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>tg <span class="ot">&lt;-</span> <span class="fu">gtrends</span>(<span class="st">"tariff"</span>, <span class="at">time =</span> <span class="st">"all"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">gtrends</span>(<span class="st">"tariff"</span>, <span class="at">geo =</span> <span class="st">"GB"</span>, <span class="at">time =</span> <span class="st">"all"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">gtrends</span>(</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tariff"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo =</span> <span class="fu">c</span>(<span class="st">"US"</span>, <span class="st">"GB"</span>, <span class="st">"TW"</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="st">"all"</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>tct <span class="ot">&lt;-</span> <span class="fu">gtrends</span>(</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"tariff"</span>, <span class="st">"China military"</span>, <span class="st">"Taiwan"</span>),</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="st">"all"</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(tct)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>HarrisCompare <span class="ot">&lt;-</span> <span class="fu">gtrends</span>(</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Harris"</span>, <span class="st">"Kamala Harris"</span>),</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">onlyInterest =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">geo =</span> <span class="st">"US"</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">gprop =</span> <span class="st">"web"</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">time =</span> <span class="st">"today+5-y"</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">category =</span> <span class="dv">0</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="a-and-b.-r-data-collection-and-plot" class="level3">
+<h3 class="anchored" data-anchor-id="a-and-b.-r-data-collection-and-plot">3.a and b. R Data Collection and Plot</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>r_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"files/gtrends_us_5y_2026-09-15.csv"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>r_data<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">substr</span>(r_data<span class="sc">$</span>date, <span class="dv">1</span>, <span class="dv">10</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>r_data<span class="sc">$</span>hits_numeric <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  r_data<span class="sc">$</span>hits <span class="sc">==</span> <span class="st">"&lt;1"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.5</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(r_data<span class="sc">$</span>hits)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  r_data,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> hits_numeric, <span class="at">color =</span> keyword)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Google Search Interest in the United States"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Relative search interest"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Search term"</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="assign02_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The figure shows changes in relative search interest in Trump, Harris, and election in the United States. All three series increased around major political events, although election displayed the largest peak. ### 3.c. Data Frames Returned by <code>gtrendsR</code></p>
+<p>The <code>gtrendsR</code> object contained seven data frames. The time-series CSV downloaded from the Google Trends website provided only <code>interest_over_time</code>. It did not include the following six data frames:</p>
+<ul>
+<li><code>interest_by_country</code></li>
+<li><code>interest_by_region</code></li>
+<li><code>interest_by_dma</code></li>
+<li><code>interest_by_city</code></li>
+<li><code>related_topics</code></li>
+<li><code>related_queries</code></li>
+</ul>
+</section>
+<section id="a-note-on-search-terms" class="level3">
+<h3 class="anchored" data-anchor-id="a-note-on-search-terms">A Note on Search Terms</h3>
+<p>The time series for Harris and Kamala Harris were not identical. Although both terms showed sharp increases around major political events in 2024, search interest in Harris was generally higher. The word Harris can refer to a county, a supermarket chain, and many other people besides Kamala Harris.</p>
+<p>This difference illustrates a problem of construct validity: the observable search term does not perfectly represent the theoretical concept that the researcher intends to measure. Using the broader term Harris introduces measurement error because searches about Kamala Harris are combined with unrelated searches. Therefore, interpreting changes in searches for Harris as changes in public interest in Kamala Harris could overstate or misrepresent that interest.</p>
+</section>
+</section>
+<section id="comparing-the-two-collection-methods" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-the-two-collection-methods">4. Comparing the Two Collection Methods</h2>
+<section id="a.-comparing-the-time-series" class="level3">
+<h3 class="anchored" data-anchor-id="a.-comparing-the-time-series">4.a. Comparing the Time Series</h3>
+<p>The website and <code>gtrendsR</code> results differed in both their date ranges and reporting intervals. The website data covered September 1, 2021, through September 1, 2026, and contained 61 monthly observations for each search term. The R data covered September 12, 2021, through September 13, 2026, and contained 262 weekly observations for each term, for a total of 786 observations.</p>
+<p>To make an approximate comparison, I aggregated the weekly R observations by calculating their monthly averages. For Trump, the R monthly average was lower than the website value in all 61 months. On average, the R values were 7.71 points lower. For Election, the R monthly average was lower in 60 of the 61 months and was 3.15 points lower on average.</p>
+<p>Despite these differences in magnitude, the two sources showed very similar patterns over time. The correlation between the website and R series was 0.992 for Trump and 0.997 for Election. I could not directly compare the remaining series because the website query used Kamala Harris, whereas the R script used Harris. The differences between the two sources may reflect their different reporting intervals, search terms, sampling, and normalization procedures.</p>
+</section>
+<section id="b.-evaluating-the-two-methods" class="level3">
+<h3 class="anchored" data-anchor-id="b.-evaluating-the-two-methods">4.b. Evaluating the Two Methods</h3>
+<section id="reproducibility" class="level4">
+<h4 class="anchored" data-anchor-id="reproducibility">Reproducibility</h4>
+<p>With the website method, the researcher must manually record the query settings and retrieval time. If that information is missing, another researcher may not be able to reproduce the search. With <code>gtrendsR</code>, the search terms, geography, time window, category, and search type are written directly in the code, making the query easier to repeat.</p>
+<p>However, Google Trends relies on sampled data, so running the same code again may not produce exactly the same values. To preserve the precise dataset used in an analysis, researchers should save the original CSV file and record its retrieval time in addition to saving the code.</p>
+</section>
+<section id="provenance" class="level4">
+<h4 class="anchored" data-anchor-id="provenance">Provenance</h4>
+<p>The <code>gtrendsR</code> method provides a clearer record of how the data were generated because the query settings remain in the code. By contrast, a CSV downloaded from the website may not preserve every setting selected by the user or the exact retrieval time, so those details must be recorded separately.</p>
+<p>The R method does not automatically record the retrieval time either. Researchers should therefore include the date and time in a filename, code comment, or research log.</p>
+</section>
+<section id="scale" class="level4">
+<h4 class="anchored" data-anchor-id="scale">Scale</h4>
+<p>The website is manageable when only a few search terms are needed. If a researcher needed data for 50 terms, however, repeatedly entering query settings and downloading separate files would take considerable time and increase the risk of human error.</p>
+<p>With <code>gtrendsR</code>, loops or functions can automate the collection and storage of data for many search terms and countries. This makes the R method more scalable. Nevertheless, Google Trends limits the number of terms in a single query and may restrict repeated requests, so a large collection task may need to divide the terms into smaller groups and pause between requests.</p>
+</section>
+<section id="fragility" class="level4">
+<h4 class="anchored" data-anchor-id="fragility">Fragility</h4>
+<p>Both methods can fail. With the website method, the Google Trends interface may change, or the researcher may accidentally select the wrong settings or download the wrong file. With the R method, <code>gtrendsR</code> relies on an unofficial connection to Google Trends. Changes to the Google service or website structure may therefore cause the code to stop working. Rate limits, internet problems, and package updates may also produce errors or unexpected results.</p>
+<p>Researchers can identify these problems by examining error and warning messages and checking the search terms, date range, number of rows, missing values, and minimum and maximum values. Plotting the data and comparing repeated downloads can also reveal unexpected changes.</p>
+</section>
+</section>
+<section id="c.-repeating-the-same-query" class="level3">
+<h3 class="anchored" data-anchor-id="c.-repeating-the-same-query">4.c. Repeating the Same Query</h3>
+<p>I ran the same <code>gtrendsR</code> query twice on September 22, 2026: first at 6:03 PM CDT and again at 6:07 PM CDT. The results were not identical. Of the 786 observations, 26 search-interest values changed, generally by only one point.</p>
+<p>This variation shows that Google Trends results can differ because they are calculated using sampled and normalized search data. Therefore, the values should not be treated as fixed or perfectly precise measurements. Researchers should report the retrieval time, preserve the original data, acknowledge the possibility of sampling variation, and avoid drawing strong conclusions from very small numerical differences.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
