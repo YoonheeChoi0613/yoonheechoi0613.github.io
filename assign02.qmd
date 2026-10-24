@@ -99,8 +99,7 @@ HarrisCompare <- gtrends(
 ### 3.a and b. R Data Collection and Plot
 
 ```{r}
-#| warning: false
-#| message: false
+#| fig-cap: "Relative Google search interest in Trump, Harris, and election in the United States over the past five years."
 
 library(readr)
 library(ggplot2)
@@ -129,6 +128,7 @@ ggplot(
 ```
 
 The figure shows changes in relative search interest in Trump, Harris, and election in the United States. All three series increased around major political events, although election displayed the largest peak.
+
 ### 3.c. Data Frames Returned by `gtrendsR`
 
 The `gtrendsR` object contained seven data frames. The time-series CSV downloaded from the Google Trends website provided only `interest_over_time`. It did not include the following six data frames:
