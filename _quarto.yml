@@ -19,6 +19,8 @@ website:
         menu:
           - text: Assignment 2
             href: assign02.qmd
+          - text: Assignment 5
+            href: assign05.qmd
     right:
       - icon: github
         href: https://github.com/YoonheeChoi0613
