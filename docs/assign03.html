@@ -24,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -155,8 +190,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#study-area-and-variables" id="toc-study-area-and-variables" class="nav-link active" data-scroll-target="#study-area-and-variables">Study Area and Variables</a></li>
+  <li><a href="#load-packages-and-check-variable-codes" id="toc-load-packages-and-check-variable-codes" class="nav-link" data-scroll-target="#load-packages-and-check-variable-codes">Load Packages and Check Variable Codes</a></li>
+  <li><a href="#retrieve-acs-data" id="toc-retrieve-acs-data" class="nav-link" data-scroll-target="#retrieve-acs-data">Retrieve ACS Data</a></li>
+  <li><a href="#median-gross-rent-map" id="toc-median-gross-rent-map" class="nav-link" data-scroll-target="#median-gross-rent-map">Median Gross Rent Map</a></li>
+  <li><a href="#tracts-with-the-highest-and-lowest-poverty-rates" id="toc-tracts-with-the-highest-and-lowest-poverty-rates" class="nav-link" data-scroll-target="#tracts-with-the-highest-and-lowest-poverty-rates">Tracts with the Highest and Lowest Poverty Rates</a></li>
+  <li><a href="#uncertainty-in-the-estimates" id="toc-uncertainty-in-the-estimates" class="nav-link" data-scroll-target="#uncertainty-in-the-estimates">Uncertainty in the Estimates</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
+  <li><a href="#save-the-data" id="toc-save-the-data" class="nav-link" data-scroll-target="#save-the-data">Save the Data</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -164,6 +212,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Assignment 3</h1>
+<p class="subtitle lead">ACS via tidycensus</p>
 </div>
 
 
@@ -186,8 +235,401 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="study-area-and-variables" class="level2">
+<h2 class="anchored" data-anchor-id="study-area-and-variables">Study Area and Variables</h2>
+<p>This analysis uses the 2024 ACS 5-year estimates to examine median gross rent and poverty rates across census tracts in Dallas County, Texas. The map displays median gross rent, and the table compares the tracts with the highest and lowest poverty rates.</p>
+<p>Median gross rent is measured using <code>B25064_001</code>. The poverty rate is calculated by dividing the number of people below the poverty level (<code>B17001_002</code>) by the population for whom poverty status is determined (<code>B17001_001</code>).</p>
+</section>
+<section id="load-packages-and-check-variable-codes" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages-and-check-variable-codes">Load Packages and Check Variable Codes</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tigris)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tigris_use_cache =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Check the variable codes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">load_variables</span>(<span class="dv">2024</span>, <span class="st">"acs5"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>vars <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"B25064_001"</span>, <span class="st">"B17001_002"</span>, <span class="st">"B17001_001"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  name       label                                             concept geography
+  &lt;chr&gt;      &lt;chr&gt;                                             &lt;chr&gt;   &lt;chr&gt;    
+1 B17001_001 Estimate!!Total:                                  Povert… tract    
+2 B17001_002 Estimate!!Total:!!Income in the past 12 months b… Povert… tract    
+3 B25064_001 Estimate!!Median gross rent                       Median… block gr…</code></pre>
+</div>
+</div>
+</section>
+<section id="retrieve-acs-data" class="level2">
+<h2 class="anchored" data-anchor-id="retrieve-acs-data">Retrieve ACS Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>state_abbr <span class="ot">&lt;-</span> <span class="st">"TX"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>geo_level <span class="ot">&lt;-</span> <span class="st">"tract"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>county_name <span class="ot">&lt;-</span> <span class="st">"Dallas"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>my_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">rent =</span> <span class="st">"B25064_001"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">pov =</span> <span class="st">"B17001_002"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">povden =</span> <span class="st">"B17001_001"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>year_acs <span class="ot">&lt;-</span> <span class="dv">2024</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">&lt;-</span> <span class="st">"acs5"</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>acs_wide <span class="ot">&lt;-</span> <span class="fu">get_acs</span>(</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">geography =</span> geo_level,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">variables =</span> my_vars,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">state =</span> state_abbr,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">county =</span> county_name,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> year_acs,</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">survey =</span> survey,</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">geometry =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"wide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Getting data from the 2020-2024 5-year ACS</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>acs_wide <span class="ot">&lt;-</span> acs_wide <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">pov_rate =</span> povE <span class="sc">/</span> povdenE,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pov_moe =</span> <span class="fu">moe_prop</span>(povE, povdenE, povM, povdenM))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="median-gross-rent-map" class="level2">
+<h2 class="anchored" data-anchor-id="median-gross-rent-map">Median Gross Rent Map</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(acs_wide) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> rentE), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Median gross rent ($)"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.value =</span> <span class="st">"grey85"</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste0</span>(</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"ACS "</span>, year_acs, <span class="st">" 5-year: Median Gross Rent — "</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>      county_name, <span class="st">" County, "</span>, state_abbr, <span class="st">" Census Tracts"</span>),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="fu">paste</span>(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Source: U.S. Census Bureau via tidycensus."</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Gray areas indicate missing estimates."</span>)) <span class="sc">+</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="assign03_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Median gross rent estimates across Dallas County census tracts ranged from $608 to $3,501, with a median of $1,598. The map shows variation in rent estimates across tracts. Gray areas indicate tracts for which estimates are unavailable, not tracts with $0 rent. Rent estimates are missing for 28 of the 645 tracts.</p>
+</section>
+<section id="tracts-with-the-highest-and-lowest-poverty-rates" class="level2">
+<h2 class="anchored" data-anchor-id="tracts-with-the-highest-and-lowest-poverty-rates">Tracts with the Highest and Lowest Poverty Rates</h2>
+<p>The poverty rate is calculated by dividing the number of people below the poverty level by the population for whom poverty status is determined. The table below shows the 10 tracts with the highest estimated poverty rates and the 10 with the lowest. MOE refers to the margin of error. Poverty rate MOEs are reported in percentage points.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>top10 <span class="ot">&lt;-</span> acs_wide <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pov_rate)) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(NAME, pov_rate, pov_moe, povE, povM) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ranking =</span> <span class="st">"Highest"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>bottom10 <span class="ot">&lt;-</span> acs_wide <span class="sc">|&gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">|&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(pov_rate) <span class="sc">|&gt;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(NAME, pov_rate, pov_moe, povE, povM) <span class="sc">|&gt;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ranking =</span> <span class="st">"Lowest"</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>poverty_table <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(top10, bottom10) <span class="sc">|&gt;</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Poverty rate (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> pov_rate, <span class="dv">1</span>),</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Poverty rate MOE (percentage points)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> pov_moe, <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    Ranking,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Tract =</span> NAME,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Poverty rate (%)</span><span class="st">`</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Poverty rate MOE (percentage points)</span><span class="st">`</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">People below poverty estimate</span><span class="st">`</span> <span class="ot">=</span> povE,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Count MOE</span><span class="st">`</span> <span class="ot">=</span> povM)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  poverty_table,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"Dallas County census tracts with the highest and lowest estimated poverty rates"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Dallas County census tracts with the highest and lowest estimated poverty rates</caption>
+<colgroup>
+<col style="width: 5%">
+<col style="width: 29%">
+<col style="width: 11%">
+<col style="width: 25%">
+<col style="width: 20%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ranking</th>
+<th style="text-align: left;">Tract</th>
+<th style="text-align: right;">Poverty rate (%)</th>
+<th style="text-align: right;">Poverty rate MOE (percentage points)</th>
+<th style="text-align: right;">People below poverty estimate</th>
+<th style="text-align: right;">Count MOE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Census Tract 87.01; Dallas County; Texas</td>
+<td style="text-align: right;">61.8</td>
+<td style="text-align: right;">17.2</td>
+<td style="text-align: right;">2883</td>
+<td style="text-align: right;">1012</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Census Tract 167.06; Dallas County; Texas</td>
+<td style="text-align: right;">56.0</td>
+<td style="text-align: right;">22.0</td>
+<td style="text-align: right;">1252</td>
+<td style="text-align: right;">626</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Census Tract 108.04; Dallas County; Texas</td>
+<td style="text-align: right;">52.9</td>
+<td style="text-align: right;">18.6</td>
+<td style="text-align: right;">2790</td>
+<td style="text-align: right;">1214</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Census Tract 93.04; Dallas County; Texas</td>
+<td style="text-align: right;">51.6</td>
+<td style="text-align: right;">14.4</td>
+<td style="text-align: right;">4570</td>
+<td style="text-align: right;">1566</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Census Tract 9802; Dallas County; Texas</td>
+<td style="text-align: right;">49.1</td>
+<td style="text-align: right;">14.3</td>
+<td style="text-align: right;">362</td>
+<td style="text-align: right;">170</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Census Tract 108.07; Dallas County; Texas</td>
+<td style="text-align: right;">47.4</td>
+<td style="text-align: right;">25.5</td>
+<td style="text-align: right;">1877</td>
+<td style="text-align: right;">1169</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Census Tract 210; Dallas County; Texas</td>
+<td style="text-align: right;">46.9</td>
+<td style="text-align: right;">21.4</td>
+<td style="text-align: right;">2257</td>
+<td style="text-align: right;">1194</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Census Tract 136.29; Dallas County; Texas</td>
+<td style="text-align: right;">45.9</td>
+<td style="text-align: right;">54.4</td>
+<td style="text-align: right;">1378</td>
+<td style="text-align: right;">1868</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Census Tract 78.30; Dallas County; Texas</td>
+<td style="text-align: right;">45.4</td>
+<td style="text-align: right;">33.5</td>
+<td style="text-align: right;">1291</td>
+<td style="text-align: right;">1067</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Highest</td>
+<td style="text-align: left;">Census Tract 87.04; Dallas County; Texas</td>
+<td style="text-align: right;">44.8</td>
+<td style="text-align: right;">20.9</td>
+<td style="text-align: right;">2410</td>
+<td style="text-align: right;">1215</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Census Tract 141.50; Dallas County; Texas</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Census Tract 137.15; Dallas County; Texas</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Census Tract 141.59; Dallas County; Texas</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Census Tract 167.08; Dallas County; Texas</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">74</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Census Tract 7.03; Dallas County; Texas</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Census Tract 80; Dallas County; Texas</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">69</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Census Tract 190.23; Dallas County; Texas</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">67</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Census Tract 82; Dallas County; Texas</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Census Tract 122.13; Dallas County; Texas</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">1.3</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lowest</td>
+<td style="text-align: left;">Census Tract 76.04; Dallas County; Texas</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">42</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Census Tract 87.01 had the highest estimated poverty rate, at 61.8%, with an MOE of 17.2 percentage points. The next-highest estimate was for Census Tract 167.06, at 56.0%, with an MOE of 22.0 percentage points.</p>
+<p>The estimated poverty rates for the 10 tracts at the bottom of the table were all 1.1% or lower. However, in some tracts, the MOE was similar to or larger than the estimated rate. For example, Census Tract 141.50 had an estimated poverty rate of 0%, but its MOE was 1.2 percentage points. A 0% estimate should not be interpreted as proof that no residents in the tract experience poverty.</p>
+</section>
+<section id="uncertainty-in-the-estimates" class="level2">
+<h2 class="anchored" data-anchor-id="uncertainty-in-the-estimates">Uncertainty in the Estimates</h2>
+<p>I used the ACS MOEs to calculate approximate 90% confidence intervals for the two tracts with the highest estimated poverty rates. The values below are calculated from proportions and then expressed as percentages.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>uncertainty_check <span class="ot">&lt;-</span> top10 <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Rate (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">100</span> <span class="sc">*</span> pov_rate,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">MOE (percentage points)</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">100</span> <span class="sc">*</span> pov_moe,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Lower bound (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">100</span> <span class="sc">*</span> (pov_rate <span class="sc">-</span> pov_moe),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Upper bound (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">100</span> <span class="sc">*</span> (pov_rate <span class="sc">+</span> pov_moe)) <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Tract =</span> NAME,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Rate (%)</span><span class="st">`</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">MOE (percentage points)</span><span class="st">`</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Lower bound (%)</span><span class="st">`</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Upper bound (%)</span><span class="st">`</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  uncertainty_check,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">1</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"Approximate 90% confidence intervals for the two highest estimated poverty rates"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Approximate 90% confidence intervals for the two highest estimated poverty rates</caption>
+<colgroup>
+<col style="width: 39%">
+<col style="width: 8%">
+<col style="width: 22%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tract</th>
+<th style="text-align: right;">Rate (%)</th>
+<th style="text-align: right;">MOE (percentage points)</th>
+<th style="text-align: right;">Lower bound (%)</th>
+<th style="text-align: right;">Upper bound (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Census Tract 87.01; Dallas County; Texas</td>
+<td style="text-align: right;">61.8</td>
+<td style="text-align: right;">17.2</td>
+<td style="text-align: right;">44.6</td>
+<td style="text-align: right;">79</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Census Tract 167.06; Dallas County; Texas</td>
+<td style="text-align: right;">56.0</td>
+<td style="text-align: right;">22.0</td>
+<td style="text-align: right;">34.0</td>
+<td style="text-align: right;">78</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The approximate 90% confidence interval for Census Tract 87.01 is <strong>44.6%–79.0%</strong>. For Census Tract 167.06, it is <strong>34.0%–78.0%</strong>. The intervals overlap substantially. Therefore, the higher point estimate for Tract 87.01 does not establish that its underlying poverty rate is higher. Overlapping confidence intervals do not constitute a formal test showing that the two tracts have no difference.</p>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<p>I used <code>tidycensus</code> to retrieve 2024 ACS 5-year estimates for census tracts in Dallas County, Texas. I mapped median gross rent (<code>B25064_001</code>). I calculated the poverty rate by dividing the number of people below the poverty level (<code>B17001_002</code>) by the population for whom poverty status is determined (<code>B17001_001</code>). I retained the margins of error for the estimates and used <code>moe_prop()</code> to calculate the MOE for the poverty rate. The table presents the 10 highest and 10 lowest estimated poverty rates, along with their estimates and MOEs. Tracts with large MOEs require caution when interpreting their rankings. In particular, the approximate 90% confidence intervals for the two highest estimates overlap, so their point-estimate ranking does not establish a difference in their underlying poverty rates. The ACS 5-year estimates summarize a five-year period, not conditions in 2024 alone.</p>
+</section>
+<section id="save-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="save-the-data">Save the Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>(acs_wide),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(<span class="st">"acs_"</span>, county_name, <span class="st">"_"</span>, geo_level, <span class="st">"_"</span>, year_acs, <span class="st">".csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

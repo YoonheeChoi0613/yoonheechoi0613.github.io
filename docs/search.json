@@ -131,5 +131,180 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "assign03.html",
+    "href": "assign03.html",
+    "title": "Assignment 3",
+    "section": "",
+    "text": "This analysis uses the 2024 ACS 5-year estimates to examine median gross rent and poverty rates across census tracts in Dallas County, Texas. The map displays median gross rent, and the table compares the tracts with the highest and lowest poverty rates.\nMedian gross rent is measured using B25064_001. The poverty rate is calculated by dividing the number of people below the poverty level (B17001_002) by the population for whom poverty status is determined (B17001_001)."
+  },
+  {
+    "objectID": "assign03.html#자료와-변수",
+    "href": "assign03.html#자료와-변수",
+    "title": "Assignment 3",
+    "section": "",
+    "text": "이 분석은 2024년 ACS 5년 추정치를 사용해 Dallas County의 센서스 트랙트별 임대료와 빈곤율을 살펴본다. 지도에는 중위 총임대료를 표시하고, 표에는 빈곤율이 가장 높은 트랙트와 가장 낮은 트랙트를 각각 10곳씩 제시한다.\n빈곤율은 빈곤선 아래 인구 추정치(B17001_002)를 빈곤 상태가 확인된 인구(B17001_001)로 나누어 계산했다."
+  },
+  {
+    "objectID": "assign03.html#패키지와-변수-코드-확인",
+    "href": "assign03.html#패키지와-변수-코드-확인",
+    "title": "Assignment 3",
+    "section": "패키지와 변수 코드 확인",
+    "text": "패키지와 변수 코드 확인\n\nlibrary(tidycensus)\nlibrary(tigris)\nlibrary(sf)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(readr)\n\noptions(tigris_use_cache = TRUE)\n\nvars &lt;- load_variables(2024, \"acs5\")\n\nvars |&gt;\n  dplyr::filter(\n    name %in% c(\"B25064_001\", \"B17001_002\", \"B17001_001\")\n  ) |&gt;\n  dplyr::select(name, label, concept)\n\n# A tibble: 3 × 3\n  name       label                                                       concept\n  &lt;chr&gt;      &lt;chr&gt;                                                       &lt;chr&gt;  \n1 B17001_001 Estimate!!Total:                                            Povert…\n2 B17001_002 Estimate!!Total:!!Income in the past 12 months below pover… Povert…\n3 B25064_001 Estimate!!Median gross rent                                 Median…"
+  },
+  {
+    "objectID": "assign03.html#acs-자료-내려받기",
+    "href": "assign03.html#acs-자료-내려받기",
+    "title": "Assignment 3",
+    "section": "ACS 자료 내려받기",
+    "text": "ACS 자료 내려받기\n\nstate_abbr &lt;- \"TX\"\ngeo_level &lt;- \"tract\"\ncounty_name &lt;- \"Dallas\"\n\nmy_vars &lt;- c(\n  rent = \"B25064_001\",\n  pov = \"B17001_002\",\n  povden = \"B17001_001\"\n)\n\nyear_acs &lt;- 2024\nsurvey &lt;- \"acs5\"\n\nacs_wide &lt;- get_acs(\n  geography = geo_level,\n  variables = my_vars,\n  state = state_abbr,\n  county = county_name,\n  year = year_acs,\n  survey = survey,\n  geometry = TRUE,\n  output = \"wide\"\n)\n\nGetting data from the 2020-2024 5-year ACS\n\nacs_wide &lt;- acs_wide |&gt;\n  mutate(\n    pov_rate = povE / povdenE,\n    pov_moe = moe_prop(povE, povdenE, povM, povdenM)\n  )"
+  },
+  {
+    "objectID": "assign03.html#중위-총임대료-지도",
+    "href": "assign03.html#중위-총임대료-지도",
+    "title": "Assignment 3",
+    "section": "중위 총임대료 지도",
+    "text": "중위 총임대료 지도\n\nggplot(acs_wide) +\n  geom_sf(aes(fill = rentE), color = \"white\", linewidth = 0.15) +\n  scale_fill_viridis_c(\n    name = \"Median gross rent ($)\",\n    na.value = \"grey85\"\n  ) +\n  labs(\n    title = paste0(\n      \"ACS \", year_acs, \" 5-year: Median Gross Rent — \",\n      county_name, \" County, \", state_abbr, \" Census Tracts\"\n    ),\n    caption = paste(\n      \"Source: U.S. Census Bureau via tidycensus.\",\n      \"Gray areas indicate missing estimates.\"\n    )\n  ) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(size = 14, face = \"bold\"),\n    plot.caption = element_text(size = 8),\n    legend.position = \"right\"\n  )\n\n\n\n\n\n\n\n\nDallas County tract별 중위 총임대료 추정값은 $608에서 $3,501까지 나타났으며, 중앙값은 $1,598이었다. 지도는 지역 내 임대료가 tract마다 다르게 나타남을 보여준다. 회색 영역은 임대료가 0달러라는 뜻이 아니라 추정값이 제공되지 않은 tract를 나타낸다. 전체 645개 tract 중 28개에서 임대료 추정값이 결측이었다."
+  },
+  {
+    "objectID": "assign03.html#빈곤율이-가장-높은-트랙트-10곳",
+    "href": "assign03.html#빈곤율이-가장-높은-트랙트-10곳",
+    "title": "Assignment 3",
+    "section": "빈곤율이 가장 높은 트랙트 10곳",
+    "text": "빈곤율이 가장 높은 트랙트 10곳\n\ntop10 &lt;- acs_wide |&gt;\n  st_drop_geometry() |&gt;\n  arrange(desc(pov_rate)) |&gt;\n  select(NAME, pov_rate, pov_moe, povE, povM) |&gt;\n  slice_head(n = 10)\n\ntop10_display &lt;- top10 |&gt;\n  transmute(\n    `Census tract` = NAME,\n    `Poverty rate (%)` = round(100 * pov_rate, 1),\n    `Rate MOE (percentage points)` = round(100 * pov_moe, 1),\n    `People below poverty (estimate)` = povE,\n    `Count MOE` = povM\n  )\n\nknitr::kable(top10_display)\n\n\n\n\n\n\n\n\n\n\n\nCensus tract\nPoverty rate (%)\nRate MOE (percentage points)\nPeople below poverty (estimate)\nCount MOE\n\n\n\n\nCensus Tract 87.01; Dallas County; Texas\n61.8\n17.2\n2883\n1012\n\n\nCensus Tract 167.06; Dallas County; Texas\n56.0\n22.0\n1252\n626\n\n\nCensus Tract 108.04; Dallas County; Texas\n52.9\n18.6\n2790\n1214\n\n\nCensus Tract 93.04; Dallas County; Texas\n51.6\n14.4\n4570\n1566\n\n\nCensus Tract 9802; Dallas County; Texas\n49.1\n14.3\n362\n170\n\n\nCensus Tract 108.07; Dallas County; Texas\n47.4\n25.5\n1877\n1169\n\n\nCensus Tract 210; Dallas County; Texas\n46.9\n21.4\n2257\n1194\n\n\nCensus Tract 136.29; Dallas County; Texas\n45.9\n54.4\n1378\n1868\n\n\nCensus Tract 78.30; Dallas County; Texas\n45.4\n33.5\n1291\n1067\n\n\nCensus Tract 87.04; Dallas County; Texas\n44.8\n20.9\n2410\n1215"
+  },
+  {
+    "objectID": "assign03.html#빈곤율이-가장-낮은-트랙트-10곳",
+    "href": "assign03.html#빈곤율이-가장-낮은-트랙트-10곳",
+    "title": "Assignment 3",
+    "section": "빈곤율이 가장 낮은 트랙트 10곳",
+    "text": "빈곤율이 가장 낮은 트랙트 10곳\n\nbottom10 &lt;- acs_wide |&gt;\n  st_drop_geometry() |&gt;\n  arrange(pov_rate) |&gt;\n  select(NAME, pov_rate, pov_moe, povE, povM) |&gt;\n  slice_head(n = 10)\n\nbottom10_display &lt;- bottom10 |&gt;\n  transmute(\n    `Census tract` = NAME,\n    `Poverty rate (%)` = round(100 * pov_rate, 1),\n    `Rate MOE (percentage points)` = round(100 * pov_moe, 1),\n    `People below poverty (estimate)` = povE,\n    `Count MOE` = povM\n  )\n\nknitr::kable(bottom10_display)\n\n\n\n\n\n\n\n\n\n\n\nCensus tract\nPoverty rate (%)\nRate MOE (percentage points)\nPeople below poverty (estimate)\nCount MOE\n\n\n\n\nCensus Tract 141.50; Dallas County; Texas\n0.0\n1.2\n0\n15\n\n\nCensus Tract 137.15; Dallas County; Texas\n0.1\n0.3\n3\n7\n\n\nCensus Tract 141.59; Dallas County; Texas\n0.2\n0.2\n6\n6\n\n\nCensus Tract 167.08; Dallas County; Texas\n0.6\n1.1\n40\n74\n\n\nCensus Tract 7.03; Dallas County; Texas\n0.6\n1.0\n17\n27\n\n\nCensus Tract 80; Dallas County; Texas\n0.8\n0.9\n57\n69\n\n\nCensus Tract 190.23; Dallas County; Texas\n1.0\n1.2\n51\n67\n\n\nCensus Tract 82; Dallas County; Texas\n1.0\n1.1\n43\n50\n\n\nCensus Tract 122.13; Dallas County; Texas\n1.1\n1.3\n22\n27\n\n\nCensus Tract 76.04; Dallas County; Texas\n1.1\n1.4\n32\n42\n\n\n\n\n\n상위 표에서 빈곤율 추정치가 가장 높은 곳은 Tract 87.01로, 추정치는 61.8%다. 하위 표에는 빈곤율 추정치가 매우 낮은 트랙트들이 포함되어 있다. 이 순위는 ACS 추정치에 따른 것이므로 MOE와 함께 해석해야 한다."
+  },
+  {
+    "objectID": "assign03.html#오차범위와-순위-해석",
+    "href": "assign03.html#오차범위와-순위-해석",
+    "title": "Assignment 3",
+    "section": "오차범위와 순위 해석",
+    "text": "오차범위와 순위 해석\n\ntop10_ci &lt;- top10 |&gt;\n  mutate(\n    rate_pct = 100 * pov_rate,\n    moe_pct = 100 * pov_moe,\n    lower90 = 100 * (pov_rate - pov_moe),\n    upper90 = 100 * (pov_rate + pov_moe)\n  )\n\nbottom10_ci &lt;- bottom10 |&gt;\n  mutate(\n    rate_pct = 100 * pov_rate,\n    moe_pct = 100 * pov_moe,\n    lower90 = 100 * (pov_rate - pov_moe),\n    upper90 = 100 * (pov_rate + pov_moe)\n  )\n\ntop10_ci |&gt;\n  slice_head(n = 2) |&gt;\n  select(NAME, rate_pct, moe_pct, lower90, upper90) |&gt;\n  knitr::kable(digits = 1)\n\n\n\n\n\n\n\n\n\n\n\nNAME\nrate_pct\nmoe_pct\nlower90\nupper90\n\n\n\n\nCensus Tract 87.01; Dallas County; Texas\n61.8\n17.2\n44.6\n79\n\n\nCensus Tract 167.06; Dallas County; Texas\n56.0\n22.0\n34.0\n78\n\n\n\n\n\nTract 87.01의 빈곤율 추정치는 61.8%이며 MOE는 17.2%포인트다. Tract 167.06의 추정치는 56.0%이며 MOE는 22.0%포인트다. 두 지역의 근사 90% 신뢰구간은 각각 44.6%–79.0%와 34.0%–78.0%로 크게 겹친다. 따라서 87.01이 점추정치 순위에서 1위라는 사실만으로 실제 빈곤율이 167.06보다 확실히 높다고 단정하기 어렵다."
+  },
+  {
+    "objectID": "assign03.html#방법론-메모",
+    "href": "assign03.html#방법론-메모",
+    "title": "Assignment 3",
+    "section": "방법론 메모",
+    "text": "방법론 메모\n본 분석은 텍사스주 Dallas County의 센서스 트랙트를 분석 단위로 하고 2024년 ACS 5년 추정치를 사용했다. 지도 변수는 중위 총임대료(B25064_001)이고, 표는 빈곤 인구(B17001_002)를 빈곤 상태 확인 인구(B17001_001)로 나눈 빈곤율을 기준으로 작성했다. moe_prop()으로 빈곤율의 MOE를 계산했다. MOE는 표본조사 추정치의 불확실성을 나타내므로 지역별 순위를 확정적으로 해석해서는 안 된다. 예를 들어 빈곤율 상위 두 트랙트의 근사 90% 신뢰구간은 크게 겹친다."
+  },
+  {
+    "objectID": "assign03.html#정리된-데이터-저장",
+    "href": "assign03.html#정리된-데이터-저장",
+    "title": "Assignment 3",
+    "section": "정리된 데이터 저장",
+    "text": "정리된 데이터 저장\n\nwrite_csv(\n  st_drop_geometry(acs_wide),\n  paste0(\"acs_\", county_name, \"_\", geo_level, \"_\", year_acs, \".csv\")\n)"
+  },
+  {
+    "objectID": "assign03.html#연구-지역과-변수",
+    "href": "assign03.html#연구-지역과-변수",
+    "title": "Assignment 3",
+    "section": "",
+    "text": "이 분석은 2024년 ACS 5년 추정치를 사용해 텍사스주 Dallas County의 census tract별 중위 총임대료와 빈곤율을 살펴본다. 지도에는 중위 총임대료를 표시하고, 표에서는 빈곤율이 가장 높은 tract와 낮은 tract를 비교한다.\n중위 총임대료는 B25064_001을 사용했다. 빈곤율은 빈곤선 아래 인구(B17001_002)를 빈곤 여부가 확인된 인구(B17001_001)로 나누어 계산했다."
+  },
+  {
+    "objectID": "assign03.html#패키지와-자료-불러오기",
+    "href": "assign03.html#패키지와-자료-불러오기",
+    "title": "Assignment 3",
+    "section": "패키지와 자료 불러오기",
+    "text": "패키지와 자료 불러오기\n\nlibrary(tidycensus)\nlibrary(tigris)\nlibrary(sf)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(readr)\n\noptions(tigris_use_cache = TRUE)\n\n변수 코드를 확인한다.\n\nvars &lt;- load_variables(2024, \"acs5\")\n\nvars |&gt;\n  dplyr::filter(\n    name %in% c(\"B25064_001\", \"B17001_002\", \"B17001_001\")\n  )\n\n# A tibble: 3 × 4\n  name       label                                             concept geography\n  &lt;chr&gt;      &lt;chr&gt;                                             &lt;chr&gt;   &lt;chr&gt;    \n1 B17001_001 Estimate!!Total:                                  Povert… tract    \n2 B17001_002 Estimate!!Total:!!Income in the past 12 months b… Povert… tract    \n3 B25064_001 Estimate!!Median gross rent                       Median… block gr…"
+  },
+  {
+    "objectID": "assign03.html#acs-자료-가져오기",
+    "href": "assign03.html#acs-자료-가져오기",
+    "title": "Assignment 3",
+    "section": "ACS 자료 가져오기",
+    "text": "ACS 자료 가져오기\n\nstate_abbr &lt;- \"TX\"\ngeo_level &lt;- \"tract\"\ncounty_name &lt;- \"Dallas\"\n\nmy_vars &lt;- c(\n  rent = \"B25064_001\",\n  pov = \"B17001_002\",\n  povden = \"B17001_001\"\n)\n\nyear_acs &lt;- 2024\nsurvey &lt;- \"acs5\"\n\nacs_wide &lt;- get_acs(\n  geography = geo_level,\n  variables = my_vars,\n  state = state_abbr,\n  county = county_name,\n  year = year_acs,\n  survey = survey,\n  geometry = TRUE,\n  output = \"wide\"\n)\n\nGetting data from the 2020-2024 5-year ACS\n\nacs_wide &lt;- acs_wide |&gt;\n  mutate(\n    pov_rate = povE / povdenE,\n    pov_moe = moe_prop(povE, povdenE, povM, povdenM)\n  )"
+  },
+  {
+    "objectID": "assign03.html#빈곤율이-가장-높고-낮은-tract",
+    "href": "assign03.html#빈곤율이-가장-높고-낮은-tract",
+    "title": "Assignment 3",
+    "section": "빈곤율이 가장 높고 낮은 tract",
+    "text": "빈곤율이 가장 높고 낮은 tract\n빈곤율은 빈곤선 아래 인구를 빈곤 여부가 확인된 인구로 나눈 값이다. 아래 표는 빈곤율이 가장 높은 10개 tract와 가장 낮은 10개 tract를 함께 보여준다. MOE는 오차범위이며, 빈곤율 MOE는 퍼센트포인트 단위로 표시했다.\n\ntop10 &lt;- acs_wide |&gt;\n  st_drop_geometry() |&gt;\n  arrange(desc(pov_rate)) |&gt;\n  select(NAME, pov_rate, pov_moe, povE, povM) |&gt;\n  slice_head(n = 10) |&gt;\n  mutate(Ranking = \"Highest\")\n\nbottom10 &lt;- acs_wide |&gt;\n  st_drop_geometry() |&gt;\n  arrange(pov_rate) |&gt;\n  select(NAME, pov_rate, pov_moe, povE, povM) |&gt;\n  slice_head(n = 10) |&gt;\n  mutate(Ranking = \"Lowest\")\n\npoverty_table &lt;- bind_rows(top10, bottom10) |&gt;\n  mutate(\n    `Poverty rate (%)` = round(100 * pov_rate, 1),\n    `Poverty rate MOE (percentage points)` = round(100 * pov_moe, 1)\n  ) |&gt;\n  select(\n    Ranking,\n    Tract = NAME,\n    `Poverty rate (%)`,\n    `Poverty rate MOE (percentage points)`,\n    `People below poverty estimate` = povE,\n    `Count MOE` = povM\n  )\n\nknitr::kable(\n  poverty_table,\n  caption = \"Dallas County census tracts with the highest and lowest estimated poverty rates\"\n)\n\n\nDallas County census tracts with the highest and lowest estimated poverty rates\n\n\n\n\n\n\n\n\n\n\nRanking\nTract\nPoverty rate (%)\nPoverty rate MOE (percentage points)\nPeople below poverty estimate\nCount MOE\n\n\n\n\nHighest\nCensus Tract 87.01; Dallas County; Texas\n61.8\n17.2\n2883\n1012\n\n\nHighest\nCensus Tract 167.06; Dallas County; Texas\n56.0\n22.0\n1252\n626\n\n\nHighest\nCensus Tract 108.04; Dallas County; Texas\n52.9\n18.6\n2790\n1214\n\n\nHighest\nCensus Tract 93.04; Dallas County; Texas\n51.6\n14.4\n4570\n1566\n\n\nHighest\nCensus Tract 9802; Dallas County; Texas\n49.1\n14.3\n362\n170\n\n\nHighest\nCensus Tract 108.07; Dallas County; Texas\n47.4\n25.5\n1877\n1169\n\n\nHighest\nCensus Tract 210; Dallas County; Texas\n46.9\n21.4\n2257\n1194\n\n\nHighest\nCensus Tract 136.29; Dallas County; Texas\n45.9\n54.4\n1378\n1868\n\n\nHighest\nCensus Tract 78.30; Dallas County; Texas\n45.4\n33.5\n1291\n1067\n\n\nHighest\nCensus Tract 87.04; Dallas County; Texas\n44.8\n20.9\n2410\n1215\n\n\nLowest\nCensus Tract 141.50; Dallas County; Texas\n0.0\n1.2\n0\n15\n\n\nLowest\nCensus Tract 137.15; Dallas County; Texas\n0.1\n0.3\n3\n7\n\n\nLowest\nCensus Tract 141.59; Dallas County; Texas\n0.2\n0.2\n6\n6\n\n\nLowest\nCensus Tract 167.08; Dallas County; Texas\n0.6\n1.1\n40\n74\n\n\nLowest\nCensus Tract 7.03; Dallas County; Texas\n0.6\n1.0\n17\n27\n\n\nLowest\nCensus Tract 80; Dallas County; Texas\n0.8\n0.9\n57\n69\n\n\nLowest\nCensus Tract 190.23; Dallas County; Texas\n1.0\n1.2\n51\n67\n\n\nLowest\nCensus Tract 82; Dallas County; Texas\n1.0\n1.1\n43\n50\n\n\nLowest\nCensus Tract 122.13; Dallas County; Texas\n1.1\n1.3\n22\n27\n\n\nLowest\nCensus Tract 76.04; Dallas County; Texas\n1.1\n1.4\n32\n42\n\n\n\n\n\n빈곤율 추정치가 가장 높은 곳은 Census Tract 87.01로 61.8%였고, MOE는 17.2퍼센트포인트였다. 다음은 Census Tract 167.06으로 56.0%, MOE는 22.0퍼센트포인트였다.\n하위 10개 tract의 추정 빈곤율은 모두 1.1% 이하였다. 하지만 일부 tract에서는 MOE가 빈곤율 추정치와 비슷하거나 더 컸다. 예를 들어 Census Tract 141.50은 추정 빈곤율이 0%지만 MOE가 1.2퍼센트포인트다. 따라서 0% 추정치를 해당 tract에 빈곤 인구가 전혀 없다는 의미로 해석해서는 안 된다."
+  },
+  {
+    "objectID": "assign03.html#추정치의-불확실성",
+    "href": "assign03.html#추정치의-불확실성",
+    "title": "Assignment 3",
+    "section": "추정치의 불확실성",
+    "text": "추정치의 불확실성\nACS의 MOE를 사용해 상위 두 tract의 근사 90% 신뢰구간을 계산했다. 아래 값은 비율 기준으로 계산한 뒤 퍼센트로 표시한다.\n\nuncertainty_check &lt;- top10 |&gt;\n  slice_head(n = 2) |&gt;\n  mutate(\n    `Rate (%)` = 100 * pov_rate,\n    `MOE (percentage points)` = 100 * pov_moe,\n    `Lower bound (%)` = 100 * (pov_rate - pov_moe),\n    `Upper bound (%)` = 100 * (pov_rate + pov_moe)\n  ) |&gt;\n  select(\n    Tract = NAME,\n    `Rate (%)`,\n    `MOE (percentage points)`,\n    `Lower bound (%)`,\n    `Upper bound (%)`\n  )\n\nknitr::kable(\n  uncertainty_check,\n  digits = 1,\n  caption = \"Approximate 90% confidence intervals for the two highest estimated poverty rates\"\n)\n\n\nApproximate 90% confidence intervals for the two highest estimated poverty rates\n\n\n\n\n\n\n\n\n\nTract\nRate (%)\nMOE (percentage points)\nLower bound (%)\nUpper bound (%)\n\n\n\n\nCensus Tract 87.01; Dallas County; Texas\n61.8\n17.2\n44.6\n79\n\n\nCensus Tract 167.06; Dallas County; Texas\n56.0\n22.0\n34.0\n78\n\n\n\n\n\nCensus Tract 87.01의 근사 90% 신뢰구간은 44.6%–79.0%이고, Census Tract 167.06은 34.0%–78.0%다. 두 구간은 상당히 겹친다. 따라서 87.01의 점추정치가 더 높다는 순위만으로 실제 빈곤율도 더 높다고 결론 내릴 수 없다. 신뢰구간의 중첩은 두 지역의 차이가 없다는 공식 검정 결과를 뜻하지도 않는다."
+  },
+  {
+    "objectID": "assign03.html#방법",
+    "href": "assign03.html#방법",
+    "title": "Assignment 3",
+    "section": "방법",
+    "text": "방법\n2024년 ACS 5년 추정치를 tidycensus로 가져와 텍사스주 Dallas County의 census tract를 분석했다. 중위 총임대료(B25064_001)를 choropleth 지도로 나타냈다. 빈곤율은 빈곤선 아래 인구(B17001_002)를 빈곤 여부가 확인된 인구(B17001_001)로 나누어 계산했다. 빈곤율과 총인구 추정치의 MOE를 함께 보존했고, moe_prop()으로 빈곤율의 MOE를 계산했다. 표에는 빈곤율 상위 10개와 하위 10개 tract의 추정치와 MOE를 제시했다. MOE가 큰 tract는 순위 해석에 주의가 필요하다. 특히 상위 두 tract의 근사 90% 신뢰구간이 겹치므로 점추정치 순위만으로 두 tract의 실제 빈곤율 차이를 확정할 수 없다. ACS 5년 추정치는 2024년 한 해만의 값이 아니라 5년 자료를 바탕으로 한 추정치다."
+  },
+  {
+    "objectID": "assign03.html#자료-저장",
+    "href": "assign03.html#자료-저장",
+    "title": "Assignment 3",
+    "section": "자료 저장",
+    "text": "자료 저장\n\nwrite_csv(\n  st_drop_geometry(acs_wide),\n  paste0(\"acs_\", county_name, \"_\", geo_level, \"_\", year_acs, \".csv\")\n)"
+  },
+  {
+    "objectID": "assign03.html#study-area-and-variables",
+    "href": "assign03.html#study-area-and-variables",
+    "title": "Assignment 3",
+    "section": "",
+    "text": "This analysis uses the 2024 ACS 5-year estimates to examine median gross rent and poverty rates across census tracts in Dallas County, Texas. The map displays median gross rent, and the table compares the tracts with the highest and lowest poverty rates.\nMedian gross rent is measured using B25064_001. The poverty rate is calculated by dividing the number of people below the poverty level (B17001_002) by the population for whom poverty status is determined (B17001_001)."
+  },
+  {
+    "objectID": "assign03.html#load-packages-and-check-variable-codes",
+    "href": "assign03.html#load-packages-and-check-variable-codes",
+    "title": "Assignment 3",
+    "section": "Load Packages and Check Variable Codes",
+    "text": "Load Packages and Check Variable Codes\n\nlibrary(tidycensus)\nlibrary(tigris)\nlibrary(sf)\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(readr)\n\noptions(tigris_use_cache = TRUE)\n\nCheck the variable codes.\n\nvars &lt;- load_variables(2024, \"acs5\")\n\nvars |&gt;\n  dplyr::filter(\n    name %in% c(\"B25064_001\", \"B17001_002\", \"B17001_001\"))\n\n# A tibble: 3 × 4\n  name       label                                             concept geography\n  &lt;chr&gt;      &lt;chr&gt;                                             &lt;chr&gt;   &lt;chr&gt;    \n1 B17001_001 Estimate!!Total:                                  Povert… tract    \n2 B17001_002 Estimate!!Total:!!Income in the past 12 months b… Povert… tract    \n3 B25064_001 Estimate!!Median gross rent                       Median… block gr…"
+  },
+  {
+    "objectID": "assign03.html#retrieve-acs-data",
+    "href": "assign03.html#retrieve-acs-data",
+    "title": "Assignment 3",
+    "section": "Retrieve ACS Data",
+    "text": "Retrieve ACS Data\n\nstate_abbr &lt;- \"TX\"\ngeo_level &lt;- \"tract\"\ncounty_name &lt;- \"Dallas\"\n\nmy_vars &lt;- c(\n  rent = \"B25064_001\",\n  pov = \"B17001_002\",\n  povden = \"B17001_001\")\n\nyear_acs &lt;- 2024\nsurvey &lt;- \"acs5\"\n\nacs_wide &lt;- get_acs(\n  geography = geo_level,\n  variables = my_vars,\n  state = state_abbr,\n  county = county_name,\n  year = year_acs,\n  survey = survey,\n  geometry = TRUE,\n  output = \"wide\")\n\nGetting data from the 2020-2024 5-year ACS\n\nacs_wide &lt;- acs_wide |&gt;\n  mutate(\n    pov_rate = povE / povdenE,\n    pov_moe = moe_prop(povE, povdenE, povM, povdenM))"
+  },
+  {
+    "objectID": "assign03.html#median-gross-rent-map",
+    "href": "assign03.html#median-gross-rent-map",
+    "title": "Assignment 3",
+    "section": "Median Gross Rent Map",
+    "text": "Median Gross Rent Map\n\nggplot(acs_wide) +\n  geom_sf(aes(fill = rentE), color = \"white\", linewidth = 0.15) +\n  scale_fill_viridis_c(\n    name = \"Median gross rent ($)\",\n    na.value = \"grey85\") +\n  labs(\n    title = paste0(\n      \"ACS \", year_acs, \" 5-year: Median Gross Rent — \",\n      county_name, \" County, \", state_abbr, \" Census Tracts\"),\n    caption = paste(\n      \"Source: U.S. Census Bureau via tidycensus.\",\n      \"Gray areas indicate missing estimates.\")) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(size = 14, face = \"bold\"),\n    plot.caption = element_text(size = 8),\n    legend.position = \"right\")\n\n\n\n\n\n\n\n\nMedian gross rent estimates across Dallas County census tracts ranged from $608 to $3,501, with a median of $1,598. The map shows variation in rent estimates across tracts. Gray areas indicate tracts for which estimates are unavailable, not tracts with $0 rent. Rent estimates are missing for 28 of the 645 tracts."
+  },
+  {
+    "objectID": "assign03.html#tracts-with-the-highest-and-lowest-poverty-rates",
+    "href": "assign03.html#tracts-with-the-highest-and-lowest-poverty-rates",
+    "title": "Assignment 3",
+    "section": "Tracts with the Highest and Lowest Poverty Rates",
+    "text": "Tracts with the Highest and Lowest Poverty Rates\nThe poverty rate is calculated by dividing the number of people below the poverty level by the population for whom poverty status is determined. The table below shows the 10 tracts with the highest estimated poverty rates and the 10 with the lowest. MOE refers to the margin of error. Poverty rate MOEs are reported in percentage points.\n\ntop10 &lt;- acs_wide |&gt;\n  st_drop_geometry() |&gt;\n  arrange(desc(pov_rate)) |&gt;\n  select(NAME, pov_rate, pov_moe, povE, povM) |&gt;\n  slice_head(n = 10) |&gt;\n  mutate(Ranking = \"Highest\")\n\nbottom10 &lt;- acs_wide |&gt;\n  st_drop_geometry() |&gt;\n  arrange(pov_rate) |&gt;\n  select(NAME, pov_rate, pov_moe, povE, povM) |&gt;\n  slice_head(n = 10) |&gt;\n  mutate(Ranking = \"Lowest\")\n\npoverty_table &lt;- bind_rows(top10, bottom10) |&gt;\n  mutate(\n    `Poverty rate (%)` = round(100 * pov_rate, 1),\n    `Poverty rate MOE (percentage points)` = round(100 * pov_moe, 1)) |&gt;\n  select(\n    Ranking,\n    Tract = NAME,\n    `Poverty rate (%)`,\n    `Poverty rate MOE (percentage points)`,\n    `People below poverty estimate` = povE,\n    `Count MOE` = povM)\n\nknitr::kable(\n  poverty_table,\n  caption = \"Dallas County census tracts with the highest and lowest estimated poverty rates\")\n\n\nDallas County census tracts with the highest and lowest estimated poverty rates\n\n\n\n\n\n\n\n\n\n\nRanking\nTract\nPoverty rate (%)\nPoverty rate MOE (percentage points)\nPeople below poverty estimate\nCount MOE\n\n\n\n\nHighest\nCensus Tract 87.01; Dallas County; Texas\n61.8\n17.2\n2883\n1012\n\n\nHighest\nCensus Tract 167.06; Dallas County; Texas\n56.0\n22.0\n1252\n626\n\n\nHighest\nCensus Tract 108.04; Dallas County; Texas\n52.9\n18.6\n2790\n1214\n\n\nHighest\nCensus Tract 93.04; Dallas County; Texas\n51.6\n14.4\n4570\n1566\n\n\nHighest\nCensus Tract 9802; Dallas County; Texas\n49.1\n14.3\n362\n170\n\n\nHighest\nCensus Tract 108.07; Dallas County; Texas\n47.4\n25.5\n1877\n1169\n\n\nHighest\nCensus Tract 210; Dallas County; Texas\n46.9\n21.4\n2257\n1194\n\n\nHighest\nCensus Tract 136.29; Dallas County; Texas\n45.9\n54.4\n1378\n1868\n\n\nHighest\nCensus Tract 78.30; Dallas County; Texas\n45.4\n33.5\n1291\n1067\n\n\nHighest\nCensus Tract 87.04; Dallas County; Texas\n44.8\n20.9\n2410\n1215\n\n\nLowest\nCensus Tract 141.50; Dallas County; Texas\n0.0\n1.2\n0\n15\n\n\nLowest\nCensus Tract 137.15; Dallas County; Texas\n0.1\n0.3\n3\n7\n\n\nLowest\nCensus Tract 141.59; Dallas County; Texas\n0.2\n0.2\n6\n6\n\n\nLowest\nCensus Tract 167.08; Dallas County; Texas\n0.6\n1.1\n40\n74\n\n\nLowest\nCensus Tract 7.03; Dallas County; Texas\n0.6\n1.0\n17\n27\n\n\nLowest\nCensus Tract 80; Dallas County; Texas\n0.8\n0.9\n57\n69\n\n\nLowest\nCensus Tract 190.23; Dallas County; Texas\n1.0\n1.2\n51\n67\n\n\nLowest\nCensus Tract 82; Dallas County; Texas\n1.0\n1.1\n43\n50\n\n\nLowest\nCensus Tract 122.13; Dallas County; Texas\n1.1\n1.3\n22\n27\n\n\nLowest\nCensus Tract 76.04; Dallas County; Texas\n1.1\n1.4\n32\n42\n\n\n\n\n\nCensus Tract 87.01 had the highest estimated poverty rate, at 61.8%, with an MOE of 17.2 percentage points. The next-highest estimate was for Census Tract 167.06, at 56.0%, with an MOE of 22.0 percentage points.\nThe estimated poverty rates for the 10 tracts at the bottom of the table were all 1.1% or lower. However, in some tracts, the MOE was similar to or larger than the estimated rate. For example, Census Tract 141.50 had an estimated poverty rate of 0%, but its MOE was 1.2 percentage points. A 0% estimate should not be interpreted as proof that no residents in the tract experience poverty."
+  },
+  {
+    "objectID": "assign03.html#uncertainty-in-the-estimates",
+    "href": "assign03.html#uncertainty-in-the-estimates",
+    "title": "Assignment 3",
+    "section": "Uncertainty in the Estimates",
+    "text": "Uncertainty in the Estimates\nI used the ACS MOEs to calculate approximate 90% confidence intervals for the two tracts with the highest estimated poverty rates. The values below are calculated from proportions and then expressed as percentages.\n\nuncertainty_check &lt;- top10 |&gt;\n  slice_head(n = 2) |&gt;\n  mutate(\n    `Rate (%)` = 100 * pov_rate,\n    `MOE (percentage points)` = 100 * pov_moe,\n    `Lower bound (%)` = 100 * (pov_rate - pov_moe),\n    `Upper bound (%)` = 100 * (pov_rate + pov_moe)) |&gt;\n  select(\n    Tract = NAME,\n    `Rate (%)`,\n    `MOE (percentage points)`,\n    `Lower bound (%)`,\n    `Upper bound (%)`)\n\nknitr::kable(\n  uncertainty_check,\n  digits = 1,\n  caption = \"Approximate 90% confidence intervals for the two highest estimated poverty rates\")\n\n\nApproximate 90% confidence intervals for the two highest estimated poverty rates\n\n\n\n\n\n\n\n\n\nTract\nRate (%)\nMOE (percentage points)\nLower bound (%)\nUpper bound (%)\n\n\n\n\nCensus Tract 87.01; Dallas County; Texas\n61.8\n17.2\n44.6\n79\n\n\nCensus Tract 167.06; Dallas County; Texas\n56.0\n22.0\n34.0\n78\n\n\n\n\n\nThe approximate 90% confidence interval for Census Tract 87.01 is 44.6%–79.0%. For Census Tract 167.06, it is 34.0%–78.0%. The intervals overlap substantially. Therefore, the higher point estimate for Tract 87.01 does not establish that its underlying poverty rate is higher. Overlapping confidence intervals do not constitute a formal test showing that the two tracts have no difference."
+  },
+  {
+    "objectID": "assign03.html#methods",
+    "href": "assign03.html#methods",
+    "title": "Assignment 3",
+    "section": "Methods",
+    "text": "Methods\nI used tidycensus to retrieve 2024 ACS 5-year estimates for census tracts in Dallas County, Texas. I mapped median gross rent (B25064_001). I calculated the poverty rate by dividing the number of people below the poverty level (B17001_002) by the population for whom poverty status is determined (B17001_001). I retained the margins of error for the estimates and used moe_prop() to calculate the MOE for the poverty rate. The table presents the 10 highest and 10 lowest estimated poverty rates, along with their estimates and MOEs. Tracts with large MOEs require caution when interpreting their rankings. In particular, the approximate 90% confidence intervals for the two highest estimates overlap, so their point-estimate ranking does not establish a difference in their underlying poverty rates. The ACS 5-year estimates summarize a five-year period, not conditions in 2024 alone."
+  },
+  {
+    "objectID": "assign03.html#save-the-data",
+    "href": "assign03.html#save-the-data",
+    "title": "Assignment 3",
+    "section": "Save the Data",
+    "text": "Save the Data\n\nwrite_csv(\n  st_drop_geometry(acs_wide),\n  paste0(\"acs_\", county_name, \"_\", geo_level, \"_\", year_acs, \".csv\"))"
   }
 ]
