@@ -19,6 +19,10 @@ website:
         menu:
           - text: Assignment 2
             href: assign02.qmd
+          - text: Assignment 3
+            href: assign03.qmd
+          - text: Assignment 4
+            href: assign04.qmd
           - text: Assignment 5
             href: assign05.qmd
     right:
