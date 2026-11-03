@@ -24,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -155,8 +190,31 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#ask-permission-first" id="toc-ask-permission-first" class="nav-link active" data-scroll-target="#ask-permission-first">0. Ask permission first</a></li>
+  <li><a href="#warm-up-on-a-page-built-to-be-scraped" id="toc-warm-up-on-a-page-built-to-be-scraped" class="nav-link" data-scroll-target="#warm-up-on-a-page-built-to-be-scraped">1. Warm up on a page built to be scraped</a></li>
+  <li><a href="#scrape-the-wikipedia-table" id="toc-scrape-the-wikipedia-table" class="nav-link" data-scroll-target="#scrape-the-wikipedia-table">2. Scrape the Wikipedia table</a>
+  <ul class="collapse">
+  <li><a href="#a" id="toc-a" class="nav-link" data-scroll-target="#a">2a</a></li>
+  <li><a href="#b.-what-changed-when-i-selected-a-different-table" id="toc-b.-what-changed-when-i-selected-a-different-table" class="nav-link" data-scroll-target="#b.-what-changed-when-i-selected-a-different-table">2b. What changed when I selected a different table</a></li>
+  <li><a href="#c.-clean-the-foreign-exchange-reserves-table" id="toc-c.-clean-the-foreign-exchange-reserves-table" class="nav-link" data-scroll-target="#c.-clean-the-foreign-exchange-reserves-table">2c. Clean the foreign-exchange-reserves table</a></li>
+  </ul></li>
+  <li><a href="#now-do-it-the-right-way" id="toc-now-do-it-the-right-way" class="nav-link" data-scroll-target="#now-do-it-the-right-way">3. Now do it the right way</a>
+  <ul class="collapse">
+  <li><a href="#a.-retrieve-the-world-bank-data" id="toc-a.-retrieve-the-world-bank-data" class="nav-link" data-scroll-target="#a.-retrieve-the-world-bank-data">3a. Retrieve the World Bank data</a></li>
+  <li><a href="#b.-compare-the-two-results" id="toc-b.-compare-the-two-results" class="nav-link" data-scroll-target="#b.-compare-the-two-results">3b. Compare the two results</a></li>
+  <li><a href="#c.-when-is-scraping-the-right-tool" id="toc-c.-when-is-scraping-the-right-tool" class="nav-link" data-scroll-target="#c.-when-is-scraping-the-right-tool">3c. When is scraping the right tool?</a></li>
+  </ul></li>
+  <li><a href="#data-plan" id="toc-data-plan" class="nav-link" data-scroll-target="#data-plan">4. Data plan</a>
+  <ul class="collapse">
+  <li><a href="#u.s.-state-ai-legislation-20192026" id="toc-u.s.-state-ai-legislation-20192026" class="nav-link" data-scroll-target="#u.s.-state-ai-legislation-20192026">U.S. state AI legislation, 2019–2026</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -164,6 +222,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Assignment 4</h1>
+<p class="subtitle lead">Webscraping 1</p>
 </div>
 
 
@@ -186,8 +245,446 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="ask-permission-first" class="level2">
+<h2 class="anchored" data-anchor-id="ask-permission-first">0. Ask permission first</h2>
+<p>Before making the first web request, I checked whether the requested paths were allowed using <code>robotstxt::paths_allowed()</code>. Both the practice book site and the Wikipedia foreign-exchange-reserves page returned <code>TRUE</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>robotstxt<span class="sc">::</span><span class="fu">paths_allowed</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://books.toscrape.com/catalogue/page-1.html"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>robotstxt<span class="sc">::</span><span class="fu">paths_allowed</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://en.wikipedia.org/wiki/List_of_countries_by_foreign-exchange_reserves"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="warm-up-on-a-page-built-to-be-scraped" class="level2">
+<h2 class="anchored" data-anchor-id="warm-up-on-a-page-built-to-be-scraped">1. Warm up on a page built to be scraped</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>books_pg <span class="ot">&lt;-</span> <span class="fu">read_html</span>(</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://books.toscrape.com/catalogue/page-1.html"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>books <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> books_pg <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_elements</span>(<span class="st">"article.product_pod h3 a"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_attr</span>(<span class="st">"title"</span>),</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">price =</span> books_pg <span class="sc">|&gt;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_elements</span>(<span class="st">"article.product_pod p.price_color"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_text2</span>(),</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">rating =</span> books_pg <span class="sc">|&gt;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_elements</span>(<span class="st">"article.product_pod p.star-rating"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">html_attr</span>(<span class="st">"class"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove</span>(<span class="st">"star-rating "</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">price_gbp =</span> <span class="fu">parse_number</span>(price))</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(books)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  title                                 price  rating price_gbp
+  &lt;chr&gt;                                 &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+1 A Light in the Attic                  £51.77 Three       51.8
+2 Tipping the Velvet                    £53.74 One         53.7
+3 Soumission                            £50.10 One         50.1
+4 Sharp Objects                         £47.82 Four        47.8
+5 Sapiens: A Brief History of Humankind £54.23 Five        54.2
+6 The Requiem Red                       £22.65 One         22.7</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>books_5pages <span class="ot">&lt;-</span> books</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  books_pg <span class="ot">&lt;-</span> <span class="fu">read_html</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"https://books.toscrape.com/catalogue/page-"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      i,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">".html"</span>))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  books_page <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> books_pg <span class="sc">|&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">html_elements</span>(<span class="st">"article.product_pod h3 a"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">html_attr</span>(<span class="st">"title"</span>),</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">price =</span> books_pg <span class="sc">|&gt;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">html_elements</span>(<span class="st">"article.product_pod p.price_color"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">html_text2</span>(),</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">rating =</span> books_pg <span class="sc">|&gt;</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">html_elements</span>(<span class="st">"article.product_pod p.star-rating"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">html_attr</span>(<span class="st">"class"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_remove</span>(<span class="st">"star-rating "</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">price_gbp =</span> <span class="fu">parse_number</span>(price))</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  books_5pages <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(books_5pages, books_page)}</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(books_5pages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  title                                 price  rating price_gbp
+  &lt;chr&gt;                                 &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+1 A Light in the Attic                  £51.77 Three       51.8
+2 Tipping the Velvet                    £53.74 One         53.7
+3 Soumission                            £50.10 One         50.1
+4 Sharp Objects                         £47.82 Four        47.8
+5 Sapiens: A Brief History of Humankind £54.23 Five        54.2
+6 The Requiem Red                       £22.65 One         22.7</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(books_5pages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+</div>
+</section>
+<section id="scrape-the-wikipedia-table" class="level2">
+<h2 class="anchored" data-anchor-id="scrape-the-wikipedia-table">2. Scrape the Wikipedia table</h2>
+<section id="a" class="level3">
+<h3 class="anchored" data-anchor-id="a">2a</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>wiki_url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://en.wikipedia.org/wiki/"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"List_of_countries_by_foreign-exchange_reserves"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>wiki_pg <span class="ot">&lt;-</span> <span class="fu">read_html</span>(wiki_url)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>tabs <span class="ot">&lt;-</span> wiki_pg <span class="sc">|&gt;</span> <span class="fu">html_elements</span>(<span class="st">"table.wikitable"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(tabs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tabs <span class="sc">|&gt;</span> <span class="fu">html_table</span>() <span class="sc">|&gt;</span> <span class="fu">lapply</span>(\(x) <span class="fu">dim</span>(x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 198   8
+
+[[2]]
+[1] 28 13</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>reserves_raw <span class="ot">&lt;-</span> tabs[[<span class="dv">1</span>]] <span class="sc">|&gt;</span> <span class="fu">html_table</span>()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(reserves_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 198
+Columns: 8
+$ `Country(as recognized by the UN)` &lt;chr&gt; "Country(as recognized by the UN)",…
+$ Continent                          &lt;chr&gt; "Continent", "Continent", "Asia", "…
+$ `Foreign exchange reserves`        &lt;chr&gt; "Including gold", "US$ million", "3…
+$ `Foreign exchange reserves`        &lt;chr&gt; "Including gold", "Change", "4,299"…
+$ `Foreign exchange reserves`        &lt;chr&gt; "Excluding gold", "US$ million", "3…
+$ `Foreign exchange reserves`        &lt;chr&gt; "Excluding gold", "Change", "115,49…
+$ `Last reporteddate`                &lt;chr&gt; "Last reporteddate", "Last reported…
+$ Ref.                               &lt;chr&gt; "Ref.", "Ref.", "[3]", "[4]", "[5]"…</code></pre>
+</div>
+</div>
+</section>
+<section id="b.-what-changed-when-i-selected-a-different-table" class="level3">
+<h3 class="anchored" data-anchor-id="b.-what-changed-when-i-selected-a-different-table">2b. What changed when I selected a different table</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>other_raw <span class="ot">&lt;-</span> tabs[[<span class="dv">2</span>]] <span class="sc">|&gt;</span> <span class="fu">html_table</span>()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(other_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 28 13</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(other_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Calendarquarter"     "Calendarquarter"     "USD"                
+ [4] "EUR"                 "JPY"                 "GBP"                
+ [7] "CAD"                 "CNY"                 "AUD"                
+[10] "CHF"                 "Othercurrencies"     "Unallocatedreserves"
+[13] "Total"              </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(other_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 28
+Columns: 13
+$ Calendarquarter     &lt;int&gt; 2019, 2019, 2019, 2019, 2020, 2020, 2020, 2020, 20…
+$ Calendarquarter     &lt;chr&gt; "Q1", "Q2", "Q3", "Q4", "Q1", "Q2", "Q3", "Q4", "Q…
+$ USD                 &lt;chr&gt; "6,727.09", "6,752.28", "6,728.85", "6,674.83", "6…
+$ EUR                 &lt;chr&gt; "2,208.79", "2,264.88", "2,212.74", "2,279.30", "2…
+$ JPY                 &lt;dbl&gt; 584.63, 611.87, 612.75, 631.00, 624.97, 643.70, 66…
+$ GBP                 &lt;dbl&gt; 495.70, 497.41, 492.22, 511.51, 486.08, 504.36, 52…
+$ CAD                 &lt;dbl&gt; 208.64, 209.85, 205.44, 206.71, 195.13, 215.47, 23…
+$ CNY                 &lt;dbl&gt; 212.26, 212.80, 213.83, 215.81, 221.48, 233.68, 24…
+$ AUD                 &lt;dbl&gt; 181.95, 186.71, 182.48, 187.18, 170.16, 190.34, 19…
+$ CHF                 &lt;dbl&gt; 15.27, 15.53, 16.20, 17.36, 16.05, 17.22, 19.30, 2…
+$ Othercurrencies     &lt;dbl&gt; 263.50, 270.56, 262.92, 281.50, 255.53, 278.67, 28…
+$ Unallocatedreserves &lt;dbl&gt; 712.93, 715.88, 729.40, 749.55, 770.32, 754.11, 78…
+$ Total               &lt;chr&gt; "11,610.77", "11,737.76", "11,656.82", "11,824.74"…</code></pre>
+</div>
+</div>
+<p>The first table contains reserves by country, while the second contains quarterly data by currency. The second table has two columns named <code>Calendarquarter</code> and no country column. USD, EUR, and Total values containing commas were read as character data. As a result, the cleaning code for the first table—which assumes country rows and a country column—cannot be applied to the second table unchanged. Changing the HTML table can also change the column names, variable types, units, and overall structure.</p>
+</section>
+<section id="c.-clean-the-foreign-exchange-reserves-table" class="level3">
+<h3 class="anchored" data-anchor-id="c.-clean-the-foreign-exchange-reserves-table">2c. Clean the foreign-exchange-reserves table</h3>
+<p>The original table has duplicated column names, so I first assigned unique, descriptive names based on column positions. I removed the first two rows because they contain the multi-row headers. I then removed footnote markers and special spaces from character columns and kept only the country, continent, reserves including gold, and reporting date needed for the comparison. The original unit for reserves is millions of U.S. dollars.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>reserves_named <span class="ot">&lt;-</span> reserves_raw</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(reserves_named) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"country"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"continent"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"including_gold_usd_million"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"including_gold_change"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"excluding_gold_usd_million"</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"excluding_gold_change"</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"last_reported_date"</span>,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"reference"</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>reserves_clean <span class="ot">&lt;-</span> reserves_named <span class="sc">|&gt;</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">where</span>(is.character),</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> .x <span class="sc">|&gt;</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_remove_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">[.*?</span><span class="sc">\\</span><span class="st">]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_remove_all</span>(<span class="st">"[\u2009\u202f\u00a0]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_squish</span>()</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">last_reported_date =</span> <span class="fu">str_replace</span>(</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>      last_reported_date,</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\\</span><span class="st">bSept</span><span class="sc">\\</span><span class="st">b"</span>,</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>      <span class="st">"September"</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">last_reported_date =</span> <span class="fu">as.Date</span>(</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>      last_reported_date,</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">format =</span> <span class="st">"%d %B %Y"</span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(country, <span class="fu">regex</span>(<span class="st">"total|world"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>    country,</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>    continent,</span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">including_gold_usd_million =</span></span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>      <span class="fu">parse_number</span>(including_gold_usd_million),</span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>    last_reported_date</span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(reserves_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  country     continent   including_gold_usd_million last_reported_date
+  &lt;chr&gt;       &lt;chr&gt;                            &lt;dbl&gt; &lt;date&gt;            
+1 China       Asia                           3854885 2026-08-01        
+2 Japan       Asia                           1287470 2026-06-30        
+3 Switzerland Europe                          939140 2026-06-30        
+4 Russia      Europe/Asia                     761200 2026-08-21        
+5 India       Asia                            734606 2026-10-09        
+6 Taiwan      Asia                            597150 2026-06-30        </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(reserves_clean<span class="sc">$</span>last_reported_date))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>I changed <code>Sept</code> in Serbia’s date to <code>September</code> before parsing the date. When I checked the dates that could not be parsed, Albania’s original value was <code>31 Apr 2024</code>. April does not have 31 days, so I did not guess a correction and left the parsed value as <code>NA</code>. No <code>Total</code> or <code>World</code> rows remained after cleaning.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>reserves_named <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">last_reported_date =</span> last_reported_date <span class="sc">|&gt;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_remove_all</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">[.*?</span><span class="sc">\\</span><span class="st">]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_remove_all</span>(<span class="st">"[\u2009\u202f\u00a0]"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_squish</span>() <span class="sc">|&gt;</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_replace</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">bSept</span><span class="sc">\\</span><span class="st">b"</span>, <span class="st">"September"</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(<span class="fu">as.Date</span>(last_reported_date, <span class="at">format =</span> <span class="st">"%d %B %Y"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, last_reported_date)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  country last_reported_date
+  &lt;chr&gt;   &lt;chr&gt;             
+1 Albania 31 Apr 2024       </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="now-do-it-the-right-way" class="level2">
+<h2 class="anchored" data-anchor-id="now-do-it-the-right-way">3. Now do it the right way</h2>
+<section id="a.-retrieve-the-world-bank-data" class="level3">
+<h3 class="anchored" data-anchor-id="a.-retrieve-the-world-bank-data">3a. Retrieve the World Bank data</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(WDI)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>reserves_api <span class="ot">&lt;-</span> <span class="fu">WDI</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">indicator =</span> <span class="st">"FI.RES.TOTL.CD"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">start =</span> <span class="dv">2015</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">end =</span> <span class="dv">2024</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">extra =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(reserves_api)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,660
+Columns: 13
+$ country        &lt;chr&gt; "Afghanistan", "Afghanistan", "Afghanistan", "Afghanist…
+$ iso2c          &lt;chr&gt; "AF", "AF", "AF", "AF", "AF", "AF", "AF", "AF", "AF", "…
+$ iso3c          &lt;chr&gt; "AFG", "AFG", "AFG", "AFG", "AFG", "AFG", "AFG", "AFG",…
+$ year           &lt;int&gt; 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2…
+$ FI.RES.TOTL.CD &lt;dbl&gt; NA, NA, NA, NA, 9748946327, 8497655795, 8206682106, 809…
+$ status         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "", "", "", "",…
+$ lastupdated    &lt;chr&gt; "2026-10-08", "2026-10-08", "2026-10-08", "2026-10-08",…
+$ region         &lt;chr&gt; "Middle East, North Africa, Afghanistan &amp; Pakistan", "M…
+$ capital        &lt;chr&gt; "Kabul", "Kabul", "Kabul", "Kabul", "Kabul", "Kabul", "…
+$ longitude      &lt;chr&gt; "69.1761", "69.1761", "69.1761", "69.1761", "69.1761", …
+$ latitude       &lt;chr&gt; "34.5228", "34.5228", "34.5228", "34.5228", "34.5228", …
+$ income         &lt;chr&gt; "Low income", "Low income", "Low income", "Low income",…
+$ lending        &lt;chr&gt; "IDA", "IDA", "IDA", "IDA", "IDA", "IDA", "IDA", "IDA",…</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(reserves_api)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      country iso2c iso3c year FI.RES.TOTL.CD status lastupdated
+1 Afghanistan    AF   AFG 2024             NA         2026-10-08
+2 Afghanistan    AF   AFG 2023             NA         2026-10-08
+3 Afghanistan    AF   AFG 2022             NA         2026-10-08
+4 Afghanistan    AF   AFG 2021             NA         2026-10-08
+5 Afghanistan    AF   AFG 2020     9748946327         2026-10-08
+6 Afghanistan    AF   AFG 2019     8497655795         2026-10-08
+                                             region capital longitude latitude
+1 Middle East, North Africa, Afghanistan &amp; Pakistan   Kabul   69.1761  34.5228
+2 Middle East, North Africa, Afghanistan &amp; Pakistan   Kabul   69.1761  34.5228
+3 Middle East, North Africa, Afghanistan &amp; Pakistan   Kabul   69.1761  34.5228
+4 Middle East, North Africa, Afghanistan &amp; Pakistan   Kabul   69.1761  34.5228
+5 Middle East, North Africa, Afghanistan &amp; Pakistan   Kabul   69.1761  34.5228
+6 Middle East, North Africa, Afghanistan &amp; Pakistan   Kabul   69.1761  34.5228
+      income lending
+1 Low income     IDA
+2 Low income     IDA
+3 Low income     IDA
+4 Low income     IDA
+5 Low income     IDA
+6 Low income     IDA</code></pre>
+</div>
+</div>
+</section>
+<section id="b.-compare-the-two-results" class="level3">
+<h3 class="anchored" data-anchor-id="b.-compare-the-two-results">3b. Compare the two results</h3>
+<p>Wikipedia reports reserves in millions of U.S. dollars, while the World Bank values are in dollars, so I converted the World Bank values to millions. I compared exact country-name matches after excluding aggregate regions and missing 2024 observations from the World Bank data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>reserves_api_2024 <span class="ot">&lt;-</span> reserves_api <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2024</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    region <span class="sc">!=</span> <span class="st">"Aggregates"</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">FI.RES.TOTL.CD</span><span class="st">`</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    country,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">wb_usd_million =</span> <span class="st">`</span><span class="at">FI.RES.TOTL.CD</span><span class="st">`</span> <span class="sc">/</span> <span class="dv">1000000</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">wb_year =</span> year,</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">wb_lastupdated =</span> lastupdated</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>reserves_compare <span class="ot">&lt;-</span> reserves_clean <span class="sc">|&gt;</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(reserves_api_2024, <span class="at">by =</span> <span class="st">"country"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">difference_usd_million =</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>      including_gold_usd_million <span class="sc">-</span> wb_usd_million,</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">absolute_difference =</span> <span class="fu">abs</span>(difference_usd_million)</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(absolute_difference))</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(reserves_compare)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 141</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>reserves_compare <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    country,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    including_gold_usd_million,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    last_reported_date,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    wb_usd_million,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    wb_year,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    difference_usd_million</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 6
+   country      including_gold_usd_m…¹ last_reported_date wb_usd_million wb_year
+   &lt;chr&gt;                         &lt;dbl&gt; &lt;date&gt;                      &lt;dbl&gt;   &lt;int&gt;
+ 1 United Stat…                 253767 2025-08-22                910037.    2024
+ 2 China                       3854885 2026-08-01               3456025.    2024
+ 3 India                        734606 2026-10-09                643043.    2024
+ 4 Thailand                     300180 2026-07-01                236934.    2024
+ 5 Japan                       1287470 2026-06-30               1230667.    2024
+ 6 Netherlands                  125451 2024-03-01                 79130.    2024
+ 7 Singapore                    426830 2026-06-30                383946.    2024
+ 8 Belgium                       82000 2024-03-01                 42331.    2024
+ 9 Brazil                       366913 2026-04-30                329732.    2024
+10 Germany                      345338 2024-10-01                377935.    2024
+# ℹ abbreviated name: ¹​including_gold_usd_million
+# ℹ 1 more variable: difference_usd_million &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>There were 141 rows that could be compared using exact country-name matches. The following checks distinguish names that did not match from countries with no non-missing 2024 value.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>wdi_country_names <span class="ot">&lt;-</span> reserves_api <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(region <span class="sc">!=</span> <span class="st">"Aggregates"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(country)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>wdi_2024_nonmissing <span class="ot">&lt;-</span> reserves_api <span class="sc">|&gt;</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">==</span> <span class="dv">2024</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    region <span class="sc">!=</span> <span class="st">"Aggregates"</span>,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">FI.RES.TOTL.CD</span><span class="st">`</span>)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>wiki_name_not_found <span class="ot">&lt;-</span> reserves_clean <span class="sc">|&gt;</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(wdi_country_names, <span class="at">by =</span> <span class="st">"country"</span>)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>wiki_name_found_no_2024_value <span class="ot">&lt;-</span> reserves_clean <span class="sc">|&gt;</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(wdi_country_names, <span class="at">by =</span> <span class="st">"country"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(wdi_2024_nonmissing, <span class="at">by =</span> <span class="st">"country"</span>)</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(wiki_name_not_found)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 36</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(wiki_name_found_no_2024_value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19</code></pre>
+</div>
+</div>
+<p>Thirty-six Wikipedia entries did not exactly match a non-aggregate World Bank country name. For example, the sources may use different names, such as <code>South Korea</code> and <code>Korea, Rep.</code>, or <code>Turkey</code> and <code>Türkiye</code>. Nineteen entries had an exact matching country name in the World Bank data but no 2024 value. Therefore, these 55 entries do not indicate that the reported values disagree; they could not be directly matched in this comparison.</p>
+<p>The reference periods also differ. The World Bank values are annual observations for 2024, and the data retrieved here were last updated on October 8, 2026. Wikipedia’s reporting dates vary by country, and some are from 2025–2026. For example, Wikipedia reported approximately USD 253,767 million for the United States on August 22, 2025, while the World Bank’s 2024 value was approximately USD 910,037 million. For China, Wikipedia reported approximately USD 3,854,885 million on August 1, 2026, compared with approximately USD 3,456,025 million in the World Bank’s 2024 data.</p>
+<p>The large difference for the United States may reflect not only the different reference periods but also different gold valuation methods. The World Bank says gold is valued at the year-end London price. In contrast, the U.S. Treasury’s international reserve position values gold at the statutory price of USD 42.2222 per ounce. Thus, gold valuation may be one contributor to the difference in the U.S. comparison.</p>
+</section>
+<section id="c.-when-is-scraping-the-right-tool" class="level3">
+<h3 class="anchored" data-anchor-id="c.-when-is-scraping-the-right-tool">3c. When is scraping the right tool?</h3>
+<p>Scraping is useful when no suitable API or bulk-download file provides the needed data and the website permits automated access. Requests should be sent at a reasonable pace, data should be cached, and the page structure and values should be checked for unexpected changes or errors.</p>
+</section>
+</section>
+<section id="data-plan" class="level2">
+<h2 class="anchored" data-anchor-id="data-plan">4. Data plan</h2>
+<section id="u.s.-state-ai-legislation-20192026" class="level3">
+<h3 class="anchored" data-anchor-id="u.s.-state-ai-legislation-20192026">U.S. state AI legislation, 2019–2026</h3>
+<p>My research examines the conditions under which AI-related bills pass in U.S. state legislatures, and how party control and policy area relate to bill passage. I plan to collect each bill’s state, bill number, year, status, topic, and full text.</p>
+<p>I will use the NCSL AI Legislation Database and historical CSV/PDF files I have already obtained as the main discovery sources. The NCSL database allows searches across bills from multiple states and includes topic and status information, making it more efficient than starting from scratch on all 50 state websites. However, NCSL says that its current AI database tracks bills from 2025 onward and is updated monthly. For 2019–2024, I will use the historical NCSL files and verify bill status and full text on official state legislature websites.</p>
+<p>I checked the NCSL AI database path with <code>robotstxt::paths_allowed()</code>, and it returned <code>TRUE</code>. NCSL’s terms prohibit excessive requests and obtaining material through methods not intentionally provided, and restrict copying and redistribution without permission. I will prioritize the public search interface and download links, and separately check the <code>robots.txt</code> files and terms of use for linked state legislature websites. I did not find public API documentation for the NCSL AI database. If a state legislature provides an API or download, I will use it first. I will automatically collect bill pages only when no public API is available and automated access to those paths is permitted.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>robotstxt<span class="sc">::</span><span class="fu">paths_allowed</span>(</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.ncsl.org/financial-services/artificial-intelligence-legislation-database"</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>I expect approximately 3,000 bill records and the full texts of 500–600 enacted bills. I will keep dated copies of the original CSV and PDF files and save an inventory containing each record’s state, bill number, URL, collection date, and status. If automated collection is permitted, I will make one request at a time and wait at least two seconds between requests to reduce server load.</p>
+<p>The database may change its column names, topic categories, filters, pagination, or bill-link format as it is updated. I will record NCSL’s update date and check the column names, row counts, duplicate bill numbers, missing values, and failed links after each collection. I will compare a sample of bills with the official state legislature pages and investigate whether any anomalies reflect a database structure change or an error in the source data.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

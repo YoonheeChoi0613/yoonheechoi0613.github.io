@@ -1,6 +1,307 @@
 ---
 title: "Assignment 4"
-subtitle: ""
+subtitle: "Webscraping 1"
 author: "Yoonhee Choi"
 format: html
 ---
+
+
+## 0. Ask permission first
+
+Before making the first web request, I checked whether the requested paths were allowed using `robotstxt::paths_allowed()`. Both the practice book site and the Wikipedia foreign-exchange-reserves page returned `TRUE`.
+
+```{r}
+#| warning: false
+
+robotstxt::paths_allowed(
+  "https://books.toscrape.com/catalogue/page-1.html")
+
+robotstxt::paths_allowed(
+  "https://en.wikipedia.org/wiki/List_of_countries_by_foreign-exchange_reserves")
+```
+
+## 1. Warm up on a page built to be scraped
+
+```{r}
+#| message: false
+
+library(rvest)
+library(dplyr)
+library(stringr)
+library(readr)
+
+books_pg <- read_html(
+  "https://books.toscrape.com/catalogue/page-1.html")
+
+books <- tibble(
+  title = books_pg |>
+    html_elements("article.product_pod h3 a") |>
+    html_attr("title"),
+
+  price = books_pg |>
+    html_elements("article.product_pod p.price_color") |>
+    html_text2(),
+
+  rating = books_pg |>
+    html_elements("article.product_pod p.star-rating") |>
+    html_attr("class") |>
+    str_remove("star-rating ")
+) |>
+  mutate(price_gbp = parse_number(price))
+
+head(books)
+```
+
+```{r}
+#| message: false
+
+books_5pages <- books
+
+for (i in 2:5) {
+  books_pg <- read_html(
+    paste0(
+      "https://books.toscrape.com/catalogue/page-",
+      i,
+      ".html"))
+
+  books_page <- tibble(
+    title = books_pg |>
+      html_elements("article.product_pod h3 a") |>
+      html_attr("title"),
+
+    price = books_pg |>
+      html_elements("article.product_pod p.price_color") |>
+      html_text2(),
+
+    rating = books_pg |>
+      html_elements("article.product_pod p.star-rating") |>
+      html_attr("class") |>
+      str_remove("star-rating ")
+  ) |>
+    mutate(price_gbp = parse_number(price))
+
+  books_5pages <- bind_rows(books_5pages, books_page)}
+
+head(books_5pages)
+nrow(books_5pages)
+```
+
+## 2. Scrape the Wikipedia table
+
+### 2a
+
+```{r}
+#| message: false
+
+wiki_url <- paste0(
+  "https://en.wikipedia.org/wiki/",
+  "List_of_countries_by_foreign-exchange_reserves"
+)
+
+wiki_pg <- read_html(wiki_url)
+tabs <- wiki_pg |> html_elements("table.wikitable")
+
+length(tabs)
+tabs |> html_table() |> lapply(\(x) dim(x))
+
+reserves_raw <- tabs[[1]] |> html_table()
+glimpse(reserves_raw)
+```
+
+### 2b. What changed when I selected a different table
+
+```{r}
+other_raw <- tabs[[2]] |> html_table()
+
+dim(other_raw)
+names(other_raw)
+glimpse(other_raw)
+```
+
+The first table contains reserves by country, while the second contains quarterly data by currency. The second table has two columns named `Calendarquarter` and no country column. USD, EUR, and Total values containing commas were read as character data. As a result, the cleaning code for the first table—which assumes country rows and a country column—cannot be applied to the second table unchanged. Changing the HTML table can also change the column names, variable types, units, and overall structure.
+
+### 2c. Clean the foreign-exchange-reserves table
+
+The original table has duplicated column names, so I first assigned unique, descriptive names based on column positions. I removed the first two rows because they contain the multi-row headers. I then removed footnote markers and special spaces from character columns and kept only the country, continent, reserves including gold, and reporting date needed for the comparison. The original unit for reserves is millions of U.S. dollars.
+
+```{r}
+reserves_named <- reserves_raw
+
+names(reserves_named) <- c(
+  "country",
+  "continent",
+  "including_gold_usd_million",
+  "including_gold_change",
+  "excluding_gold_usd_million",
+  "excluding_gold_change",
+  "last_reported_date",
+  "reference"
+)
+
+reserves_clean <- reserves_named |>
+  slice(-(1:2)) |>
+  mutate(
+    across(
+      where(is.character),
+      ~ .x |>
+        str_remove_all("\\[.*?\\]") |>
+        str_remove_all("[\u2009\u202f\u00a0]") |>
+        str_squish()
+    ),
+    last_reported_date = str_replace(
+      last_reported_date,
+      "\\bSept\\b",
+      "September"
+    ),
+    last_reported_date = as.Date(
+      last_reported_date,
+      format = "%d %B %Y"
+    )
+  ) |>
+  filter(!str_detect(country, regex("total|world", ignore_case = TRUE))) |>
+  transmute(
+    country,
+    continent,
+    including_gold_usd_million =
+      parse_number(including_gold_usd_million),
+    last_reported_date
+  )
+
+head(reserves_clean)
+sum(is.na(reserves_clean$last_reported_date))
+```
+
+I changed `Sept` in Serbia's date to `September` before parsing the date. When I checked the dates that could not be parsed, Albania's original value was `31 Apr 2024`. April does not have 31 days, so I did not guess a correction and left the parsed value as `NA`. No `Total` or `World` rows remained after cleaning.
+
+```{r}
+reserves_named |>
+  slice(-(1:2)) |>
+  mutate(
+    last_reported_date = last_reported_date |>
+      str_remove_all("\\[.*?\\]") |>
+      str_remove_all("[\u2009\u202f\u00a0]") |>
+      str_squish() |>
+      str_replace("\\bSept\\b", "September")
+  ) |>
+  filter(is.na(as.Date(last_reported_date, format = "%d %B %Y"))) |>
+  select(country, last_reported_date)
+```
+
+## 3. Now do it the right way
+
+### 3a. Retrieve the World Bank data
+
+
+```{r}
+#| message: false
+
+library(WDI)
+
+reserves_api <- WDI(
+  indicator = "FI.RES.TOTL.CD",
+  start = 2015,
+  end = 2024,
+  extra = TRUE)
+
+glimpse(reserves_api)
+head(reserves_api)
+```
+
+### 3b. Compare the two results
+
+Wikipedia reports reserves in millions of U.S. dollars, while the World Bank values are in dollars, so I converted the World Bank values to millions. I compared exact country-name matches after excluding aggregate regions and missing 2024 observations from the World Bank data.
+
+```{r}
+reserves_api_2024 <- reserves_api |>
+  filter(
+    year == 2024,
+    region != "Aggregates",
+    !is.na(`FI.RES.TOTL.CD`)
+  ) |>
+  transmute(
+    country,
+    wb_usd_million = `FI.RES.TOTL.CD` / 1000000,
+    wb_year = year,
+    wb_lastupdated = lastupdated
+  )
+
+reserves_compare <- reserves_clean |>
+  inner_join(reserves_api_2024, by = "country") |>
+  mutate(
+    difference_usd_million =
+      including_gold_usd_million - wb_usd_million,
+    absolute_difference = abs(difference_usd_million)
+  ) |>
+  arrange(desc(absolute_difference))
+
+nrow(reserves_compare)
+
+reserves_compare |>
+  select(
+    country,
+    including_gold_usd_million,
+    last_reported_date,
+    wb_usd_million,
+    wb_year,
+    difference_usd_million
+  ) |>
+  slice_head(n = 10)
+```
+
+There were 141 rows that could be compared using exact country-name matches. The following checks distinguish names that did not match from countries with no non-missing 2024 value.
+
+```{r}
+wdi_country_names <- reserves_api |>
+  filter(region != "Aggregates") |>
+  distinct(country)
+
+wdi_2024_nonmissing <- reserves_api |>
+  filter(
+    year == 2024,
+    region != "Aggregates",
+    !is.na(`FI.RES.TOTL.CD`)
+  )
+
+wiki_name_not_found <- reserves_clean |>
+  anti_join(wdi_country_names, by = "country")
+
+wiki_name_found_no_2024_value <- reserves_clean |>
+  semi_join(wdi_country_names, by = "country") |>
+  anti_join(wdi_2024_nonmissing, by = "country")
+
+nrow(wiki_name_not_found)
+nrow(wiki_name_found_no_2024_value)
+```
+
+Thirty-six Wikipedia entries did not exactly match a non-aggregate World Bank country name. For example, the sources may use different names, such as `South Korea` and `Korea, Rep.`, or `Turkey` and `Türkiye`. Nineteen entries had an exact matching country name in the World Bank data but no 2024 value. Therefore, these 55 entries do not indicate that the reported values disagree; they could not be directly matched in this comparison.
+
+The reference periods also differ. The World Bank values are annual observations for 2024, and the data retrieved here were last updated on October 8, 2026. Wikipedia's reporting dates vary by country, and some are from 2025–2026. For example, Wikipedia reported approximately USD 253,767 million for the United States on August 22, 2025, while the World Bank's 2024 value was approximately USD 910,037 million. For China, Wikipedia reported approximately USD 3,854,885 million on August 1, 2026, compared with approximately USD 3,456,025 million in the World Bank's 2024 data.
+
+The large difference for the United States may reflect not only the different reference periods but also different gold valuation methods. The World Bank says gold is valued at the year-end London price. In contrast, the U.S. Treasury's international reserve position values gold at the statutory price of USD 42.2222 per ounce. Thus, gold valuation may be one contributor to the difference in the U.S. comparison.
+
+### 3c. When is scraping the right tool?
+
+Scraping is useful when no suitable API or bulk-download file provides the needed data and the website permits automated access. Requests should be sent at a reasonable pace, data should be cached, and the page structure and values should be checked for unexpected changes or errors.
+
+## 4. Data plan
+
+### U.S. state AI legislation, 2019–2026
+
+My research examines the conditions under which AI-related bills pass in U.S. state legislatures, and how party control and policy area relate to bill passage. I plan to collect each bill's state, bill number, year, status, topic, and full text.
+
+I will use the NCSL AI Legislation Database and historical CSV/PDF files I have already obtained as the main discovery sources. The NCSL database allows searches across bills from multiple states and includes topic and status information, making it more efficient than starting from scratch on all 50 state websites. However, NCSL says that its current AI database tracks bills from 2025 onward and is updated monthly. For 2019–2024, I will use the historical NCSL files and verify bill status and full text on official state legislature websites.
+
+I checked the NCSL AI database path with `robotstxt::paths_allowed()`, and it returned `TRUE`. NCSL's terms prohibit excessive requests and obtaining material through methods not intentionally provided, and restrict copying and redistribution without permission. I will prioritize the public search interface and download links, and separately check the `robots.txt` files and terms of use for linked state legislature websites. I did not find public API documentation for the NCSL AI database. If a state legislature provides an API or download, I will use it first. I will automatically collect bill pages only when no public API is available and automated access to those paths is permitted.
+
+```{r}
+#| warning: false
+
+robotstxt::paths_allowed(
+  "https://www.ncsl.org/financial-services/artificial-intelligence-legislation-database"
+)
+```
+
+I expect approximately 3,000 bill records and the full texts of 500–600 enacted bills. I will keep dated copies of the original CSV and PDF files and save an inventory containing each record's state, bill number, URL, collection date, and status. If automated collection is permitted, I will make one request at a time and wait at least two seconds between requests to reduce server load.
+
+The database may change its column names, topic categories, filters, pagination, or bill-link format as it is updated. I will record NCSL's update date and check the column names, row counts, duplicate bill numbers, missing values, and failed links after each collection. I will compare a sample of bills with the official state legislature pages and investigate whether any anomalies reflect a database structure change or an error in the source data.
+
