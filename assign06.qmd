@@ -1,0 +1,304 @@
+---
+title: "Assignment 6"
+subtitle: "Text analytics with quanteda"
+author: "Yoonhee Choi"
+format: html
+execute:
+  echo: false
+---
+
+## 2. Analyze
+
+### 2.a. One summit, two kinds of text
+
+#### 2.a.i. The public
+
+```{r}
+library(quanteda)
+library(quanteda.textmodels)
+library(quanteda.textplots)
+library(quanteda.textstats)
+library(readr)
+
+summit <- read_csv(
+  "https://raw.githubusercontent.com/datageneration/datamethods/master/textanalytics/summit_11162021.csv")
+
+# Frequent words
+tweet_dfm <- tokens(
+  summit$text,
+  remove_punct = TRUE,
+  remove_symbols = TRUE) |>
+  dfm()
+
+word_dfm <- dfm_remove(
+  tweet_dfm,
+  pattern = c(stopwords("en"), "#*", "@*"))
+
+topfeatures(word_dfm, 20)
+
+# Latent semantic analysis
+sum_lsa <- textmodel_lsa(
+  dfm(tokens(summit$text)),
+  nd = 4,
+  margin = "both")
+summary(sum_lsa)
+
+# Hashtag network
+tag_dfm <- dfm_select(tweet_dfm, pattern = "#*")
+top_tags <- names(topfeatures(tag_dfm, 50))
+tag_fcm <- fcm_select(fcm(tag_dfm), pattern = top_tags)
+
+textplot_network(
+  tag_fcm,
+  min_freq = 50,
+  edge_alpha = 0.8,
+  edge_size = 1)
+
+# Account mention network
+user_dfm <- dfm_select(tweet_dfm, pattern = "@*")
+top_users <- names(topfeatures(user_dfm, 50))
+user_fcm <- fcm_select(fcm(user_dfm), pattern = top_users)
+
+textplot_network(
+  user_fcm,
+  min_freq = 20,
+  edge_color = "firebrick",
+  edge_alpha = 0.8,
+  edge_size = 1)
+```
+
+#### 2.a.ii. The government
+
+```{r}
+# Read the saved manifest and document texts
+cpd_data <- read.csv("cpd_manifest_and_log.csv")
+
+cpd_data$date <- as.Date(substr(cpd_data$dateIssued, 1, 10))
+stopifnot(!anyNA(cpd_data$date))
+
+cpd_data$administration <- ifelse(
+  cpd_data$date < as.Date("2025-01-20"),
+  "Biden",
+  "Trump")
+
+txt_files <- file.path(
+  "cpd_text_local",
+  paste0(cpd_data$packageId, ".txt"))
+stopifnot(all(file.exists(txt_files)))
+
+cpd_data$text <- vapply(
+  txt_files,
+  function(path) {
+    lines <- readLines(path, encoding = "UTF-8", warn = FALSE)
+    paste(lines, collapse = "\n")
+  },
+  character(1))
+
+cpd_corpus <- corpus(
+  cpd_data,
+  text_field = "text",
+  docid_field = "packageId")
+
+table(cpd_data$administration)
+
+# Examples of "Xi Jinping" in context
+xi_context <- as.data.frame(
+  kwic(
+    tokens(cpd_corpus),
+    pattern = phrase("Xi Jinping"),
+    window = 15,
+    case_insensitive = TRUE))
+
+xi_context$administration <- cpd_data$administration[
+  match(xi_context$docname, cpd_data$packageId)]
+
+kwic_columns <- c("docname", "pre", "keyword", "post")
+head(subset(xi_context, administration == "Biden", select = kwic_columns), 5)
+head(subset(xi_context, administration == "Trump", select = kwic_columns), 5)
+```
+
+```{r}
+#| fig-width: 10
+
+# Compare vocabulary across the full documents
+cpd_dfm <- tokens(
+  cpd_corpus,
+  remove_punct = TRUE,
+  remove_numbers = TRUE,
+  remove_symbols = TRUE) |>
+  tokens_tolower() |>
+  tokens_remove(stopwords("en")) |>
+  dfm()
+
+cpd_grouped <- dfm_group(
+  cpd_dfm,
+  groups = docvars(cpd_dfm, "administration"))
+
+cpd_keyness <- textstat_keyness(cpd_grouped, target = "Biden")
+textplot_keyness(cpd_keyness, n = 15, labelsize = 3)
+```
+
+The CPD corpus contains 351 documents, including 183 from the Biden administration and 168 from the Trump administration. In the KWIC examples, Biden recalled spending time with Xi in China, while reporters asked Trump what role Xi might play in the Russia–Ukraine war. Some matches came from editorial notes and name indexes, so the surrounding text helped identify who mentioned Xi and why.
+
+In the full documents, *press*, *briefing*, and *transcript* were more characteristic of the Biden group, while *q*, *great*, and *tariffs* were more characteristic of the Trump group. The prominence of *q*, a marker for reporters’ questions, suggests that document format contributes to the difference. The analysis also counts words in passages unrelated to Xi, so the results describe the vocabulary of the selected documents as a whole.
+
+#### 2.a.iii. Compare
+
+
+The archived tweets show what users discussed around the November 2021 Biden–Xi summit. Twitter users wrote for online audiences, and the collected posts frequently mentioned Taiwan, tensions, and accounts such as @POTUS and @nytimes. The keyword and collection window shape whose posts and which topics appear in the sample, limiting what it can say about public opinion.
+
+The presidential documents capture official remarks intended for audiences such as reporters and the public. They also include reporters’ questions and editorial material. Because the CPD search spans several years, it shows how Xi appeared in official records across different events. A direct comparison of online discussion and official messaging about the November 2021 summit would require narrowing the government documents to that event.
+
+### 2.b. US presidential inaugural addresses
+
+```{r}
+library(ggplot2)
+
+# Keep addresses from 1945 onward
+inaugural_all <- data_corpus_inaugural
+inaugural <- corpus_subset(inaugural_all, Year >= 1945)
+
+inaugural_meta <- docvars(inaugural)
+inaugural_tokens <- tokens(
+  inaugural,
+  remove_punct = TRUE,
+  remove_symbols = TRUE
+) |>
+  tokens_tolower()
+
+# Length, lexical diversity, and readability
+inaugural_metrics <- data.frame(
+  year = inaugural_meta$Year,
+  president = inaugural_meta$President,
+  party = inaugural_meta$Party,
+  words = ntoken(inaugural_tokens),
+  ttr = textstat_lexdiv(dfm(inaugural_tokens), measure = "TTR")$TTR,
+  flesch = textstat_readability(inaugural, measure = "Flesch")$Flesch
+)
+
+knitr::kable(
+  inaugural_metrics,
+  digits = 2,
+  caption = "Length, lexical diversity, and readability of inaugural addresses"
+)
+```
+
+I use the type–token ratio (TTR) to measure lexical diversity. TTR can be higher in shorter speeches, so I read it alongside word count. Higher Flesch scores indicate easier reading according to the formula.
+
+```{r}
+# Use the same vocabulary preparation for similarity and party keyness
+inaugural_dfm <- inaugural_tokens |>
+  tokens_remove(stopwords("en")) |>
+  dfm()
+
+# Cosine similarity between addresses
+inaugural_similarity <- as.matrix(
+  textstat_simil(inaugural_dfm, margin = "documents", method = "cosine")
+)
+
+similarity_plot_data <- as.data.frame(as.table(inaugural_similarity))
+names(similarity_plot_data) <- c("address_1", "address_2", "similarity")
+
+ggplot(similarity_plot_data, aes(address_1, address_2, fill = similarity)) +
+  geom_tile() +
+  scale_fill_viridis_c(limits = c(0, 1)) +
+  coord_equal() +
+  labs(x = NULL, y = NULL, fill = "Cosine similarity") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+
+# Identify the most similar pair of distinct addresses
+pair_index <- which(upper.tri(inaugural_similarity), arr.ind = TRUE)
+pair_scores <- inaugural_similarity[pair_index]
+best_pair <- pair_index[which.max(pair_scores), ]
+
+knitr::kable(
+  data.frame(
+    address_1 = rownames(inaugural_similarity)[best_pair[1]],
+    address_2 = colnames(inaugural_similarity)[best_pair[2]],
+    similarity = max(pair_scores)
+  ),
+  digits = 3,
+  caption = "Most similar pair of distinct inaugural addresses"
+)
+```
+
+```{r}
+#| fig-width: 10
+
+# Party keyness
+party_dfm <- dfm_group(inaugural_dfm, groups = docvars(inaugural_dfm, "Party"))
+party_keyness <- textstat_keyness(party_dfm, target = "Republican")
+
+textplot_keyness(party_keyness, n = 12, labelsize = 3)
+```
+
+```{r}
+# Check the latest address in the installed corpus
+all_meta <- docvars(inaugural_all)
+latest_year <- max(all_meta$Year)
+latest_address <- all_meta[
+  all_meta$Year == latest_year,
+  c("Year", "President", "Party")
+]
+
+knitr::kable(latest_address, caption = "Latest address in the installed corpus")
+
+if (!any(all_meta$Year == 2025)) {
+  cat(
+    "The installed corpus does not contain the 2025 address. ",
+    "I would obtain the official January 20, 2025 inaugural address from ",
+    "GovInfo's Compilation of Presidential Documents, retain the speech text, ",
+    "and append it with the year, president, and party metadata before rerunning ",
+    "the analysis.",
+    sep = ""
+  )
+}
+```
+
+In the party keyness analysis, federal, government, and freedom were relatively more characteristic of Republican addresses, while democracy, change, and generation were more characteristic of Democratic addresses. These differences describe word use in the inaugural addresses in this corpus and may reflect the topics and historical circumstances of individual speeches.
+
+Inaugural addresses varied in length, from 557 words in Roosevelt’s 1945 address to 2,913 words in Trump’s 2025 address. Roosevelt’s address also had the highest type–token ratio (0.46), which should be interpreted in light of its short length. Biden’s 2021 address had the highest Flesch reading ease score (73.20), while Truman’s 1949 address had the lowest (48.79). Reagan’s 1981 and 1985 addresses were the most similar pair in the corpus, with a cosine similarity of 0.689. The latest address in the installed corpus is Trump’s 2025 inaugural address, which is included in the analysis.
+
+## 3. What is Wordfish?
+
+```{r}
+# Keep words found in at least two addresses
+wordfish_dfm <- dfm_trim(
+  inaugural_dfm,
+  min_docfreq = 2,
+  docfreq_type = "count"
+)
+
+# Orient the scale using the earliest and latest included addresses
+wordfish_years <- docvars(wordfish_dfm, "Year")
+anchor_docs <- c(which.min(wordfish_years), which.max(wordfish_years))
+
+wordfish_fit <- textmodel_wordfish(wordfish_dfm, dir = anchor_docs)
+
+wordfish_scores <- data.frame(
+  address = docnames(wordfish_dfm),
+  year = wordfish_years,
+  party = docvars(wordfish_dfm, "Party"),
+  position = wordfish_fit$theta
+)
+
+ggplot(wordfish_scores, aes(year, position, color = party)) +
+  geom_point(size = 2.5) +
+  labs(
+    x = "Inauguration year",
+    y = "Estimated Wordfish position",
+    color = "Party"
+  ) +
+  theme_minimal()
+```
+
+Wordfish models word counts with a Poisson distribution. The expected count depends on a document effect, a word's overall frequency, and how strongly the word is associated with the document's position on a single estimated dimension. The `dir` argument fixes the direction of that scale because reversing the signs of both the document positions and the word associations yields the same fitted counts. I use the earliest and latest included addresses to orient the scale. In the fitted model, earlier addresses generally had lower scores and more recent addresses had higher scores. Democratic and Republican addresses overlapped across the scale. This pattern suggests that the dimension captures changes in inaugural language over time, although the plot alone cannot identify which changes drive the scores. To interpret what it measures, I would inspect the words associated with each end, read the speeches at the extremes, and check whether the positions track time, party, or another feature of the speeches.
+
+## CPD Data Note
+
+I collected documents from the U.S. Government Publishing Office’s Compilation of Presidential Documents (CPD) through the public GovInfo API using an API key. I searched the CPD collection for the exact phrase “Xi Jinping,” with publication dates from January 20, 2021, through November 5, 2026. I retrieved all pages of search results using `offsetMark`, downloaded the text for all 351 returned documents, and confirmed that the phrase appeared in each downloaded text. The manifest records each document’s package ID, title, issue date, text URL, and download status.
+
+The corpus is limited to documents included in the CPD and returned by the exact-phrase search. It can miss documents that refer to Xi only as “President Xi,” and some matches appear in editorial notes or name indexes. The search window also covers different lengths of time for the Biden and Trump administrations.
+
+[Download the CPD manifest and download log (CSV)](cpd_manifest_and_log.csv)

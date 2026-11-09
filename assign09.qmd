@@ -1,0 +1,106 @@
+---
+title: "Assignment 5"
+subtitle: "Government data API"
+author: "Yoonhee Choi"
+format: html
+---
+
+## 1. Searching for Documents on the GovInfo Website
+
+### 1.a. Search Criteria
+
+I searched the GovInfo website for hearings of the Senate Committee on Foreign Relations and sorted the results from newest to oldest.
+
+- **Collection:** Congressional Hearings (CHRG)
+- **Committee:** Foreign Relations
+- **Chamber:** Senate
+- **Sort order:** Date New to Old
+- **Query string:** `collection:CHRG AND committee:"Foreign Relations" AND chamber:senate`
+- **Export format:** CSV
+- **Date retrieved:** October 26, 2026
+
+### 1.b. First Ten Search Results
+
+The first ten results from the website search were:
+
+1. `CHRG-119shrg63909` — *Arms Control and Transforming International Security Functions at the State Department*
+2. `CHRG-119shrg63707` — *A Pathway to European Energy Security*
+3. `CHRG-119shrg64059` — *Countering Terrorism in North Africa: Opportunities and Challenges*
+4. `CHRG-119shrg63168` — *Maritime Security in Africa: Assessing Threats to Commercial Diplomacy and National Security Interests*
+5. `CHRG-119shrg62398` — *Combating the People's Republic of China's Illegal, Coercive, Aggressive, and Deceptive Behavior in the Indo-Pacific*
+6. `CHRG-119shrg62961` — *The Future of U.S. Black Sea Strategy*
+7. `CHRG-119shrg61656` — *The Status of Democracy and Human Rights in Hong Kong, Five Years After the PRC's Judicial Takeover*
+8. `CHRG-119shrg61565` — *NATO Summit 2025: An Assessment of Transatlantic Security Cooperation*
+9. `CHRG-119shrg60820` — *East Africa & the Horn: At a Turning Point or Breaking Point?*
+10. `CHRG-119shrg60819` — *Shared Threats: Indo Pacific Alliances and Burden Sharing in Today's Geopolitical Environment*
+
+## 2. Searching with the GovInfo API
+
+### 2.a. API Query
+
+I used the assignment's example query to search the Congressional Hearings collection:
+
+```text
+collection:(CHRG) AND "Committee on Foreign Relations"
+```
+
+The search request used a page size of 100 and sorted results by publication date in descending order. I selected the first ten results for download.
+
+### 2.b. Package Metadata and Pagination
+
+For each package ID, I requested `/packages/{packageId}/summary` to retrieve the package metadata and available download links. The search response also included an `offsetMark`, which can be sent with another request to retrieve the next page of results. The process can continue until a response returns no results.
+
+## 3. Downloading and Comparing the Documents
+
+### 3.a. Downloading the Documents
+
+I downloaded the ZIP files for the ten API search results and saved them in the `files` folder inside my working directory. I kept a download log containing each package ID, title, and download status. All ten documents in the log have the status `Downloaded`.
+
+### 3.b. Comparing the Website and API Results
+
+The website and API searches returned six of the same package IDs:
+
+- `CHRG-119shrg63909`
+- `CHRG-119shrg63707`
+- `CHRG-119shrg64059`
+- `CHRG-119shrg61565`
+- `CHRG-119shrg60820`
+- `CHRG-119shrg60819`
+
+The four results found only in the website search were:
+
+- `CHRG-119shrg63168`
+- `CHRG-119shrg62398`
+- `CHRG-119shrg62961`
+- `CHRG-119shrg61656`
+
+The four results found only in the API search were:
+
+- `CHRG-119shrg60060`
+- `CHRG-119shrg60032`
+- `CHRG-119shrg61202`
+- `CHRG-119shrg59893`
+
+The two lists differed because the searches used different query fields and search methods. The website query specified the committee and chamber, while the API query searched for the phrase “Committee on Foreign Relations” within the CHRG collection. As a result, the API search could return a document that mentioned the phrase without being a hearing of that committee. For example, the API-only result `CHRG-119shrg61202` is a hearing about illicit drug trafficking from the Senate Committee on Commerce, Science, and Transportation.
+
+### 3.c. Download Log
+
+I kept the download log with the package IDs, titles, and download statuses. The log provides a record of which documents the API script attempted to download and whether each download succeeded.
+
+## 4. Evaluating the Downloaded Documents
+
+### 4.a. Using the Documents as Data
+
+The PDFs are useful for reading and reviewing the hearings, but they are not immediately ready for analysis as data. To analyze them as a corpus, I would extract the text and create a table with one row per hearing and fields such as package ID, title, date, committee, participants, and extracted text.
+
+I would then check and clean the extracted text. Page headers and footers, line breaks, tables, and speaker labels may need attention because they can affect searches and text analysis. I would also compare the extracted text with the original PDF to check for missing or incorrectly converted content.
+
+### 4.b. Improving the Process
+
+The ZIP package I inspected included the PDF as well as HTML and XML files, including MODS metadata. The metadata could be used to collect information such as titles and identifiers without opening each document. HTML or text files may also be easier to search and process than PDFs, so I would compare the available formats and choose the one best suited to the analysis.
+
+I could also improve the search by applying committee and chamber fields to the API query, so that the API search more closely matches the website search. Keeping the query, package IDs, and download statuses in a log would make the process easier to review and reproduce.
+
+### 4.c. What the API Provided
+
+The API returned structured package metadata and download links, allowing me to search for and retrieve documents programmatically. It also supported paginated searches through the `offsetMark`, which can be used to request successive pages of results.

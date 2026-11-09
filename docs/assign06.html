@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Yoonhee Choi">
+
+<title>Assignment 6 – Yoonhee Choi</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Yoonhee Choi</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./research.html"> 
+<span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./teaching.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-assignments" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Assignments</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-assignments">    
+        <li>
+    <a class="dropdown-item" href="./assign02.html">
+ <span class="dropdown-text">Assignment 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assign03.html">
+ <span class="dropdown-text">Assignment 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assign04.html">
+ <span class="dropdown-text">Assignment 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assign05.html">
+ <span class="dropdown-text">Assignment 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assign06.html">
+ <span class="dropdown-text">Assignment 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assign07.html">
+ <span class="dropdown-text">Assignment 7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assign08.html">
+ <span class="dropdown-text">Assignment 8</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assign09.html">
+ <span class="dropdown-text">Assignment 9</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assign10.html">
+ <span class="dropdown-text">Assignment 10</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/YoonheeChoi0613"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:Yoonhee.Choi@UTDallas.edu"> <i class="bi bi-envelope" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#analyze" id="toc-analyze" class="nav-link active" data-scroll-target="#analyze">2. Analyze</a>
+  <ul class="collapse">
+  <li><a href="#a.-one-summit-two-kinds-of-text" id="toc-a.-one-summit-two-kinds-of-text" class="nav-link" data-scroll-target="#a.-one-summit-two-kinds-of-text">2.a. One summit, two kinds of text</a></li>
+  <li><a href="#b.-us-presidential-inaugural-addresses" id="toc-b.-us-presidential-inaugural-addresses" class="nav-link" data-scroll-target="#b.-us-presidential-inaugural-addresses">2.b. US presidential inaugural addresses</a></li>
+  </ul></li>
+  <li><a href="#what-is-wordfish" id="toc-what-is-wordfish" class="nav-link" data-scroll-target="#what-is-wordfish">3. What is Wordfish?</a></li>
+  <li><a href="#cpd-data-note" id="toc-cpd-data-note" class="nav-link" data-scroll-target="#cpd-data-note">CPD Data Note</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assignment 6</h1>
+<p class="subtitle lead">Text analytics with quanteda</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Yoonhee Choi </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="analyze" class="level2">
+<h2 class="anchored" data-anchor-id="analyze">2. Analyze</h2>
+<section id="a.-one-summit-two-kinds-of-text" class="level3">
+<h3 class="anchored" data-anchor-id="a.-one-summit-two-kinds-of-text">2.a. One summit, two kinds of text</h3>
+<section id="a.i.-the-public" class="level4">
+<h4 class="anchored" data-anchor-id="a.i.-the-public">2.a.i. The public</h4>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Package version: 4.5.1
+Unicode version: 14.0
+ICU version: 71.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Parallel computing: disabled</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>See https://quanteda.io for tutorials and examples.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 14520 Columns: 90
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (50): screen_name, text, source, reply_to_screen_name, hashtags, symbol...
+dbl  (26): user_id, status_id, display_text_width, reply_to_status_id, reply...
+lgl  (10): is_quote, is_retweet, quote_count, reply_count, ext_media_type, q...
+dttm  (4): created_at, quoted_created_at, retweet_created_at, account_create...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    biden        xi    summit   virtual president   jinping     china   chinese 
+    12338     12027     11167      7483      6148      4766      3011      2716 
+      joe    monday      hold        us    taiwan  biden-xi       u.s  tensions 
+     2598      2540      2301      2179      1578      1556      1493      1420 
+  china's       old    friend      said 
+     1330      1246      1196      1113 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Length    Class     Mode   
+sk                      4 -none-    numeric
+docs                58080 -none-    numeric
+features            63972 -none-    numeric
+matrix_low_rank 232218360 -none-    numeric
+data            232218360 dgCMatrix S4     </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="assign06_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="assign06_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="a.ii.-the-government" class="level4">
+<h4 class="anchored" data-anchor-id="a.ii.-the-government">2.a.ii. The government</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Biden Trump 
+  183   168 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         docname
+1 DCPD-202100229
+2 DCPD-202100229
+3 DCPD-202100238
+4 DCPD-202100238
+5 DCPD-202100238
+                                                                                          pre
+1 and former Prime Minister Enda Kenny of Ireland ; former President Barack Obama ; President
+2                              ; O'Neill , Michelle ; Psaki , Jennifer R . ; Sloat , Amanda ;
+3                             about it . It's about who we are . Closing comment : I was with
+4                       , he referred to Mayor Michael E . Duggan of Detroit , MI ; President
+5                                ; Obama , Barack ; Walensky , Rochelle P . ; Walke , Henry ;
+     keyword
+1 Xi Jinping
+2 Xi Jinping
+3 Xi Jinping
+4 Xi Jinping
+5 Xi Jinping
+                                                                                        post
+1                    of China ; and White House Press Secretary Jennifer R . Psaki . He also
+2             . Subjects : China : President ; Civil rights : Minorities : : Minority rights
+3                                in China . I spent more time with him , I'm told , than any
+4            of China , in his former capacity as Vice President of China ; former President
+5 . Subjects : China : Prime Minister ; Diseases : Coronavirus , domestic prevention efforts</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           docname
+466 DCPD-202500153
+467 DCPD-202500157
+468 DCPD-202500157
+469 DCPD-202500166
+470 DCPD-202500166
+                                                                              pre
+466                 , Susan ; Wray , Christopher A . ; Wright , Christopher A . ;
+467 percent is ridiculous . Yes . [ Several reporters spoke at once . ] President
+468                            ; Tarrio , Enrique ; Vance , James D . " J.D . " ;
+469                      / Ukraine / China Q . Sir , on China . What do you think
+470           war ? The President . Which one ? Q . Ukraine-Russia war . What can
+       keyword
+466 Xi Jinping
+467 Xi Jinping
+468 Xi Jinping
+469 Xi Jinping
+470 Xi Jinping
+                                                                              post
+466 ; Zabavsky , Andrew ; Zelenskyy , Volodymyr . Subjects : 2021 civil unrest and
+467 of China Q . Did you ask President Xi—in your conversation about Ukraine , did
+468 ; Zabavsky , Andrew ; Zelenskyy , Volodymyr . Subjects : 2021 civil unrest and
+469             can do on the Ukraine-Russia war ? The President . Which one ? Q .
+470                do about that ? The President . China ? Q . Yes . The President</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="assign06_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The CPD corpus contains 351 documents, including 183 from the Biden administration and 168 from the Trump administration. In the KWIC examples, Biden recalled spending time with Xi in China, while reporters asked Trump what role Xi might play in the Russia–Ukraine war. Some matches came from editorial notes and name indexes, so the surrounding text helped identify who mentioned Xi and why.</p>
+<p>In the full documents, <em>press</em>, <em>briefing</em>, and <em>transcript</em> were more characteristic of the Biden group, while <em>q</em>, <em>great</em>, and <em>tariffs</em> were more characteristic of the Trump group. The prominence of <em>q</em>, a marker for reporters’ questions, suggests that document format contributes to the difference. The analysis also counts words in passages unrelated to Xi, so the results describe the vocabulary of the selected documents as a whole.</p>
+</section>
+<section id="a.iii.-compare" class="level4">
+<h4 class="anchored" data-anchor-id="a.iii.-compare">2.a.iii. Compare</h4>
+<p>The archived tweets show what users discussed around the November 2021 Biden–Xi summit. Twitter users wrote for online audiences, and the collected posts frequently mentioned Taiwan, tensions, and accounts such as <span class="citation" data-cites="POTUS">@POTUS</span> and <span class="citation" data-cites="nytimes">@nytimes</span>. The keyword and collection window shape whose posts and which topics appear in the sample, limiting what it can say about public opinion.</p>
+<p>The presidential documents capture official remarks intended for audiences such as reporters and the public. They also include reporters’ questions and editorial material. Because the CPD search spans several years, it shows how Xi appeared in official records across different events. A direct comparison of online discussion and official messaging about the November 2021 summit would require narrowing the government documents to that event.</p>
+</section>
+</section>
+<section id="b.-us-presidential-inaugural-addresses" class="level3">
+<h3 class="anchored" data-anchor-id="b.-us-presidential-inaugural-addresses">2.b. US presidential inaugural addresses</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Length, lexical diversity, and readability of inaugural addresses</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">year</th>
+<th style="text-align: left;">president</th>
+<th style="text-align: left;">party</th>
+<th style="text-align: right;">words</th>
+<th style="text-align: right;">ttr</th>
+<th style="text-align: right;">flesch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1945-Roosevelt</td>
+<td style="text-align: right;">1945</td>
+<td style="text-align: left;">Roosevelt</td>
+<td style="text-align: left;">Democratic</td>
+<td style="text-align: right;">557</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">68.38</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1949-Truman</td>
+<td style="text-align: right;">1949</td>
+<td style="text-align: left;">Truman</td>
+<td style="text-align: left;">Democratic</td>
+<td style="text-align: right;">2272</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">48.79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1953-Eisenhower</td>
+<td style="text-align: right;">1953</td>
+<td style="text-align: left;">Eisenhower</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">2454</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">57.70</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1957-Eisenhower</td>
+<td style="text-align: right;">1957</td>
+<td style="text-align: left;">Eisenhower</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">1659</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">69.16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1961-Kennedy</td>
+<td style="text-align: right;">1961</td>
+<td style="text-align: left;">Kennedy</td>
+<td style="text-align: left;">Democratic</td>
+<td style="text-align: right;">1366</td>
+<td style="text-align: right;">0.39</td>
+<td style="text-align: right;">57.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1965-Johnson</td>
+<td style="text-align: right;">1965</td>
+<td style="text-align: left;">Johnson</td>
+<td style="text-align: left;">Democratic</td>
+<td style="text-align: right;">1489</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">69.41</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1969-Nixon</td>
+<td style="text-align: right;">1969</td>
+<td style="text-align: left;">Nixon</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">2124</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">65.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1973-Nixon</td>
+<td style="text-align: right;">1973</td>
+<td style="text-align: left;">Nixon</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">1802</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">54.19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1977-Carter</td>
+<td style="text-align: right;">1977</td>
+<td style="text-align: left;">Carter</td>
+<td style="text-align: left;">Democratic</td>
+<td style="text-align: right;">1224</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">53.38</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1981-Reagan</td>
+<td style="text-align: right;">1981</td>
+<td style="text-align: left;">Reagan</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">2432</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">58.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1985-Reagan</td>
+<td style="text-align: right;">1985</td>
+<td style="text-align: left;">Reagan</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">2564</td>
+<td style="text-align: right;">0.34</td>
+<td style="text-align: right;">57.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1989-Bush</td>
+<td style="text-align: right;">1989</td>
+<td style="text-align: left;">Bush</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">2317</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">73.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1993-Clinton</td>
+<td style="text-align: right;">1993</td>
+<td style="text-align: left;">Clinton</td>
+<td style="text-align: left;">Democratic</td>
+<td style="text-align: right;">1598</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">55.81</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1997-Clinton</td>
+<td style="text-align: right;">1997</td>
+<td style="text-align: left;">Clinton</td>
+<td style="text-align: left;">Democratic</td>
+<td style="text-align: right;">2157</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">59.22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2001-Bush</td>
+<td style="text-align: right;">2001</td>
+<td style="text-align: left;">Bush</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">1584</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">60.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2005-Bush</td>
+<td style="text-align: right;">2005</td>
+<td style="text-align: left;">Bush</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">2071</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">53.19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2009-Obama</td>
+<td style="text-align: right;">2009</td>
+<td style="text-align: left;">Obama</td>
+<td style="text-align: left;">Democratic</td>
+<td style="text-align: right;">2390</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">60.53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2013-Obama</td>
+<td style="text-align: right;">2013</td>
+<td style="text-align: left;">Obama</td>
+<td style="text-align: left;">Democratic</td>
+<td style="text-align: right;">2097</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">53.56</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2017-Trump</td>
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">Trump</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">1445</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">58.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2021-Biden</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">Biden</td>
+<td style="text-align: left;">Democratic</td>
+<td style="text-align: right;">2372</td>
+<td style="text-align: right;">0.31</td>
+<td style="text-align: right;">73.20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2025-Trump</td>
+<td style="text-align: right;">2025</td>
+<td style="text-align: left;">Trump</td>
+<td style="text-align: left;">Republican</td>
+<td style="text-align: right;">2913</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">55.08</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>I use the type–token ratio (TTR) to measure lexical diversity. TTR can be higher in shorter speeches, so I read it alongside word count. Higher Flesch scores indicate easier reading according to the formula.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="assign06_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Most similar pair of distinct inaugural addresses</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">address_1</th>
+<th style="text-align: left;">address_2</th>
+<th style="text-align: right;">similarity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1981-Reagan</td>
+<td style="text-align: left;">1985-Reagan</td>
+<td style="text-align: right;">0.689</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="assign06_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Latest address in the installed corpus</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Year</th>
+<th style="text-align: left;">President</th>
+<th style="text-align: left;">Party</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">60</td>
+<td style="text-align: right;">2025</td>
+<td style="text-align: left;">Trump</td>
+<td style="text-align: left;">Republican</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>In the party keyness analysis, federal, government, and freedom were relatively more characteristic of Republican addresses, while democracy, change, and generation were more characteristic of Democratic addresses. These differences describe word use in the inaugural addresses in this corpus and may reflect the topics and historical circumstances of individual speeches.</p>
+<p>Inaugural addresses varied in length, from 557 words in Roosevelt’s 1945 address to 2,913 words in Trump’s 2025 address. Roosevelt’s address also had the highest type–token ratio (0.46), which should be interpreted in light of its short length. Biden’s 2021 address had the highest Flesch reading ease score (73.20), while Truman’s 1949 address had the lowest (48.79). Reagan’s 1981 and 1985 addresses were the most similar pair in the corpus, with a cosine similarity of 0.689. The latest address in the installed corpus is Trump’s 2025 inaugural address, which is included in the analysis.</p>
+</section>
+</section>
+<section id="what-is-wordfish" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-wordfish">3. What is Wordfish?</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="assign06_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Wordfish models word counts with a Poisson distribution. The expected count depends on a document effect, a word’s overall frequency, and how strongly the word is associated with the document’s position on a single estimated dimension. The <code>dir</code> argument fixes the direction of that scale because reversing the signs of both the document positions and the word associations yields the same fitted counts. I use the earliest and latest included addresses to orient the scale. In the fitted model, earlier addresses generally had lower scores and more recent addresses had higher scores. Democratic and Republican addresses overlapped across the scale. This pattern suggests that the dimension captures changes in inaugural language over time, although the plot alone cannot identify which changes drive the scores. To interpret what it measures, I would inspect the words associated with each end, read the speeches at the extremes, and check whether the positions track time, party, or another feature of the speeches.</p>
+</section>
+<section id="cpd-data-note" class="level2">
+<h2 class="anchored" data-anchor-id="cpd-data-note">CPD Data Note</h2>
+<p>I collected documents from the U.S. Government Publishing Office’s Compilation of Presidential Documents (CPD) through the public GovInfo API using an API key. I searched the CPD collection for the exact phrase “Xi Jinping,” with publication dates from January 20, 2021, through November 5, 2026. I retrieved all pages of search results using <code>offsetMark</code>, downloaded the text for all 351 returned documents, and confirmed that the phrase appeared in each downloaded text. The manifest records each document’s package ID, title, issue date, text URL, and download status.</p>
+<p>The corpus is limited to documents included in the CPD and returned by the exact-phrase search. It can miss documents that refer to Xi only as “President Xi,” and some matches appear in editorial notes or name indexes. The search window also covers different lengths of time for the Biden and Trump administrations.</p>
+<p><a href="cpd_manifest_and_log.csv">Download the CPD manifest and download log (CSV)</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -25,6 +25,16 @@ website:
             href: assign04.qmd
           - text: Assignment 5
             href: assign05.qmd
+          - text: Assignment 6
+            href: assign06.qmd
+          - text: Assignment 7
+            href: assign07.qmd
+          - text: Assignment 8
+            href: assign08.qmd
+          - text: Assignment 9
+            href: assign09.qmd
+          - text: Assignment 10
+            href: assign10.qmd     
     right:
       - icon: github
         href: https://github.com/YoonheeChoi0613

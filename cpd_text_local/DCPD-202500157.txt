@@ -1,0 +1,679 @@
+Administration of Donald J. Trump, 2025
+
+Remarks on Artificial Intelligence Infrastructure Development and an Exchange With Reporters
+
+January 21, 2025
+
+The President. Hello, everybody.
+
+Q. Mr. President, welcome.
+
+The President. Thank you. Nice to see you. Some very familiar faces. Well, thank you very much, and it's an honor to be here today.
+
+We have—first full day as President. We're back. And we had a great first term, but we're going to have an even better second term, and I think we're going to do things that people will be shocked at.
+
+We're starting off with tremendous investment coming into our country at levels that nobody has really ever seen before, and they're very happy with the fact that I won the race and that they feel confident in their investments. And it's big money and high-quality people.
+
+So my first day back from—from having a nice life, it's my honor to welcome three of the world's leading technology CEOs. And in the case of Larry—Larry Ellison, it's well beyond technology, sort of CEO of everything. He's an amazing man, an amazing businessperson—but to announce the largest AI infrastructure project by far in history, and it's all taking place right here in America.
+
+As you know, there's great competition for AI and other things, and they're coming in at the highest level. We're joined by Oracle executive chairman, Larry Ellison; Softbank CEO, my friend Masa—Masayoshi Son; and CEO of OpenAI and, I would say, the—by far the leading expert, based on everything I read, Sam Altman.
+
+So that's great that you're coming in together. That's a massive group of talent and—and money. Together, these world-leading technology giants are announcing the formation of Stargate. So put that name down in your books, because I think you're going to hear a lot about it in the future—a new American company that will invest $500 billion at least in AI infrastructure in the United States and move—and very, very quickly, moving very rapidly, creating over 100,000 American jobs almost immediately.
+
+This monumental undertaking is a resounding declaration of confidence in America's potential under a new President. Let me be—"a new President." I didn't say it. They did. So I appreciate that, fellas.
+
+But it will ensure the future of technology. What we want to do is, we want to keep it in this country. China is a competitor, and others are competitors. We want it to be in this country, and we're making it available.
+
+I'm going to help a lot through emergency declarations, because we have an emergency. We have to get this stuff built. So they have to produce a lot of electricity, and we'll make it possible for them to get that production done very easily at their own plants, if they want, where they'll build—at the plant—the AI plant—they'll build energy generation, and that will be incredible.
+
+But it's technology and artificial intelligence, all made in the U.S.A. Beginning immediately, Stargate will be building the physical and virtual infrastructure to power the next generation of
+
+advancements in AI, and this will include the construction of colossal data centers—very, very massive structures.
+
+I was in the real estate business. These buildings—these are big, beautiful buildings. They're going to employ a lot of people. And physical campuses and locations currently being scouted nationwide. They're making their choices of locations. I think they have their choice.
+
+I'd like to ask Larry, Sam, and Masa to say a few words and just talk about—a little bit about what they're doing, and if you have any questions, and then we'll go into a couple of other subjects also.
+
+But this is, to me, a very big thing: $500 billion Stargate project. I think it's going to be something that's very special. It will lead to something that could be the biggest of all.
+
+So, Larry, maybe we'll start with you, and we'll go down the line. Thank you.
+
+Oracle Corporation Chairman of the Board and Chief Technology Officer Larry Ellison.
+
+Okay. Thank you, Mr. President.
+
+Thank you, Mr. President. We certainly couldn't do this without you. It would simply be impossible.
+
+AI holds incredible promise for all of us, for every American. We've actually been—been working with OpenAI for a while, and with Masa—Masa for a while.
+
+The data centers are actually under construction as—the first of them are under construction in Texas. Each building is a half a million square feet. There are 10 buildings currently under— you know, currently being built, but that will expand to 20, and other locations beyond the Abilene location, which is our first location.
+
+The kind of applications that we're building, to give you an idea—maybe the most charismatic and the one that, I think, touches us all is electronic health records—not just maintaining electronic health records, but by looking at electronic health records, understanding the condition of—the doctors better understanding the condition of their patients, and being able to provide health care plans that are much better than they otherwise would be.
+
+A doctor in Indian River Reservation would be able to see how a doctor at Memorial Sloan Kettering would treat the patient, or a doctor at Stanford would treat the patient.
+
+We actually provide all of that information, all of that guidance, to the doctors who are treating cancer patients or patients with any other kind of disease made possible by AI.
+
+I'm not going to take a lot of time. I'm going to—I'm going to pass it to Masa. But this is a very exciting program for Oracle to be a part of. Thank you.
+
+Q. Thank you, sir.
+
+[At this point, a White House aide placed a footstool behind the lectern.]
+
+SoftBank Group Chairman and Chief Executive Officer Masayoshi Son. Oh, thank you. That will be helpful. [Laughter]
+
+The President. That was good.
+
+Mr. Son. That's good. That's great. I feel tall now. [Laughter]
+
+The President. That's very good.
+
+Mr. Son. Thank you. Well, Mr. President, last month, I came to celebrate your winning and promised that we will invest $100 billion. And you told me, "Oh, Masa, go for $200."
+
+The President. That's true. [Laughter]
+
+Mr. Son. Now I came back with $500——
+
+The President. [Inaudible]
+
+Mr. Son. ——because this is the—as you say yesterday, this is the beginning of golden age——
+
+The President. Golden age.
+
+Mr. Son. ——of America. This is one great example, I think, right?
+
+The President. I hope so.
+
+Mr. Son. We wouldn't have decided to do this——
+
+The President. I hope so, and I think so.
+
+Mr. Son. This is the beginning of golden age. We wouldn't have decided unless you won. And yesterday we agree. We signed to make this happen.
+
+The President. That's great. Mr. Son. Because of this day. The President. That's very nice.
+
+Mr. Son. So we would make this happen. We would immediately start deploying $100 billion with a goal of making $500 billion within next 4 years, within your term——
+
+The President. Yes.
+
+Mr. Son. ——right?—because of your success. So we are very, very excited to do this.
+
+And our partner is, of course, SoftBank, OpenAI, Oracle, and additionally, investing partner with MGX.
+
+On top of that, we have the technology partner Nvidia. And of course, Microsoft has been very, very supportive to Sam and continue to support all our success.
+
+This is not just for business. As Larry said, this will help people's life. This will help solving many, many issues—difficult things that otherwise we could not have solved—with the power of AI.
+
+I think AGI is coming very, very soon. And then, after that—that's not the goal. After that, artificial superintelligence will come to solve the issues that mankind would never, ever have thought that we could solve.
+
+Well, this is the beginning of our golden age. Thank you very much.
+
+The President. Thank you very much. Fantastic.
+
+Mr. Son. Sam.
+
+OpenAI Chief Executive Officer Sam Altman. I don't have too much to add, but I did want to say I'm thrilled we get to do this in the United States of America. I think this will be the most important project of this era. And as Masa said, for AGI to get built here, to create hundreds of thousands of jobs, to create a new industry centered here, we wouldn't be able to do this without you, Mr. President, and I'm thrilled that we get to.
+
+I think it'll be an exciting project. I think we'll be able to do all of the wonderful things that these guys talked about. But the fact that we get to do this in the United States is, I think, wonderful. So thank you very much.
+
+The President. Could you just say one word? I hear so many positive things about what it's going to do for medical research and for solving things—cancer and all the different problems. How will AI help us with the fight against the various problems, diseases, et cetera?
+
+Mr. Altman. These guys can maybe share more about some of the work they're doing there. I think they'll jointly be some of the leaders about driving progress here.
+
+But I believe that as this technology progresses, we will see diseases get cured at an unprecedented rate. We will be amazed at how quickly we're curing this cancer and that one and heart disease and what this will do for the ability of—to deliver very high-quality health care, the costs. But really to cure the diseases at a rapid, rapid rate, I think, will be among the most important things this technology does.
+
+The President. It's going to be great. Very good. Thank you.
+
+Mr. Ellison. Can I step in and——
+
+The President. Go ahead, please.
+
+Mr. Ellison. ——answer that question——
+
+The President. Go ahead.
+
+Mr. Ellison. ——Mr. President? So we're currently working on——
+
+[Mr. Ellison referred to the footstool.]
+
+Should I step on this? [Laughter] Okay. All right. No.
+
+The President. [Inaudible]
+
+Mr. Ellison. No, no, no. I—I'm not—I'm not that tall.
+
+The President. [Inaudible]
+
+Mr. Ellison. I'm not that tall. I'm not that tall. [Laughter]
+
+The President. No, no. Use it. You look very good there. [Laughter] You look even better now.
+
+Mr. Ellison. Thank you, Mr. President. One of the most exciting things we're working on under—again, using the tools that—that Sam and Masa are providing, is our—the cancer vaccine. It's very interesting. Early diagnosis—it turns out—I'll be quick—all of our cancers, cancer tumors—little fragments of those tumors float around in your blood.
+
+So you can do early cancer detection. If you can do—using AI—you can do early cancer detection with a blood test. And using AI to look at the blood test, you can find the—a cancer— the cancers that are actually seriously threatening the person.
+
+So we can—again, cancer diagnosis using AI has the promise of just being a simple blood
+
+test.
+
+Then, beyond that, once we gene sequence—once we gene sequence that cancer tumor, you
+
+can then vaccinate the person—design a vaccine for every individual person to vaccinate them against that cancer.
+
+And you can make that vaccine—that mRNA vaccine—you can make that robotically— again, using AI—in about 48 hours. So imagine early cancer detection, the development of a cancer vaccine for the—for your particular cancer aimed at you, and have that vaccine available in 48 hours.
+
+This is the promise of AI and the promise of the future.
+
+Q. Thank you, sir.
+
+The President. Great. Thanks.
+
+Mr. Ellison. Thank you, sir.
+
+Q. Mr. President, can we ask a couple questions?
+
+The President. Yes, just one second. I—and we'll finish up. But you know, these are highly respected guys. I was shocked with Larry because I don't even think Larry does this stuff. You did a very good job for a guy that doesn't do it much, right? But he's so respected and—the group—and it's really an honor.
+
+But for Larry to be here and do this is very unusual, because he doesn't do this stuff. He doesn't need it. He does—and you don't need it, do you? You don't need it.
+
+But I just—I think it's an honor to the country. It's a great honor that this group were—these are the top people—that they—they're going to do it, and they're going to do it here, and we're going to make it as easy as it can be.
+
+A $500 million [billion; White House correction] Stargate Project comes in addition to a separate pledge between $100 and $200 billion from—as we know, from Masa that we talked about before. Also, $20 billion from DAMAC, which was great. And we have many others that are coming. Some, I just say, "Just announce it." It's easier. But with some, I know them, and they're so highly respected, I'd rather do it this way. Many would like to do it this way, but we're letting the world know what's happening.
+
+This is money that normally would have gone to China or other countries—but, in particular, China. In total, before the end of my first full business day in Washington, in the White House, we've already secured nearly $3 trillion of new investments in the United States. And probably that's going to be six or seven by the end of the week. Tremendous amounts of money are coming in for—for many things, other than even AI.
+
+AI seems to be very hot. It seems to be the thing that a lot of smart people are looking at very strongly.
+
+Our country will be prospering like never before. I think that's true, and it's going to be the golden age of America. As I said yesterday, we had the most ambition—ambitious, action- oriented day of any administration in history. There's never been a first day like yesterday, as you know.
+
+I signed a sweeping slate of Executive orders to stop the invasion of our borders. I launched a government-wide effort to defeat inflation and bring down the cost of daily life and bring down the cost of energy—magnificently, bring it down.
+
+And when energy comes down—Larry, I'd say, generally speaking, when energy comes down, everything else comes down. The prices of food and the prices of everything else come down. Energy is the big—that's the big baby. And we declared a national energy emergency to "drill, baby, drill"—our term that we use. We're going to drill, baby, drill like never before.
+
+We ended destructive DEI mandates across the Federal Government and returned our country to a merit-based system and a commonsense system. As you know, the Supreme Court
+
+gave us a decision on merit, where things in this country can be based on merit now, instead of a lot of different rules, regulations, and things that really put our country at a big disadvantage.
+
+We permanently stopped Government censorship and restored free speech. That was signed yesterday.
+
+We renamed the Gulf of Mexico the "Gulf of America"—sounds so beautiful, "the Gulf of America—and returned the name of a great President, William McKinley, to Mount McKinley. They took off the name. And he was actually a great President. He was a very, very successful businessman. He ran for Governor of Ohio. He won and did a great job as Governor. He ran for President, and he won. He was assassinated ultimately in his second term, unfortunately.
+
+But he was the tariff king, and he—I don't think he was as bad as I am. I'm—I think I believe in them even more than him, but he believed in them very strongly. And he raised massive amounts of money. Our country was at its—at its richest from—from 1870 to 1913, we had the most—that was when we were the richest, relatively speaking. We were the richest during that period of time. That was tariffs from other countries.
+
+And our administration is moving with unprecedented urgency and speed to confront every single crisis facing us, and we'll get the job done.
+
+And, again, I want to thank Sam and Masa and Larry for being here. It's an honor to have them. And we'll take a few questions, if you want.
+
+Pardons and Commutations
+
+Q. Mr. President, can I ask you about some of the Executive orders? You would agree that it's never acceptable to assault a police officer, right?
+
+The President. Sure.
+
+Q. So, then, if I can, among those you pardoned: D.J. Rodriguez. He drove a stun gun into the neck of a DC police officer who was abducted by the mob that day. He later confessed on video to the FBI and pleaded guilty for his crimes. Why does he deserve a pardon?
+
+The President. Well, I don't know. Was it a pardon? Because we're looking at commutes and we're looking at pardons.
+
+Q. His was a pardon, sir.
+
+The President. Okay. Well, we'll take a look at everything. But I can say this, murderers today are not even charged. You have murderers that aren't charged all over. You take a look at what's gone on in Philadelphia, take a look at what's gone off in L.A., where people murder people, and they don't get charged.
+
+These people have already served years in prison, and they've served them viciously. It's a disgusting prison. It's been horrible. It's inhumane. It's been a terrible, terrible thing.
+
+I also say this. You go to Portland, where they did—where they rapped police officers, shot police officers. Nothing happened to anybody. You go to Seattle, where they took over a big chunk of the city and people died. Portland, a lot of people died. Wait a minute. And you go— also, take a look at Minneapolis, because I was there, and I watched it, and if I didn't bring in the National Guard, that city wouldn't even exist today. People were killed, and nobody went to jail.
+
+So these people have already served a long period of time, and I made a decision to give a pardon.
+
+Joe Biden gave a pardon yesterday to a lot of criminals. These are criminals that he gave a pardon to, and you should be asking that question: Why did he give a pardon to all of these people that committed crimes?
+
+Why did he give a pardon to the J6 Unselect Committee, when they burned and destroyed all documents which showed that they did what was wrong, not me?
+
+Wait a minute. Wait a minute. Why did they give a pardon to all of his relatives—his brother, who made millions of dollars? To all these different people, he gave pardons. That's the question you should be answering.
+
+Q. Respectfully, wait, sir——
+
+Q. On TikTok, Mr. President.
+
+The President. All right, go ahead. Yes, please.
+
+Q. If—if I can just—can I just follow up really——
+
+Q. Can you tell us a little bit about your meeting——
+
+Q. Steve, can I just follow up on that really fast?
+
+The President. No, no. No. No. That's enough.
+
+Q. I just want to ask, though, because you said you will——
+
+Q. Tell us——
+
+Q. Okay.
+
+The President's Meeting With Republican Congressional Leaders/The President's Schedule
+
+Q. Tell us about your meeting with Speaker Johnson and Senator Thune. Did you reach any conclusion on this one big spending bill?
+
+Sorry, Peter.
+
+The President. Pretty much. I think we have a good situation now. It's been, in some ways, made simpler by Los Angeles, because they're going to need a lot of money. And generally speaking, I think you'll find that a lot of Democrats are going to be asking for help. So I think maybe that makes it more one-sided. I think we're going to do very well.
+
+Look, we—we're going to take care of Los Angeles. I'm going there. I'm going to North Carolina, which has been abandoned by the Democrats. And I'm going to North Carolina, very importantly, first. I'll be there on Friday, and then I'm going from there to Los Angeles, and then I'm going to Nevada.
+
+And I'm really going to Nevada to thank them for the vote, because we won Nevada overwhelmingly, and that's usually a Democrat vote. And I just want to go there to thank the people of Nevada for the big vote.
+
+Q. On Tik——
+
+The President. So we'll be making that—yes, please.
+
+Pardons and Commutations
+
+Q. Mr. President, the leaders of the Proud Boys and the Oath Keepers were freed following their pardons yesterday. At the—at the time, back in 2021, you urged them to "stand back and stand by." Is there now a place for them in the political conversation?
+
+The President. Well, we have to see. They've been given a pardon. I thought their sentences were ridiculous and excessive. One of the guys took down a flag that was an anti-American flag, and he was given years in jail. I don't know the exact number, but he was given many years in jail. I thought it was very excessive. And at least the cases that we looked at, these were people that actually love our country, so we thought a pardon would be appropriate.
+
+Yes.
+
+Presidential Nominations/Senate Confirmation Process
+
+Q. Mr. President, is it also true in your conversations with Republicans today that you asked them to consider recess appointments for Cabinet officials?
+
+The President. I think, yes, if they—if it's needed. I don't think it's going to be needed.
+
+Marco, as you know, got passed overwhelmingly with 99 to nothing, which is pretty amazing. Marco—Marco is going to do a great job—Secretary of State—but he just got—I guess he was the first one, and just got approved.
+
+That's some vote: 99 to nothing. And the nothing was a vote that he would have gotten if we wanted to do it, but you know whose vote that was, who's doing a great job right now as Vice President.
+
+Wildfires in Los Angeles, California, Area/Water Access in California
+
+Q. Did you also talk about some sort of a trade or a deal involving wildfire relief in—in an extension for a debt ceiling?
+
+The President. Well, what I really want to have done—I was talking about this with the guys back in the Oval Office—Los Angeles has massive amounts of water available to it. All they have to do is turn the valve, and that's the valve coming back from and down from the Pacific Northwest, where millions of gallons of water a week—and a day, even, in many cases—pours into California, goes all through California, down to Los Angeles. And they turned it off. It's off now.
+
+The valve goes—it turns toward the Pacific Ocean, and all that water goes pouring into the Pacific Ocean.
+
+If they did what I told them to do—they wouldn't do it because, politically, they didn't think it was good. I think it was—I think it's great politically. I think they're dead, politically. What they've done, they've destroyed the city. What they've done to that city is unbelievable.
+
+The sprinklers—their sprinklers—and they're like these, right here, that you see—none of them had any water in them. They didn't have any water. The fire hydrants—40 percent of them had no water. The brush was soaked—was just dry. Everything was dry. The sprinklers on the lawn weren't allowed to even be used.
+
+So, you know, everything was dry, and it was an inferno. They created an inferno. So we're demanding that they turn the valve back toward Los Angeles right now. It's not even believable that they haven't done it.
+
+Just so you know, they have a valve, and it's turns—like think of a sink, but multiply it times many thousands of times the size of it; it's massive—and you turn it back toward Los Angeles.
+
+Why aren't they doing it? They either have a death wish, they're stupid, or there's something else going on that we don't understand.
+
+Q. And the debt ceiling——
+
+The President. But we want the water that they're throwing away to be used for California, and that includes the farmers of California.
+
+You know, when you drive up north, you see all of the land. I couldn't believe it. I was with Devin Nunes, when he was a Congressman, and some other Congressmen from the area, and we're driving up. And we're on the highway, and I keep looking at these farms, and the land is bone dry. And then you'd see an acre—about an acre or 2 acres with the most beautiful green plants growing in it—the most beautiful you've ever—it's a rich stuff. And you look at the soil, and it's so rich. That soil is almost the equivalent to, like, Iowa soil. It's phenomenal, but it's got no water.
+
+But the reason it has no water—I said, "Do you have a drought?" "No." I said: "What do you mean you don't have a drought? Look at the thing. It's dry as a bone." The reason you have, like, an acre is because they say you can—you can farm 1 acre, but no more because they didn't want to waste water, but they throw the water into the Pacific Ocean. These people are crazy.
+
+So we're going to be issuing an executive order demanding that they immediately let that water come down to—through California. Farmers, even people living in Beverly Hills—now, those people have been a lot—I mean, a lot of them are wiped out.
+
+Believe it or not, you know they were having restrictions. Larry, you know about this. They wanted to restrict you to 38 gallons of water a day. That sounds like a lot, but it's not. When you're a rich person and you like to take a shower—[laughter]—38—38 gallons doesn't last very long.
+
+And they have all this water, and it's really good water: up high, Pacific Northwest—some comes in from Canada—a nice country, by the way—comes in from Canada, and it comes all the way through California, and they're restricting it. You even have the half pipes—you know, the half pipes—the cut pipes—big ones, bigger than this room, and they're going all the way down, and they're bone dry. And they could be loaded up with water.
+
+Q. Just to be clear, the debt ceiling——
+
+Q. Mr. President——
+
+The President. No, but isn't it—isn't it incredible that they don't do it? And it's to protect the delta smelt. It's a fish that's doing poorly anyway. But I said: "How are you protecting the delta smelt by not giving it water? It's a fish. It needs water." Nobody can answer that question.
+
+Q. Can I ask about your Vice President?
+
+Q. On TikTok, Mr. President?
+
+The President. Let me do this first.
+
+TikTok Application/Entrepreneur Elon R. Musk
+
+Q. Are you open to Elon buying TikTok?
+
+The President. Say it.
+
+Q. Are you open to Elon buying TikTok?
+
+The President. I would be if he wanted to buy it. Yes.
+
+Q. Have you discussed it with Larry Ellison?
+
+Q. And on your Inauguration—on your Inauguration?
+
+The President. I'd like Larry to buy it too. I have the right to make a deal.
+
+So the deal I'm thinking about—Larry, let's negotiate in front of the media. [Laughter] The deal, I think, is this. And I've met with owners of TikTok, the big owners. It's worthless if it doesn't get a permit. It's not like, "Oh, you can take the U.S." The whole thing is worthless.
+
+With a permit, it's worth, like, a trillion dollars. So what I'm thinking about saying to somebody is: Buy it and give half to the United States of America—half—and we'll give you the permit. And they'll have a great partner, the United States, and they'll have something that's actually more valuable because they have the ultimate partner. And the United States will make it very worthwhile for them in terms of the permits and everything else. But—so think of it: You have an asset that has no value or has a trillion-dollar value; it all depends on whether or not the United States gives the permit. So what I'm saying is, let the United States give the permit, and the United States should get half.
+
+Sounds reasonable. What do you think?
+
+Mr. Ellison. Sounds like a good deal to me, Mr. President.
+
+The President. Yes, he can—he can afford it too.
+
+Q. On your Inauguration, Mr. President——
+
+Pardons and Commutations/2024 Presidential Election/Illegal Immigration
+
+Q. Mr. President, you're a President who has long said that you back the blue. But aren't you sending the message that assaulting officers is okay with these pardons?
+
+The President. No, the opposite. In fact——
+
+Q. How is it the opposite?
+
+The President. ——I'm going to be letting two officers from Washington police—DC—I believe they're from DC, but I just approved it. They were arrested, put in jail for 5 years because they went after an illegal. And I guess something happened where something went wrong, and they arrested the two officers and put them in jail for going after a criminal—a rough criminal, by the way—and I'm actually releasing.
+
+No, I'm the friend of—I am the friend of police——
+
+Q. More than 400——
+
+The President. More than any President that's ever been in this office. [Several reporters spoke at once.]
+
+Q. More than—sir, more than—more than 400 of the people that you pardoned, though, assaulted officers. So I want to ask you about the Vice President, J.D. Vance. He said, "If"—this is a week ago. He said, "If you committed violence on January 6, obviously, you should not be pardoned." Why is your Vice President wrong?
+
+The President. Well, only for one reason. They've been—they've served years in jail.
+
+Q. They've served——
+
+The President. They should not have served——
+
+Q. Sentences have been 18, 12——
+
+The President. Excuse me.
+
+Q. ——20 years. They've served a fraction, sir.
+
+The President. And they've served years in jail, and murderers don't even go to jail in this country. And we had 1,500; we have 16 under review. As you know, we commuted about 16 of them because it looks like they could have done things that were not acceptable for a full pardon. But these people have served years of jail, and their lives have been ruined. And in many——
+
+Q. Why not commute as opposed to pardons?
+
+The President. ——and in many cases—and in many cases—listen to me for a second.
+
+Q. Sorry. Yes.
+
+The President. Stop interrupting.
+
+Q. I apologize.
+
+The President. They served years in jail. And if you look at the American public, the American public is tired of it. Take a look at the election. Just look at the numbers on the election. We won this election in a landslide because the American public is tired of people like you that are just one-sided, horrible people in terms of crime.
+
+You don't talk about all the people that have been killed and what happens to those murderers. Murderers get no time. You take a look at some of these DA's. They go after political opponents, but they don't go after people that shoot people in the street. They're caught. They know where they're living. They know everything. They don't even go up to pick them up anymore. They just let them live there. They know all about it. They have their pictures, they have the tape of the shooting, and they don't even go up, and you're talking about this.
+
+No, we—we pardoned people that were treated unbelievably well—poorly. In the history of our country, there's never been anything take place like this. They're still looking for them, but they're not looking for the murderers, the people that are killing everybody. We are, though, and we're getting them out of the country. We just started that. We're getting them out of the country, and they're going to be gotten out of the country fast.
+
+They came in illegally from jails and from prisons. They killed many people. Some of them killed many people. About 50 percent of them killed more than one person. They were released into our country. That's what we're focused on, not the kind of nonsense you're talking about.
+
+Q. But you would—you would——
+
+Ukraine/Russia
+
+Q. You've called for a cease-fire—you've called for a cease-fire in Ukraine. If Vladimir Putin doesn't come to the table to negotiate with you, will you put additional sanctions on Russia?
+
+The President. Sounds likely, yes.
+
+Q. And do you think that the war should be frozen, currently, along current battle lines?
+
+The President. The war should have never started. If you had a competent President, which you didn't, the war wouldn't have happened. The war in Ukraine would have never happened if I were President, but that couldn't happen because the election was rigged.
+
+Yes, go ahead.
+
+Immigration Reform
+
+Q. Mr. President, there's been some debate within your orbit over whether or not to keep or eliminate H–1B visas. What's your position on that? Do you want to keep H–1Bs, or do you want to get rid of them?
+
+The President. Well, I like—I like both sides of the argument, but I also like very competent people coming into our country, even if that involves them training and helping other people that may not have the qualifications they do. But I don't want to stop—and I'm not just talking about engineers. I'm talking about people at all levels. We want competent people coming into our country.
+
+And HB1 [H–1B; White House correction], I know the program very well. I use the program. Maître d's; wine, you know, experts; even waiters—high-quality waiters. You've got to get the best people.
+
+Now, then you go into people like Larry, and he needs engineers. And Masa needs—and this gentleman needs engineers like nobody has ever needed engineers, right? So we have to have the quality people coming in.
+
+Now, by doing that, we're expanding businesses, and that takes care of everybody.
+
+So I'm sort of on both sides of the argument, but what I really do feel is that we have to let really competent people, great people, come into our country, and we do that through the H–1 [H–1B; White House correction] program.
+
+Potential Tariffs on Cross-Border Imports/Drug Interdiction Efforts/China/2020 Presidential Election
+
+Q. Mr. President, are you looking to impose tariffs on Canada and Mexico in an effort to force negotiations sooner on USMCA?
+
+The President. No, it's really—not on USMCA. It has nothing to do with that. They've allowed—both of them, and Canada very much so—they've allowed millions and millions of people to come into our country that shouldn't be here. They could have stopped them, and they didn't. And they've killed 300,000 people last year—my opinion—have been destroyed by drugs, by fentanyl.
+
+The fentanyl coming through Canada is massive. The fentanyl coming through Mexico is massive. And people are getting killed and families are being destroyed.
+
+I mean, the son gets killed and the family is a basket case for the rest of their lives. I mean, I've seen mothers that thought they'd heal. They never heal. They say it gets worse with time. It gets worse with time. They lose their boy, they lose their baby, they lose their—their young daughter to fentanyl poisoning.
+
+And I had that talk with President Xi the other day, too, of China. I said, "We don't want that crap in our country." We've got to stop it. I would have stopped it.
+
+I had a deal with him where he was going to give the maximum penalty—which, in China, is the death penalty—for drug dealing. And he was all set. He was going to give the maximum penalty to fentanyl dealers. If they send to the United States, they were going to get the death penalty. And of course, Biden didn't pick that up.
+
+I had that deal all done. It was all wrapped up. We were going to have it done. And then the election went—let's put it nicely—it didn't go the proper way.
+
+I'm doing—I'm trying to be nice about it. It was rigged, and we had an incompetent President elected, and he never followed up on that deal. But he should have followed up, because if they got the death penalty, they wouldn't be sending fentanyl to Mexico, Canada, and other places.
+
+[Several reporters spoke at once.]
+
+Q. How much will the tariffs be, Mr. President? How much will the tariffs on China——
+
+The President. We're thinking about that too. We're talking about a tariff of 10 percent on China based on the fact that they're sending fentanyl to Mexico and Canada.
+
+[Several reporters spoke at once.]
+
+Timing of Potential Tariff Adjustments on Imports
+
+Q. How soon on those tariffs?
+
+The President. Probably February 1 is the date we're looking at. [Several reporters spoke at once.]
+
+For Mexico and China, we're talking about approximately—approximately 25 percent.
+
+Cease-Fire and Hostage-Release Deal Between Israel and Hamas
+
+Q. Do you have an update on the Gaza cease-fire? And are you planning to travel to the Middle East soon?
+
+The President. We're thinking about going to the Middle East. Not yet. We have a thing called "the hostages are coming back" going on right now, and they are coming back. Some of them have been very—you know, very damaged. You look at the young lady with her hand practically blown off.
+
+You know how that happened, right? Did you know that happened? When you find out, you're not going to be too happy, because it was terrible.
+
+But the hostages are starting to come back. Oh, if I—if I weren't here, they wouldn't be back ever. They would have never come back—they would have all died.
+
+If this were done a year earlier, if the—if Biden would have done this deal a year and a half, two years ago or—frankly, it should have never happened. October 7 should have never happened. Nobody should be dead. But through weakness, they allowed it to happen, and then it was a disaster from there.
+
+But you go back just 6 months ago, many of these young people were living. You know, young people don't die like that. They're just dying. And young people aren't dying at 22 and 23 years old. They don't die. But now they're dying, and you wonder why they're dying. They're being killed, and they have been killed.
+
+But they say, 6 months ago, you would have had 11 more living hostages. Think of that: six months ago. But Biden couldn't get it done. And it was only the imposition by—that I put on it as a deadline that got it done.
+
+But it's a very sad situation. Should have—it should have never happened. I'll tell you, two things should have never happened—three things. Inflation should have never happened. It would have never happened, except for what they did to energy and their crazy spending. And Ukraine would have never happened, never.
+
+By the way, Russia never would have gone into Ukraine. I had a very strong understanding with Putin. They would—it would have never, ever happened. He disrespected Biden. Very simple. He disrespects people. He's smart. He understands. He disrespected Biden.
+
+And also, the Middle East would have never happened because Iran was broke. They had no money. They had no money for Hamas. They had no money for Hizballah. It would have never happened. October 7 would have never happened. But it did happen.
+
+So this is the cards I've been given, and we're getting the hostages back. That would have never happened under Biden. They would have never come back. They were just dying very—not that slowly. They were dying or being killed. But that was what was happening.
+
+[Several reporters spoke at once.]
+
+Ukraine/Russia/North Atlantic Treaty Organization
+
+Q. Are you going to keep sending weapons to Ukraine, or are you going to send—turn off the tap soon?
+
+The President. Well, we'll look into that. We're talking to Zelenskyy. We're going to be talking with President Putin very soon. And we'll see what—how it all happens. We're going to look at it very—one thing I do feel: The European Union should be paying a lot more than they're paying. Because, under Biden, I mean, we're in there for $200 billion more. Now, it affects them more than it affects us. We have an ocean in between—right?—a little thing called an ocean. The European Union should equalize. We're in there for $200 billion more than the European Union.
+
+I mean, what are we, stupid? I guess the answer is yes, because they must think so. But the European Union takes advantage of us tremendously on trade, and they now take advantage of— and always have.
+
+If I didn't get involved—years ago, my first term, one of the first things I noticed was that they're not paying enough. They're not paying. And a lot of those countries weren't even paying— the NATO countries, they weren't paying. Only 7 out of 28 were paying. We were one of them, and Poland was one. And they had a few of them that were paying, and some were paying very proudly. Usually, the closer to the borderline of Russia they were, the faster they paid. Okay?
+
+[Several reporters spoke at once.]
+
+The ones that were further away tended not to pay so fast. And one thing on that: I think they should lift their number, not to 2 percent, but to 5 percent. NATO should be at 5 percent, not at 2 percent. Two percent is ridiculous.
+
+Yes.
+
+[Several reporters spoke at once.]
+
+President Xi Jinping of China
+
+Q. Did you ask President Xi—in your conversation about Ukraine, did you ask him to get involved——
+
+The President. Yes.
+
+Q. ——in helping settle that?
+
+The President. I did.
+
+Q. Could you tell us about that?
+
+The President. Yes. I said, "You ought to get it settled." Because he's not done very much on that. He's got a lot of power, like we have a lot of power. I said, "You ought to get it settled." We did discuss it.
+
+Yes.
+
+The President's Cryptocurrency Venture
+
+Q. Mr. President, you launched a crypto coin the other day. Do you intend to continue selling products that benefit yourself personally while you are President?
+
+The President. Well, I don't know if it benefited. I don't know how—where it is. I don't know much about it, other than I launched it. I heard it was very successful. I haven't checked it. Where is it today?
+
+Q. You—you made a lot of money, sir.
+
+The President. How much?
+
+Q. I don't—several billion dollars, it seems like, the last several days. The President. Several billion? That's peanuts for these guys. [Laughter] [Several reporters spoke at once.]
+
+The President's Letter From Former President Joseph R. Biden, Jr.
+
+Q. Sir, can you talk about the letter from President Biden? Could you give us some sense, broadly speaking, about what he said?
+
+The President. Yes, he wrote me a nice letter. I mean, I did open it last night. And I didn't know—Peter [Peter Doocy, Fox News] said, "Did you get the letter?" I said: "Wait a minute. Let's see." The letter is sort of a tradition. You put it in the drawer, especially of the beautiful Resolute Desk, right? And I opened the drawer, and there it was. It said, "To Number 47."
+
+And it was a very nice letter. I mean, I could show it, because I think it was a nice letter.
+
+Maybe I will. I think it——
+
+Q. Message-wise, what did he say in terms of a message to you?
+
+The President. Just basically, it was a little bit of an inspirational-type letter—you know, enjoy it, do a good job, important—very important, how important the job is.
+
+But I may—I think it—it was a nice letter. I think I should let people see it, because it was a positive for him in writing it. I appreciated the letter.
+
+Inaugural Events at the U.S. Capitol
+
+Q. Mr. President, were security concerns at all a factor when deciding to move your inauguration indoors?
+
+The President. No, not at all. No, not at all. It—it was just cold.
+
+Hey, look, if we would have—you know, I just went out to the helicopter—right?—to—we said goodbye. That's a tradition, as long as helicopter—before, it used to be a stagecoach, and then helicopters came along. But that's been a tradition. You go out and you do that. And we stood there for 10 minutes. And I'll tell you what, people would not have been able to get through that day. That was cold. It was sort of interesting. Don't let the sun fool you.
+
+Tell me something, sunny days can get very cold, can't they? Because that was so freezing yesterday, you couldn't have gotten through it. It would have been—and the answer is no, not—it wasn't security.
+
+With that being said, I thought the Capitol, the Rotunda was beautiful—72 degrees, unbelievable sound. You know, the—it's like being in an opera house. I could see people wanting to do it there, rather than outside.
+
+Former National Security Adviser John R. Bolton
+
+Q. Why did you remove John Bolton's security clearance, sir?
+
+The President. Because I think there was enough time. It's—when you take a job, you take a job, you want to do a job. We're not going to have security on people for the rest of their lives.
+
+Why should we?
+
+Q. But his security clearance, not his protective detail.
+
+The President. I thought he was—I thought he was a very dumb person, but I used him well, because every time people saw me come into a meeting with John Bolton sit—standing behind me, they thought that he'd attack them because he was a warmonger.
+
+He's the one that got us involved, along with Cheney and a couple of others, convinced Bush, which was a terrible decision, to blow up the Middle East. You know, we blew up the Middle East and we left. We got nothing out of it except a lot of death. We killed a lot of people. And John Bolton was, you know, one of those guys, a stupid guy.
+
+But no, you can't have that for life. You shouldn't expect it for life.
+
+Q. We've never asked: Do you have TikTok on your phone, sir?
+
+Ukraine/Russia
+
+Q. Sir, is that meeting that you mentioned with President Zelenskyy—will that take place here? And when and where will you meet with President Putin?
+
+The President. I don't know. I mean, look——
+
+Q. What——
+
+The President. ——President Zelenskyy would like to have peace. He's told me that very strongly. He'd like to have peace. But it takes two to tango. We'll see what happens.
+
+Q. When will you meet with President Putin?
+
+The President. Anytime they want, I'll meet. I'd like to see that end. Millions of people are being killed. And they're being killed—it's a vicious situation. And they'll—now, largely, soldiers. A lot of people's—people have been killed in the cities. They look like demolition sites—buildings—massive buildings, bombed and coming down.
+
+The thing with Ukraine is that many more people died than you're reporting. You're not reporting the real numbers, and I'm not blaming you for that. I'm blaming, maybe, our government for not wanting to release those numbers. Many more people died than what you know about.
+
+When those big buildings come down and they say two people were injured. No, no. Many people—thousands of people are being killed. But the people—the real killing now is on the warfront. It's a very flat land, and the only thing that stops a bullet is somebody's body. And you have young soldiers.
+
+So Russia has lost about 800,000 soldiers now. Ukraine's lost about 600- or 700,000. I think the numbers are low that they're giving out. And—but they'll—they've lost massive numbers of young soldiers, and that war should stop.
+
+It's very flat. You know, it's beautiful farmland, and it's flat and really beautiful in a different kind of a way, but they don't have any protection. The only thing that stops a bullet is a body, and those bodies are stopping a lot of bullets, and they're getting—they're being decimated, both sides.
+
+China-U.S. Trade/European Union
+
+Q. What about your conversation with President Xi? What did you tell him, in terms of when to expect tariffs? And—and what can he do to avoid them?
+
+The President. About which one?
+
+Q. Tariffs—your conversation with President Xi.
+
+The President. About tariffs? We didn't talk too much about tariffs, other than, he knows where I stand.
+
+Look, I put large tariffs on China. I've taken in hundreds of billions of dollars. Until I was president, China never paid not 10 cents to the United States. With me, they paid hundreds of—
+
+$600 billion or so, or more—more than that, even—of tariffs.
+
+And if I didn't do that, you wouldn't have a steel mill open in the United States right now. You wouldn't have one steel mill open in the United States. So what I did is, I saved the steel industry. I saved other industries too, with other tariffs.
+
+Other countries are big abusers also. You know, it's not just China. China is an abuser, but the European Union is very, very bad to us. They treat us very, very badly. They don't take our cars. They don't take our cars at all. They don't take our farm products, essentially. They don't take very much.
+
+We have a $350 billion deficit with the European Union. They treat us very, very badly. So they're going to be in for tariffs.
+
+[Several reporters spoke at once.]
+
+It's the only way you're going to get back—it's the only way you're going to get fairness.
+
+You can't get fairness unless you do that. But the European Union has treated us very badly. But essentially, everybody treats us badly. You know, everybody treats us badly.
+
+Yes, go ahead.
+
+Q. Thank you so much.
+
+The President. Because we allow them to, because we've had stupid people doing this. And we can't have—I want to have—I'd like to have these three people negotiate for us—[laughter]— just for one week, and we'd be a rich country again. But we'll be rich.
+
+Artificial Intelligence Data Processing Centers
+
+Q. Mr. President, on AI data centers. Will you rescind President Biden's Executive order that opens up federal lands——
+
+The President. On which centers?
+
+Q. On data centers. Will you rescind President Biden's Executive order that opens up Federal lands for data centers and energy production?
+
+The President. No, I wouldn't do that. That sounds to me like it's something that I would like. I'd like to see Federal lands opened up for data centers. I think they're going to be very important.
+
+Again, we have a lot of competition for that, so it's an honor to have these three great people—great, great CEOs and—and great geniuses, all three—it's an honor that they want to come to our country. But we're going to make it as easy as we can for them, because other countries want them too.
+
+I'm going to have to go now. Thank you all very much. Thank you.
+
+TikTok Application
+
+Q. One more question. Do you have TikTok on your phone?
+
+The President. No, but I think I might put it there. I think I'll get it right now.
+
+By the way, again, we won the young vote. I think I won it through TikTok. So I have a warm spot in my heart for TikTok. Okay?
+
+Thank you. Thank you very much.
+
+NOTE: The President spoke at 5:19 p.m. in the East Room at the White House. In his remarks, he referred to James B. Biden, brother of former President Biden; Enrique Tarrio, former head of the Proud Boys organization, who was serving a 22-year sentence for his role in the civil unrest and violence at the U.S. Capitol on January 6, 2021; Stewart Rhodes, head of the Oath Keepers organization, who was serving an 18-year sentence for his role in the activities of January 6; Secretary of State Marco A. Rubio; Shou Zi Chew, chief executive officer, TikTok; former District of Columbia Metropolitan Police Department Ofc. Terence D. Sutton, Jr., and former Lt. Andrew Zabavsky, who were convicted in connection with the death of Karon Hylton-Brown following an unauthorized police pursuit and resulting collision on October 23, 2020; President Vladimir Vladimirovich Putin of Russia; President Volodymyr Zelenskyy of Ukraine; and former Vice President Richard B. Cheney. A reporter referred to Daniel "D.J." Rodriguez, who was convicted for his role in the civil unrest and violence at the U.S. Capitol on January 6, 2021; and Ofc. Michael Fanone of the Metropolitan Police Department of Washington, DC. The transcript was released by the Office of Communications on January 22.
+
+Categories: Addresses and Remarks : Artificial intelligence infrastructure development; Interviews With the News Media : Exchanges with reporters, White House.
+
+Locations: Washington, DC.
+
+Names: Altman, Sam; Biden, Joseph R., Jr.; Bolton, John R.; Bush, George W.; Cheney, Richard B.; Ellison, Larry; Musk, Elon R.; Nunes, Devin G.; Putin, Vladimir Vladimirovich; Rhodes, Stewart; Rubio, Marco A.; Shou Zi Chew; Son, Masayoshi; Sutton, Terence D., Jr.; Tarrio, Enrique; Vance, James D. "J.D."; Xi Jinping; Zabavsky, Andrew; Zelenskyy, Volodymyr.
+
+Subjects: 2021 civil unrest and violence at U.S. Capitol; 2024 Presidential election; Artificial intelligence and other emerging technologies; Border security; California, wildfires in Los Angeles area; Canada, trade with U.S.; Cancer research, prevention, and treatment; China, President; China, trade with U.S.; Criminal justice system, reform efforts; Crypto currency and digital finance; Diversity, equity, and inclusion programs, restriction efforts; European Union, defense spending levels; European Union, trade with U.S.; Federal Government recruitment and retention practices, improvement efforts; Freedom of speech; Gaza, conflict with Israel; Gaza, hostages held by Hamas; Geographic names, efforts to restore American greatness; Hamas political-paramilitary organization; House Select Committee To Investigate the January 6th Attack on the U.S. Capitol; Illegal immigration; Inauguration, swearing-in and address; Inflation; Iran, regional involvement; Israel, attacks by Hamas of October 7, 2023; Israel, military operations in Gaza; Lebanon, Hizballah political-paramilitary organization; Mexico, trade with U.S.; National Guard; North Atlantic Treaty Organization; North Carolina, Hurricane Helene damage and recovery efforts; Oil and natural gas, domestic production; OpenAI; Opioid epidemic, efforts to combat; Oracle Corp.; Pardons and commutations; Russia, conflict in Ukraine; Russia, President; Secretary of State; Senate confirmation process; SoftBank Group; TikTok; U.S. steel industry, protection efforts; U.S. visa policy; Ukraine, President; Ukraine,
+
+Russian invasion and airstrikes; Ukraine, U.S. assistance; Vice President; Water management policy, improvement efforts.
+
+DCPD Number: DCPD202500157.
