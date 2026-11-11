@@ -1,12 +1,9 @@
-# Recollection of the documented sample, not the historical comment snapshot.
-# Run from the directory with outputs/ and scripts/.
-# To authorize requests explicitly in R:
-# Sys.setenv(RUN_YOUTUBE_COLLECTION = "yes")
-# source("scripts/assign07_recollect.R")
 if (Sys.getenv("RUN_YOUTUBE_COLLECTION") != "yes")
   stop("Set RUN_YOUTUBE_COLLECTION=yes only when ready to make API calls.")
+
 library(tuber)
 library(tidyverse)
+
 stopifnot(nzchar(Sys.getenv("YOUTUBE_KEY")))
 dir.create("data/youtube", recursive = TRUE, showWarnings = FALSE)
 ignored <- if (file.exists(".gitignore")) readLines(".gitignore") else character()
@@ -15,15 +12,15 @@ manifests <- set_names(c("before", "after")) |>
   map(\(p) jsonlite::read_json(
     paste0("outputs/manifest_", p, ".json"), simplifyVector = TRUE))
 
-# Stage plan: 8 search pages; channel details 1; uploads 360;
-# video statistics 2; comment base estimate 54 plus possible reply pages.
-# This rerun omits the exploratory initial 200-upload requests (12 units).
+
 rerun_plan <- tibble(
   stage = c("searches", "channel details", "uploads", "video stats", "comments"),
   search_calls = c(8L, 0L, 0L, 0L, 0L),
   data_units_estimate = c(0L, 1L, 360L, 2L, 54L))
+
 write_csv(rerun_plan, "data/youtube/rerun_quota_plan.csv")
 print(rerun_plan)
+
 channels <- as_tibble(manifests$before$channels)
 channel_details <- get_channel_details(channels$channel_id)
 channel_uploads <- set_names(channels$channel_id, channels$channel_title) |>
@@ -33,7 +30,9 @@ saveRDS(channel_uploads, "data/youtube/channel_uploads.rds")
 saveRDS(channel_details, "data/youtube/channel_details.rds")
 coverage <- imap_dfr(channel_uploads, \(x, channel) tibble(
   channel, earliest = min(x$date, na.rm = TRUE)))
+
 write_csv(coverage, "data/youtube/rerun_upload_coverage.csv")
+
 if (any(coverage$earliest >= as.Date("2026-09-01")))
   warning("Uploads no longer cover September 1; plan more pages if needed.")
 collect_comments <- function(video_id, n_max = 300) {
@@ -48,11 +47,8 @@ collect_comments <- function(video_id, n_max = 300) {
       },
       tuber_no_comments = function(w) {
         if (status == "ok") status <<- "none"
-        invokeRestart("muffleWarning")
-      }
-    ),
-    error = function(e) e
-  )
+        invokeRestart("muffleWarning")}),
+    error = function(e) e)
   
   Sys.sleep(1)
   
@@ -61,22 +57,17 @@ collect_comments <- function(video_id, n_max = 300) {
       data = tibble(),
       log = tibble(
         video_id = video_id, status = "error", n = 0L,
-        message = conditionMessage(out)
-      )
-    ))
-  }
+        message = conditionMessage(out))))}
   
   list(
     data = as_tibble(out),
     log = tibble(
       video_id = video_id, status = status,
-      n = nrow(out), message = NA_character_
-    )
-  )
-}
+      n = nrow(out), message = NA_character_))}
 
 all_comments <- list()
 all_logs <- list()
+
 for (period_name in c("before", "after")) {
   m <- manifests[[period_name]]
   search_results <- set_names(m$search_orders) |>
@@ -94,9 +85,8 @@ for (period_name in c("before", "after")) {
   runs <- map(targets$video_id, \(id) {
     z <- collect_comments(id, n_max = 300)
     saveRDS(z, paste0("data/youtube/", period_name, "_", id, ".rds"))
-    z
-  })
-  # Assign the requested video ID to replies before joining video metadata.
+    z})
+
   comments <- map2_dfr(runs, targets$video_id,
                       \(z, id) z$data |> mutate(video_id = id)) |>
     distinct(comment_id, .keep_all = TRUE) |>
@@ -119,8 +109,8 @@ for (period_name in c("before", "after")) {
   jsonlite::write_json(m, paste0("data/youtube/manifest_", period_name, ".json"),
                        pretty = TRUE, auto_unbox = TRUE, dataframe = "rows")
   all_comments[[period_name]] <- comments |> mutate(period = period_name)
-  all_logs[[period_name]] <- log |> mutate(period = period_name)
-}
+  all_logs[[period_name]] <- log |> mutate(period = period_name)}
+
 comments_all <- bind_rows(all_comments) |>
   distinct(comment_id, .keep_all = TRUE) |>
   mutate(is_reply = !is.na(parent_id) & parent_id != "",
@@ -130,6 +120,8 @@ comments_all <- bind_rows(all_comments) |>
            date == as.Date("2026-11-03") ~ "election_day",
            date > as.Date("2026-11-03") ~ "after",
            TRUE ~ NA_character_))
+
 saveRDS(comments_all, "data/youtube/comments_all.rds")
+
 write_csv(bind_rows(all_logs), "data/youtube/rerun_collection_log.csv")
 write_csv(yt_get_quota_usage(), "data/youtube/rerun_quota_usage.csv")

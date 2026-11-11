@@ -1,13 +1,13 @@
-# Run from the directory containing outputs/ and data/youtube/.
-# No API calls. The submitted page does not need this script to render.
 library(tidyverse)
 library(quanteda)
 library(quanteda.textstats)
 library(quanteda.textplots)
+
 dir.create("outputs", showWarnings = FALSE)
 comments_all <- readRDS("data/youtube/comments_all.rds")
 stopifnot(!anyDuplicated(comments_all$comment_id),
           !anyNA(comments_all$channel_title))
+
 # 1. 채널·영상 게시 시점별 댓글 수와 답글 비율
 collection_summary <- comments_all |>
   group_by(channel_title, period) |>
@@ -15,8 +15,7 @@ collection_summary <- comments_all |>
     comments = n(),
     replies = sum(is_reply),
     reply_share = mean(is_reply),
-    .groups = "drop"
-  )
+    .groups = "drop")
 
 collection_summary
 
@@ -33,9 +32,7 @@ like_summary <- tibble(
   top_1pct_like_share = if (sum(likes) > 0) {
     sum(sort(likes, decreasing = TRUE)[seq_len(top_n)]) / sum(likes)
   } else {
-    NA_real_
-  }
-)
+    NA_real_})
 
 like_summary
 
@@ -56,9 +53,7 @@ author_summary <- tibble(
   top_10pct_author_share = if (nrow(author_counts) > 0) {
     sum(head(author_counts$n, top_authors_n)) / sum(author_counts$n)
   } else {
-    NA_real_
-  }
-)
+    NA_real_})
 
 author_summary
 
@@ -71,11 +66,9 @@ duplicate_summary <- text_counts |>
   summarise(
     repeated_text_groups = sum(n > 1),
     comments_in_repeated_groups = sum(n[n > 1]),
-    extra_duplicate_copies = sum(pmax(n - 1L, 0L))
-  )
+    extra_duplicate_copies = sum(pmax(n - 1L, 0L)))
 
 duplicate_summary
-
 
 # 분석용 텍스트 준비
 comments_all <- comments_all |>
@@ -83,41 +76,34 @@ comments_all <- comments_all |>
     text_analysis = coalesce(text_original, text_display, ""),
     text_analysis = str_remove_all(
       text_analysis,
-      regex("https?://\\S+|www\\.\\S+", ignore_case = TRUE)
-    ),
+      regex("https?://\\S+|www\\.\\S+", ignore_case = TRUE)),
     text_analysis = str_remove_all(
       text_analysis,
-      "(?<!\\S)@\\S+"
-    ),
-    text_analysis = str_squish(text_analysis)
-  )
+      "(?<!\\S)@\\S+"),
+    text_analysis = str_squish(text_analysis))
 
 # 작성자 정보는 코퍼스에 넣지 않음
 corpus_data <- comments_all |>
   select(
     comment_id, text_analysis,
     channel_title, video_id, is_reply, like_count,
-    date, period, comment_period
-  )
+    date, period, comment_period)
 
 yt_corpus <- corpus(
   corpus_data,
   text_field = "text_analysis",
-  docid_field = "comment_id"
-)
+  docid_field = "comment_id")
 
 # 문맥 확인용 토큰: 불용어는 아직 제거하지 않음
 yt_tokens <- tokens(
   yt_corpus,
   remove_punct = TRUE,
-  remove_symbols = FALSE
-) |>
+  remove_symbols = FALSE) |>
   tokens_tolower()
 
 # 필수 검색어별 문맥 최대 20개
 kwic_patterns <- c(
-  "democrat*", "republican*", "trump", "vote*", "ballot*"
-)
+  "democrat*", "republican*", "trump", "vote*", "ballot*")
 
 kwic_review <- set_names(kwic_patterns) |>
   map(\(word) {
@@ -125,15 +111,12 @@ kwic_review <- set_names(kwic_patterns) |>
       yt_tokens,
       pattern = word,
       valuetype = "glob",
-      window = 7
-    ) |>
+      window = 7) |>
       as.data.frame() |>
-      slice_head(n = 20)
-  })
+      slice_head(n = 20)})
 
 # 먼저 democrat*의 문맥 확인
 print(kwic_review[["democrat*"]], row.names = FALSE)
-
 
 for (word in c("republican*", "trump", "vote*", "ballot*")) {
   cat("\n검색어:", word, "\n")
@@ -142,9 +125,7 @@ for (word in c("republican*", "trump", "vote*", "ballot*")) {
     as_tibble() |>
     mutate(line = row_number()) |>
     select(line, pre, keyword, post) |>
-    print(n = 20, width = Inf)
-}
-
+    print(n = 20, width = Inf)}
 
 # 필수 구문 5개 + 문맥에서 선정한 구문 2개
 phrase_list <- c(
@@ -154,21 +135,18 @@ phrase_list <- c(
   "mail in",
   "election fraud",
   "vote blue",
-  "voter fraud"
-)
+  "voter fraud")
 
 # 여러 단어를 하나의 특성으로 결합
 yt_tokens_compound <- tokens_compound(
   yt_tokens,
   pattern = phrase(phrase_list),
-  concatenator = "_"
-)
+  concatenator = "_")
 
 # 구문 결합 후 불용어 제거
 yt_tokens_features <- tokens_remove(
   yt_tokens_compound,
-  pattern = stopwords("en")
-)
+  pattern = stopwords("en"))
 
 yt_dfm <- dfm(yt_tokens_features)
 
@@ -178,12 +156,10 @@ present <- phrase_features %in% featnames(yt_dfm)
 
 phrase_counts <- tibble(
   phrase = phrase_list,
-  frequency = 0
-)
+  frequency = 0)
 
 phrase_counts$frequency[present] <- as.numeric(
-  colSums(yt_dfm[, phrase_features[present], drop = FALSE])
-)
+  colSums(yt_dfm[, phrase_features[present], drop = FALSE]))
 
 phrase_counts
 
@@ -193,8 +169,6 @@ topfeatures(yt_dfm, 20)
 # 문서 수 확인
 ndoc(yt_dfm)
 
-
-
 # 각 채널 vs 나머지 두 채널
 channel_keyness <- set_names(
   c("Al Jazeera English", "CNN", "NBC News")
@@ -203,9 +177,7 @@ channel_keyness <- set_names(
     textstat_keyness(
       yt_dfm,
       target = docvars(yt_dfm, "channel_title") == channel,
-      measure = "chi2"
-    )
-  })
+      measure = "chi2")})
 
 # 각 채널에서 상대적으로 두드러지는 특성 10개
 for (channel in names(channel_keyness)) {
@@ -216,15 +188,13 @@ for (channel in names(channel_keyness)) {
     filter(chi2 > 0) |>
     slice_head(n = 10) |>
     select(feature, chi2, n_target, n_reference) |>
-    print(n = 10, width = Inf)
-}
+    print(n = 10, width = Inf)}
 
 # 선거 후 게시 영상 vs 선거 전 게시 영상
 period_keyness <- textstat_keyness(
   yt_dfm,
   target = docvars(yt_dfm, "period") == "after",
-  measure = "chi2"
-)
+  measure = "chi2")
 
 cat("\n선거 후 게시 영상에서 두드러지는 특성\n")
 period_keyness |>
@@ -243,10 +213,6 @@ period_keyness |>
   select(feature, chi2, n_target, n_reference) |>
   print(n = 10, width = Inf)
 
-
-
-
-
 # CNN keyness 상위 10개 중 아랍 문자로 된 특성
 arabic_features <- channel_keyness[["CNN"]] |>
   as_tibble() |>
@@ -256,14 +222,12 @@ arabic_features <- channel_keyness[["CNN"]] |>
 
 # 해당 특성이 각 댓글에서 몇 번 등장하는지
 arabic_hits <- as.numeric(
-  rowSums(yt_dfm[, arabic_features, drop = FALSE])
-)
+  rowSums(yt_dfm[, arabic_features, drop = FALSE]))
 
 arabic_check <- tibble(
   channel_title = docvars(yt_dfm, "channel_title"),
   period = docvars(yt_dfm, "period"),
-  hits = arabic_hits
-)
+  hits = arabic_hits)
 
 arabic_summary <- arabic_check |>
   group_by(channel_title, period) |>
@@ -271,8 +235,7 @@ arabic_summary <- arabic_check |>
     comments_with_features = sum(hits > 0),
     feature_occurrences = sum(hits),
     max_in_one_comment = max(hits),
-    .groups = "drop"
-  )
+    .groups = "drop")
 
 arabic_summary
 
@@ -282,10 +245,7 @@ tibble(
     sum(head(sort(arabic_hits, decreasing = TRUE), 5)) /
       sum(arabic_hits)
   } else {
-    NA_real_
-  }
-)
-
+    NA_real_})
 
 # 해당 특성이 나타난 3개 댓글만 제외한 비교용 DFM
 yt_dfm_sensitivity <- yt_dfm[arabic_hits == 0, ]
@@ -296,8 +256,7 @@ cnn_keyness_sensitivity <- textstat_keyness(
   target = docvars(
     yt_dfm_sensitivity, "channel_title"
   ) == "CNN",
-  measure = "chi2"
-)
+  measure = "chi2")
 
 cnn_keyness_sensitivity |>
   as_tibble() |>
@@ -310,8 +269,7 @@ cnn_keyness_sensitivity |>
 period_keyness_sensitivity <- textstat_keyness(
   yt_dfm_sensitivity,
   target = docvars(yt_dfm_sensitivity, "period") == "after",
-  measure = "chi2"
-)
+  measure = "chi2")
 
 # 선거 전 게시 영상에서 두드러지는 특성
 period_keyness_sensitivity |>
@@ -322,37 +280,29 @@ period_keyness_sensitivity |>
   select(feature, chi2, n_target, n_reference) |>
   print(n = 10, width = Inf)
 
-
-
-
 # LSD2015 사전의 긍정·부정 항목 사용
 sentiment_dictionary <- data_dictionary_LSD2015[
-  c("positive", "negative")
-]
+  c("positive", "negative")]
 
 sentiment_dfm <- dfm(yt_tokens) |>
   dfm_lookup(dictionary = sentiment_dictionary)
 
 sentiment_counts <- as.data.frame(
-  as.matrix(sentiment_dfm)
-) |>
+  as.matrix(sentiment_dfm)) |>
   as_tibble()
 
 sentiment_results <- tibble(
   comment_id = docnames(sentiment_dfm),
   channel_title = docvars(sentiment_dfm, "channel_title"),
-  period = docvars(sentiment_dfm, "period")
-) |>
+  period = docvars(sentiment_dfm, "period")) |>
   bind_cols(sentiment_counts) |>
   mutate(
     score = positive - negative,
     dictionary_label = case_when(
       score > 0 ~ "positive",
       score < 0 ~ "negative",
-      TRUE ~ "neither"
-    ),
-    matched_words = positive + negative
-  )
+      TRUE ~ "neither"),
+    matched_words = positive + negative)
 
 sentiment_summary <- sentiment_results |>
   group_by(channel_title, period) |>
@@ -362,18 +312,14 @@ sentiment_summary <- sentiment_results |>
     negative_share = mean(dictionary_label == "negative"),
     neither_share = mean(dictionary_label == "neither"),
     no_match_share = mean(matched_words == 0),
-    .groups = "drop"
-  )
+    .groups = "drop")
 
 print(sentiment_summary, width = Inf)
 
 saveRDS(
   sentiment_results,
-  "data/youtube/sentiment_results.rds"
-)
+  "data/youtube/sentiment_results.rds")
 
-# Preserve existing manual labels only for their exact sampled comment IDs.
-# New raw data require a new 40-comment sample and fresh manual coding.
 set.seed(6302)
 new_sample <- comments_all |>
   arrange(comment_id) |> slice_sample(n = 40) |>
@@ -388,18 +334,16 @@ if (file.exists(coding_file)) {
     left_join(old_coding |> select(comment_id, human_label),
               by = "comment_id", relationship = "many-to-one")
 } else {
-  validation_sample <- new_sample
-}
+  validation_sample <- new_sample}
 if (anyNA(validation_sample$human_label)) {
   write_csv(validation_sample, "data/youtube/validation_40_to_code.csv")
-  stop("Code the new sample, save as validation_40.csv, and rerun analysis.")
-}
+  stop("Code the new sample, save as validation_40.csv, and rerun analysis.")}
+
 # 40개 모두 분류됐는지 확인
 stopifnot(
   !anyNA(validation_sample$human_label),
   all(validation_sample$human_label %in%
-        c("positive", "negative", "neither"))
-)
+        c("positive", "negative", "neither")))
 
 # 사전 결과 연결
 validation_results <- validation_sample |>
@@ -416,17 +360,14 @@ validation_results |>
   summarise(
     n = n(),
     agreed = sum(agreement),
-    agreement_rate = mean(agreement)
-  )
+    agreement_rate = mean(agreement))
 
 # 사람이 붙인 분류와 사전 분류 비교
 with(
   validation_results,
   table(
     Human = human_label,
-    Dictionary = dictionary_label
-  )
-)
+    Dictionary = dictionary_label))
 
 # 불일치 사례 번호만 확인
 validation_results |>
@@ -436,10 +377,7 @@ validation_results |>
 
 saveRDS(
   validation_results,
-  "data/youtube/validation_results.rds"
-)
-
-
+  "data/youtube/validation_results.rds")
 
 dir.create("outputs", showWarnings = FALSE)
 
@@ -455,29 +393,24 @@ validation_summary <- validation_results |>
     n = n(),
     agreed = sum(agreement),
     agreement_rate = mean(agreement),
-    majority_class_baseline = max(table(human_label)) / n()
-  )
+    majority_class_baseline = max(table(human_label)) / n())
 
 validation_confusion <- validation_results |>
   count(human_label, dictionary_label, name = "n")
 
 write_csv(
   validation_summary,
-  "outputs/validation_summary.csv"
-)
+  "outputs/validation_summary.csv")
 write_csv(
   validation_confusion,
-  "outputs/validation_confusion.csv"
-)
-
+  "outputs/validation_confusion.csv")
 
 # 그래프에 표시할 이름과 순서
 period_labels <- c(
   before = "Before-election videos",
-  after = "After-election videos"
-)
+  after = "After-election videos")
 
-# 1. 채널·영상 게시 시점별 수집 댓글 수
+# 채널·영상 게시 시점별 수집 댓글 수
 p_collection <- collection_summary |>
   mutate(period = factor(period, levels = c("before", "after"))) |>
   ggplot(aes(
@@ -492,8 +425,7 @@ p_collection <- collection_summary |>
   ) +
   scale_fill_manual(
     values = c(before = "#4477AA", after = "#EEAA33"),
-    labels = period_labels
-  ) +
+    labels = period_labels) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.12))) +
   labs(
     title = "Comments collected by channel and video period",
@@ -505,7 +437,7 @@ p_collection <- collection_summary |>
 
 p_collection
 
-# 2. 사전 감성 분류 비율
+# 사전 감성 분류 비율
 sentiment_plot_data <- sentiment_summary |>
   select(
     channel_title, period,
@@ -521,9 +453,7 @@ sentiment_plot_data <- sentiment_summary |>
     sentiment = factor(
       sentiment,
       levels = c("positive_share", "neither_share", "negative_share"),
-      labels = c("Positive", "Neither / tied", "Negative")
-    )
-  )
+      labels = c("Positive", "Neither / tied", "Negative")))
 
 p_sentiment <- ggplot(
   sentiment_plot_data,
@@ -538,8 +468,7 @@ p_sentiment <- ggplot(
     values = c(
       "Positive" = "#228833",
       "Neither / tied" = "#BBBBBB",
-      "Negative" = "#CC6677"
-    )
+      "Negative" = "#CC6677")
   ) +
   scale_y_continuous(labels = scales::label_percent()) +
   labs(
@@ -547,29 +476,25 @@ p_sentiment <- ggplot(
     subtitle = "LSD2015 positive and negative word counts",
     caption = paste(
       "Agreement with AI-assisted human coding: 57.5% (40 comments).",
-      "\nNeither / tied includes comments with no dictionary matches."
-    ),
+      "\nNeither / tied includes comments with no dictionary matches."),
     x = NULL, y = "Share of comments", fill = NULL
   ) +
   theme_minimal(base_size = 12) +
   theme(
     legend.position = "bottom",
-    axis.text.x = element_text(angle = 20, hjust = 1)
-  )
+    axis.text.x = element_text(angle = 20, hjust = 1))
 
 p_sentiment
 
 ggsave(
   "outputs/comments_by_channel.png",
   p_collection,
-  width = 9, height = 5, dpi = 300
-)
+  width = 9, height = 5, dpi = 300)
 
 ggsave(
   "outputs/sentiment_by_channel.png",
   p_sentiment,
-  width = 10, height = 6, dpi = 300
-)
+  width = 10, height = 6, dpi = 300)
 
 imap_dfr(channel_keyness, \(x, channel)
   as_tibble(x) |> mutate(channel = channel, .before = 1)) |>
