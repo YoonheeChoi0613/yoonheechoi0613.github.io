@@ -1,0 +1,100 @@
+{
+  "source": "YouTube Data API v3",
+  "authentication": "API key",
+  "collected_at": "2026-11-10 23:19:10 UTC",
+  "collection_time_note": "Recorded at completion of the collection batch",
+  "delete_by": "2026-12-10",
+  "search_term": "US midterm election",
+  "published_after": "2026-11-04T00:00:00Z",
+  "published_before": "2026-11-10T23:13:48Z",
+  "search_orders": ["relevance", "viewCount"],
+  "results_requested_per_order": 100,
+  "channels": [
+    {
+      "channel_title": "Al Jazeera English",
+      "channel_id": "UCNye-wNBqNL5ZzHSJj3l8Bg"
+    },
+    {
+      "channel_title": "CNN",
+      "channel_id": "UCupvZG-5ko_eiXAupbDfxWw"
+    },
+    {
+      "channel_title": "NBC News",
+      "channel_id": "UCeY0bbntWzzVIaj2z3QigXg"
+    }
+  ],
+  "initial_title_filter": "midterm|election|senate|house race|ballot",
+  "candidate_title_filter": "midterm|\\b(senate|house|congressional)\\b.*\\b(race|races|control|majority)\\b|\\b(race|races|control|majority)\\b.*\\b(senate|house|congressional)\\b",
+  "selection": "Random sample of 10 candidates per channel with seed 6302; titles manually reviewed; first 3 per channel selected.",
+  "selected_videos": [
+    {
+      "channel_title": "Al Jazeera English",
+      "video_id": "MBQNTmAAJCo",
+      "date": "2026-11-04",
+      "title": "Democrat Zach Dembo wins Kentucky congressional race in major upset",
+      "comment_count": 2
+    },
+    {
+      "channel_title": "Al Jazeera English",
+      "video_id": "zC9bW0qsox0",
+      "date": "2026-11-04",
+      "title": "US midterms: Democrats make historic gains in Iowa and deep-red Kansas",
+      "comment_count": 9
+    },
+    {
+      "channel_title": "Al Jazeera English",
+      "video_id": "TaWpOBhmpUs",
+      "date": "2026-11-04",
+      "title": "US midterms: Democrat Abdul El-Sayed wins Michigan Senate race",
+      "comment_count": 166
+    },
+    {
+      "channel_title": "CNN",
+      "video_id": "dy7RW6cueoU",
+      "date": "2026-11-09",
+      "title": "Vance alludes to midterm results with joke over Ohio State loss",
+      "comment_count": 2160
+    },
+    {
+      "channel_title": "CNN",
+      "video_id": "b6MqUPQ2vJs",
+      "date": "2026-11-04",
+      "title": "FL Gov. DeSantis calls midterm results 'close to an extinction level event' for the GOP",
+      "comment_count": 3005
+    },
+    {
+      "channel_title": "CNN",
+      "video_id": "VCo_ECf41-Q",
+      "date": "2026-11-05",
+      "title": "Scott Colom's lead stretches in tight Mississippi Senate race",
+      "comment_count": 1153
+    },
+    {
+      "channel_title": "NBC News",
+      "video_id": "olpJlNmb6Zo",
+      "date": "2026-11-04",
+      "title": "Senate Minority Leader Chuck Schumer on how Democrats flipped Congress in the midterms",
+      "comment_count": 166
+    },
+    {
+      "channel_title": "NBC News",
+      "video_id": "51Dz0-PImAI",
+      "date": "2026-11-06",
+      "title": "Inside the Extremely Close MS Senate Race; Why Gov. Newsom Is Commuting CA Death Sentences - Nov. 6",
+      "comment_count": 31
+    },
+    {
+      "channel_title": "NBC News",
+      "video_id": "9-n0TxhxYEc",
+      "date": "2026-11-04",
+      "title": "Sen. Ashley Moody wins Florida Senate race, NBC News projects",
+      "comment_count": 77
+    }
+  ],
+  "comments_per_video_cap": 300,
+  "comment_function": "tuber::get_all_comments",
+  "tuber_version": "3.0.0",
+  "video_period": "after Election Day",
+  "timing_note": "Videos were published after Election Day. Channel uploads were retrieved earlier than the search cutoff; new uploads between those collection times may be missing.",
+  "retention": "Delete raw API data by delete_by; retain code and permitted aggregate outputs."
+}

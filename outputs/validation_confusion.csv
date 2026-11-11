@@ -1,0 +1,8 @@
+human_label,dictionary_label,n
+negative,negative,16
+negative,neither,9
+negative,positive,3
+neither,neither,4
+neither,positive,3
+positive,neither,2
+positive,positive,3
