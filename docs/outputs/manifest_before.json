@@ -1,0 +1,100 @@
+{
+  "source": "YouTube Data API v3",
+  "authentication": "API key",
+  "collected_at": "2026-11-10 23:11:16 UTC",
+  "collection_time_note": "Recorded at completion of the collection batch",
+  "delete_by": "2026-12-10",
+  "search_term": "US midterm election",
+  "published_after": "2026-09-01T00:00:00Z",
+  "published_before": "2026-10-28T00:00:00Z",
+  "search_orders": ["relevance", "viewCount"],
+  "results_requested_per_order": 100,
+  "channels": [
+    {
+      "channel_title": "Al Jazeera English",
+      "channel_id": "UCNye-wNBqNL5ZzHSJj3l8Bg"
+    },
+    {
+      "channel_title": "CNN",
+      "channel_id": "UCupvZG-5ko_eiXAupbDfxWw"
+    },
+    {
+      "channel_title": "NBC News",
+      "channel_id": "UCeY0bbntWzzVIaj2z3QigXg"
+    }
+  ],
+  "initial_title_filter": "midterm|election|senate|house race|ballot",
+  "candidate_title_filter": "midterm|\\b(senate|house|congressional)\\b.*\\b(race|races|control|majority)\\b|\\b(race|races|control|majority)\\b.*\\b(senate|house|congressional)\\b",
+  "selection": "Random sample of 10 candidates per channel with seed 6302; titles manually reviewed; first 3 per channel selected.",
+  "selected_videos": [
+    {
+      "channel_title": "Al Jazeera English",
+      "video_id": "CEZh2RcY9xM",
+      "date": "2026-10-06",
+      "title": "US midterms 2026: Trump faces pressure as Latino support slips",
+      "comment_count": 42
+    },
+    {
+      "channel_title": "Al Jazeera English",
+      "video_id": "uRE2tPakatM",
+      "date": "2026-10-26",
+      "title": "US Midterms 2026 Latest: Is Trump right about election fraud?",
+      "comment_count": 51
+    },
+    {
+      "channel_title": "Al Jazeera English",
+      "video_id": "ytwCEKifhc4",
+      "date": "2026-09-28",
+      "title": "2026 midterms: Two parties at war with themselves | The Listening Post #shorts",
+      "comment_count": 5
+    },
+    {
+      "channel_title": "CNN",
+      "video_id": "NOv-GsiXcI0",
+      "date": "2026-10-25",
+      "title": "'On the verge of taking over the House': Hakeem Jeffries on midterms",
+      "comment_count": 455
+    },
+    {
+      "channel_title": "CNN",
+      "video_id": "yy5blvw2IF4",
+      "date": "2026-10-04",
+      "title": "Trump rally attendees react to war and the economy ahead of the midterms",
+      "comment_count": 11863
+    },
+    {
+      "channel_title": "CNN",
+      "video_id": "xVvXoy1iMUQ",
+      "date": "2026-10-06",
+      "title": "'Bloodbath': Forecaster moves 2 red state Senate races toward Dems",
+      "comment_count": 1720
+    },
+    {
+      "channel_title": "NBC News",
+      "video_id": "cuvwOA7fhGc",
+      "date": "2026-09-10",
+      "title": "Trump says war with Iran will be over after midterm elections",
+      "comment_count": 51
+    },
+    {
+      "channel_title": "NBC News",
+      "video_id": "EpFW-U2_2vc",
+      "date": "2026-09-06",
+      "title": "Jamie Raskin says Democrats need midterm ‘landslide’ that is ‘too big to rig’: Full interview",
+      "comment_count": 483
+    },
+    {
+      "channel_title": "NBC News",
+      "video_id": "rN0NzDme7-s",
+      "date": "2026-10-09",
+      "title": "Candidates clash in key Senate debates ahead of midterms",
+      "comment_count": 8
+    }
+  ],
+  "comments_per_video_cap": 300,
+  "comment_function": "tuber::get_all_comments",
+  "tuber_version": "3.0.0",
+  "video_period": "before Election Day",
+  "timing_note": "Videos were published before Election Day. Comments were collected afterward and may include post-election comments.",
+  "retention": "Delete raw API data by delete_by; retain code and permitted aggregate outputs."
+}

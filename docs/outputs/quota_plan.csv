@@ -1,0 +1,16 @@
+task,endpoint,max_results,planned_pages,planned_search_calls,planned_data_units,note
+Before: relevance,search.list,100,2,2,NA,NA
+Before: viewCount,search.list,100,2,2,NA,NA
+Channel details,channels.list,3,1,0,1,NA
+Al Jazeera English,playlistItems.list,200,4,0,4,NA
+CNN,playlistItems.list,200,4,0,4,NA
+NBC News,playlistItems.list,200,4,0,4,NA
+Extended uploads: Al Jazeera English,playlistItems.list,6000,120,0,120,NA
+Extended uploads: CNN,playlistItems.list,6000,120,0,120,NA
+Extended uploads: NBC News,playlistItems.list,6000,120,0,120,NA
+Before: selected video statistics,videos.list,9,1,0,1,NA
+Before: comments from 9 videos,commentThreads.list + comments.list,2700,27,0,27,Base estimate; reply pagination may require extra calls
+After: relevance,search.list,100,2,2,0,NA
+After: viewCount,search.list,100,2,2,0,NA
+After: selected video statistics,videos.list,9,1,0,1,NA
+After: comments from 9 videos,commentThreads.list + comments.list,2700,27,0,27,Base estimate; reply pagination may require extra calls
